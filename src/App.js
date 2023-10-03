@@ -3,31 +3,31 @@ import './styles/Home.module.css';
 import { BrowserRouter as Router, Routes, Route, Outlet, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import HomePage from './components/HomePage'
 import BrandSignup from './components/Brand/BrandSignup'
-import CreatorSignup from './components/Creator/CreatorSignup'
+// import CreatorSignup from './components/Creator/CreatorSignup'
 import BrandLogin from './components/Brand/BrandLogin'
-import CreatorLogin from './components/Creator/CreatorLogin'
-import CreatorInsights from './components/Creator/CreatorInsights';
-import CreatorDashboard from './components/Creator/CreatorDashboard';
-import ActivationPage from './components/ActivationPage';
+// import CreatorLogin from './components/Creator/CreatorLogin'
+// import CreatorInsights from './components/Creator/CreatorInsights';
+// import CreatorDashboard from './components/Creator/CreatorDashboard';
+// import ActivationPage from './components/ActivationPage';
 import CreateCampaign from './components/Brand/CreateCampaign';
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns'
-import InfluencerList from './components/Creator/InfluencerList';
-import InstagramLogin from './components/Creator/InstagramLogin';
-import InstagramCode from './components/Creator/InstagramCode';
+// import InfluencerList from './components/Creator/InfluencerList';
+// import InstagramLogin from './components/Creator/InstagramLogin';
+// import InstagramCode from './components/Creator/InstagramCode';
 import CampaignCard from './components/Brand/CampaignCard';
-import CreatorCampaigns from './components/Creator/CreatorCampaigns';
-import ShowCampaignDetails from './components/Creator/ShowCampaignDetails';
+// import CreatorCampaigns from './components/Creator/CreatorCampaigns';
+// import ShowCampaignDetails from './components/Creator/ShowCampaignDetails';
 import BrandShowCampaignDetails from './components/Brand/BrandShowCampaignDetails';
 import BrandDashboard from './components/Brand/BrandDashboard';
 import BrandCampaignsTable from './components/Brand/ReceivedRequestsTable';
 import ReceivedRequestsTable from './components/Brand/ReceivedRequestsTable';
-import IndiCreatorInsights from './components/Creator/IndividualCreatorDetails';
+// import IndiCreatorInsights from './components/Creator/IndividualCreatorDetails';
 import BrandMainScreen from './components/Brand/BrandMainScreen';
 import BrandSideNavBar from './components/Brand/BrandSideNavBar';
-import CreatorProfile from './components/CreatorProfile';
-import PublishCampaignCreator from './components/Creator/PublishCampaignCreator';
-import CreatorSideNavBar from './components/Creator/CreatorSideNavBar';
+// import CreatorProfile from './components/CreatorProfile';
+// import PublishCampaignCreator from './components/Creator/PublishCampaignCreator';
+// import CreatorSideNavBar from './components/Creator/CreatorSideNavBar';
 import CampaignMetrics from './components/Brand/CampaignMetrics';
 import CampaignCompletedMetrics from './components/Brand/CampaignCompletedMetrics';
 import PlanPrices from './components/Brand/PlanPrices';
