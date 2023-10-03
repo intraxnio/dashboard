@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import SideNavBar from '../Creator/CreatorSideNavBar';
+// import SideNavBar from '../Creator/CreatorSideNavBar';
 import BrandSideNavBar from './BrandSideNavBar';
 
 function BrandDashboard() {
