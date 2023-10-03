@@ -49,13 +49,13 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/signup/brand" element={<BrandSignup/>}/>
-          <Route path="/signup/creator" element={<CreatorSignup/>}/>
-          <Route path="/connect/instagram" element={<InstagramLogin/>}/>
+          {/* <Route path="/signup/creator" element={<CreatorSignup/>}/> */}
+          {/* <Route path="/connect/instagram" element={<InstagramLogin/>}/> */}
           <Route path="/login/brand" element={<BrandLogin/>}/>
-          <Route path="/login/creator" element={<CreatorLogin/>}/>
-          <Route path="/activation/:activation_token" element={<ActivationPage/>}/>
-          <Route path="/insta_graph_dialogue" element={<InstagramCode/>}/>
-          <Route path="/creator/indiDetails" element={<IndiCreatorInsights/>}/>
+          {/* <Route path="/login/creator" element={<CreatorLogin/>}/> */}
+          {/* <Route path="/activation/:activation_token" element={<ActivationPage/>}/> */}
+          {/* <Route path="/insta_graph_dialogue" element={<InstagramCode/>}/> */}
+          {/* <Route path="/creator/indiDetails" element={<IndiCreatorInsights/>}/> */}
 
         {/* <Route path="/creator/*" element={<CreatorSideNavBar />}>
           <Route index element={<CreatorInsights />} />
