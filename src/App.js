@@ -22,7 +22,7 @@ import BrandShowCampaignDetails from './components/Brand/BrandShowCampaignDetail
 import BrandDashboard from './components/Brand/BrandDashboard';
 import BrandCampaignsTable from './components/Brand/ReceivedRequestsTable';
 import ReceivedRequestsTable from './components/Brand/ReceivedRequestsTable';
-// import IndiCreatorInsights from './components/Creator/IndividualCreatorDetails';
+import IndiCreatorInsights from './components/Creator/IndividualCreatorDetails';
 import BrandMainScreen from './components/Brand/BrandMainScreen';
 import BrandSideNavBar from './components/Brand/BrandSideNavBar';
 // import CreatorProfile from './components/CreatorProfile';
@@ -55,7 +55,7 @@ function App() {
           {/* <Route path="/login/creator" element={<CreatorLogin/>}/> */}
           {/* <Route path="/activation/:activation_token" element={<ActivationPage/>}/> */}
           {/* <Route path="/insta_graph_dialogue" element={<InstagramCode/>}/> */}
-          {/* <Route path="/creator/indiDetails" element={<IndiCreatorInsights/>}/> */}
+          <Route path="/creator/indiDetails" element={<IndiCreatorInsights/>}/>
 
         {/* <Route path="/creator/*" element={<CreatorSideNavBar />}>
           <Route index element={<CreatorInsights />} />
