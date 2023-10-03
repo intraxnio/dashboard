@@ -19,11 +19,11 @@ process.on("uncaughtException", (err) => {
 });
 
 //config
-if (process.env.NODE_ENV !== "PRODUCTION") {
-  require("dotenv").config({
-    path: "config/.env",
-  });
-}
+// if (process.env.NODE_ENV !== "PRODUCTION") {
+//   require("dotenv").config({
+//     path: "config/.env",
+//   });
+// }
 
 const corsOptions ={
   origin:'https://app.buzzreach.in', 
@@ -47,8 +47,8 @@ app.use("/api/v1/creator", creator);
 app.use(ErrorHandler);
 
 //create server
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.PORT}`);
+const server = app.listen(8000, () => {
+  // console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
 
 //unhandled promise rejection
