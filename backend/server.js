@@ -34,12 +34,11 @@ const corsOptions ={
 app.use(cors(corsOptions));
 
 const brand = require("./routes/brandUser");
-app.use("/api/v1/brand", brand);
-
 const auth = require("./routes/fb_auth");
-app.use("/api/v1", auth);
-
 const creator = require("./routes/creatorUser");
+
+app.use("/api/v1/brand", brand);
+app.use("/api/v1", auth);
 app.use("/api/v1/creator", creator);
 
 
