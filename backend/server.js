@@ -23,14 +23,14 @@ process.on("uncaughtException", (err) => {
 });
 
 
-const corsOptions ={
-  origin: 'http://app.buzzreach.in:8000', // Update the origin to match your backend's address and port
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionSuccessStatus: 200
-}
+// const corsOptions ={
+//   origin: 'http://3.93.91.23', // Update the origin to match your backend's address and port
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   optionSuccessStatus: 200
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 
