@@ -21,16 +21,26 @@ process.on("uncaughtException", (err) => {
   console.log(`shutting down the server for handling uncaught exception`);
 });
 
+const allowedOrigins = [
+  'http://3.93.91.23', // Add your frontend IP or domain here
+  // Add other allowed origins as needed
+];
 
-const corsOptions ={
-  origin: 'http://3.93.91.23', // Update the origin to match your backend's address and port
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Check if the request's origin is in the list of allowed origins
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  optionSuccessStatus: 200
-}
+  optionSuccessStatus: 200,
+};
 
 app.use(cors(corsOptions));
-
 
 
 app.use("/api/brand", brand);
