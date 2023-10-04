@@ -15,7 +15,6 @@ const creator = require("./routes/creatorUser");
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true, limit:"50mb"}));
 
-app.use(express.static('public'));
 
 //Handling Uncaught Exceptions
 process.on("uncaughtException", (err) => {
@@ -25,7 +24,7 @@ process.on("uncaughtException", (err) => {
 
 
 const corsOptions ={
-  origin: 'http://3.93.91.23', // Update the origin to match your backend's address and port
+  origin: 'http://app.buzzreach.in', // Update the origin to match your backend's address and port
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionSuccessStatus: 200
