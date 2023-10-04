@@ -33,7 +33,7 @@ process.on("uncaughtException", (err) => {
 // }
 
 const corsOptions ={
-  origin: 'http://app.buzzreach.in', // Update the origin to match your backend's address and port
+  origin: 'http://127.0.0.1', // Update the origin to match your backend's address and port
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionSuccessStatus: 200
