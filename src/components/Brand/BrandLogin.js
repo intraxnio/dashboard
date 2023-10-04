@@ -31,8 +31,7 @@ function BrandLogin() {
     else{
 
       await axios
-      .post("http://app.buzzreach.in/api/brand/brand-login",
-      // .post("http://app.buzzreach.in/api/v1/brand/brand-login",
+      .post("http://3.93.91.23/api/brand/brand-login",
 
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
