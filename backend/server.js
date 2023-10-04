@@ -26,8 +26,7 @@ process.on("uncaughtException", (err) => {
 // }
 
 const corsOptions ={
-  // origin:'https://app.buzzreach.in', 
-  origin: ['http://app.buzzreach.in', 'https://app.buzzreach.in'],
+  origin:'https://app.buzzreach.in', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials:true,         
   optionSuccessStatus:200
