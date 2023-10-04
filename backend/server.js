@@ -25,12 +25,20 @@ process.on("uncaughtException", (err) => {
 //   });
 // }
 
+// const corsOptions ={
+//   origin:'http://app.buzzreach.in', 
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials:true,         
+//   optionSuccessStatus:200
+// }
+
 const corsOptions ={
-  origin:'http://app.buzzreach.in', 
+  origin: 'http://127.0.0.1:8000', // Update the origin to match your backend's address and port
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials:true,         
-  optionSuccessStatus:200
+  credentials: true,
+  optionSuccessStatus: 200
 }
+
 app.use(cors(corsOptions));
 
 const brand = require("./routes/brandUser");
