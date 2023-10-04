@@ -1,7 +1,7 @@
 {
   "name": "intraxn-app",
   "version": "0.1.0",
-  "homepage": ".",
+  "private": true,
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
