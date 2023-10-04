@@ -32,7 +32,7 @@ function BrandLogin() {
 
       await axios
       // .post("http://localhost:8000/api/v1/brand/brand-login",
-      .post("http://app.buzzreach.in/api/v1/brand/brand-login",
+      .post("http://app.buzzreach.in:8000/api/v1/brand/brand-login",
 
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
