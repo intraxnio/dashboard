@@ -15,6 +15,8 @@ const creator = require("./routes/creatorUser");
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true, limit:"50mb"}));
 
+app.use(express.static('public'));
+
 //Handling Uncaught Exceptions
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
