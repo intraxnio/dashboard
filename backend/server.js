@@ -45,7 +45,7 @@ const brand = require("./routes/brandUser");
 const auth = require("./routes/fb_auth");
 const creator = require("./routes/creatorUser");
 
-// app.use("/api/v1/brand", brand);
+app.use("/api/v1/brand", brand);
 app.use("/api/v1", auth);
 app.use("/api/v1/creator", creator);
 
