@@ -31,7 +31,7 @@ function BrandLogin() {
     else{
 
       await axios
-      .post("http://3.93.91.23/api/brand/brand-login",
+      .post("http://3.214.174.211/api/brand/brand-login",
 
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
