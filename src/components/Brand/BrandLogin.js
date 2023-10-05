@@ -18,11 +18,11 @@ function BrandLogin() {
   const dispatch = useDispatch();
   const [email, getEmail] = useState("");
   const [password, getPassword] = useState("");
+  console.log("Request URL:", "http://3.214.174.211/api/brand/brand-login"); // Add this line
 
 
   axios = axios.create({ baseURL: 'http://3.214.174.211/api' });
 
-  console.log("Request URL:", "http://3.214.174.211/api/brand/brand-login"); // Add this line
 
 
   const handleSubmit = async (e) => {
