@@ -18,8 +18,9 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const sendMail = require("../utils/sendMail");
 const { createToken, isBrandAuthenticated } = require("../middleware/jwtToken");
 const PublishedPosts = require("../models/PublishedPosts");
-router.use(cookieParser());
 const fs = require("fs");
+const app = express();
+app.use(cookieParser());
 
 const winston = require('winston');
 
