@@ -43,7 +43,8 @@
     "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4",
     "webpack": "^5.88.2",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "winston": "^3.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
