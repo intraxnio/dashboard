@@ -12,7 +12,7 @@ var jwt = require("jsonwebtoken");
 
 const createToken = (user, res) =>{
 
-const token = sign({id: user._id, email: user.email}, 'kdjcnkcjnJNJNKJ', {expiresIn: '1d'});
+const token = sign({id: user._id, email: user.email}, process.env.ACTIVATION_SECRET, {expiresIn: '1d'});
 
 const options = {
   expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
