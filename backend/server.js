@@ -35,8 +35,8 @@ app.use(cors(corsOptions));
 
 
 app.use("/api/brand", brand);
-app.use("/api/auth", auth);
-app.use("/api/creator", creator);
+// app.use("/api/auth", auth);
+// app.use("/api/creator", creator);
 
 
 //Error Handling
