@@ -21,7 +21,7 @@ function BrandLogin() {
 
 
   axios = axios.create({ baseURL: 'http://3.214.174.211/api' });
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,6 +31,7 @@ function BrandLogin() {
 
     else{
 
+      console.log("Request URL:", "http://3.214.174.211/api/brand/brand-login"); // Add this line
       await axios
       .post("/brand/brand-login",
 
