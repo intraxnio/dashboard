@@ -21,6 +21,20 @@ const PublishedPosts = require("../models/PublishedPosts");
 router.use(cookieParser());
 const fs = require("fs");
 
+const winston = require('winston');
+
+// Create a logger
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.simple(),
+  transports: [
+    new winston.transports.File({ filename: 'app.log' }), // Log to a file
+  ],
+});
+
+// Log a message
+logger.info('This is an info message.');
+
 
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
@@ -151,7 +165,7 @@ router.post("/signup-brand", async (req, res, next) => {
 
 router.post("/brand-login", async (req, res, next) => {
 
-  console.log('Entered login');
+  logger.info('Entered login');
 
   try {
     const { email, password } = req.body;
