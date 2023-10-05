@@ -12,7 +12,7 @@ var jwt = require("jsonwebtoken");
 
 const createToken = (user, res) =>{
 
-const token = sign({id: user._id, email: user.email}, 'kdjcnkcjnJNJNKJ$%^&*!!@@^&*$%^&', {expiresIn: '1d'});
+const token = sign({id: user._id, email: user.email}, 'kdjcnkcjnJNJNKJ', {expiresIn: '1d'});
 
 const options = {
   expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -62,7 +62,7 @@ return res.status(500).send();
 
 const creatorToken = (user, res) =>{
 
-  const token = sign({id: user._id, email: user.email}, 'kdjcnkcjnJNJNKJ$%^&*!!@@^&*$%^&', {expiresIn: '1d'});
+  const token = sign({id: user._id, email: user.email}, 'kdjcnkcjnJNJNKJ', {expiresIn: '1d'});
   
   const options = {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -92,7 +92,7 @@ res.status(201).cookie('creator_token', token, options).json({
            
         }
         try{
-            verify(token, 'kdjcnkcjnJNJNKJ$%^&*!!@@^&*$%^&', function(err, decodedToken) {
+            verify(token, 'kdjcnkcjnJNJNKJ', function(err, decodedToken) {
                 if(err) { /* handle token err */ }
                 else {
                  req.userId = decodedToken.id;   // Add to req object
