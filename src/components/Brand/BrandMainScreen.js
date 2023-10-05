@@ -28,7 +28,7 @@ function BrandMainScreen() {
 
       {user.isLoggedIn ? (
         <>
-         <Grid
+         {/* <Grid
          container
          spacing={1}
          direction="row"
@@ -77,7 +77,7 @@ function BrandMainScreen() {
          <TotalCompletedCampaigns />
          </Grid>
 
-         </Grid>
+         </Grid> */}
 
 
          <Grid
