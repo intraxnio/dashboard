@@ -20,7 +20,8 @@ function BrandLogin() {
   const [password, getPassword] = useState("");
 
 
-
+  axios = axios.create({ baseURL: 'http://3.214.174.211/api' });
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,7 +32,7 @@ function BrandLogin() {
     else{
 
       await axios
-      .post("http://3.214.174.211/api/brand/brand-login",
+      .post("/brand/brand-login",
 
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
