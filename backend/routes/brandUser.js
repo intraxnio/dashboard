@@ -14,7 +14,7 @@ const CampaignDeclinedRequests = require('../models/CampaignDeclinedRequests');
 const PlanDetails = require('../models/PlanDetails');
 const multer = require('multer');
 const { body, validationResult } = require("express-validator");
-const ErrorHandler = require("../utils/ErrorHandler");
+// const ErrorHandler = require("../utils/ErrorHandler");
 const sendMail = require("../utils/sendMail");
 const { createToken, isBrandAuthenticated } = require("../middleware/jwtToken");
 const PublishedPosts = require("../models/PublishedPosts");
@@ -158,7 +158,7 @@ router.post("/signup-brand", async (req, res, next) => {
     return res.status(200).send({ success: true });
   }
   } catch (error) {
-    return next(new ErrorHandler(error.message, 500));
+    // return next(new ErrorHandler(error.message, 500));
   }
 });
 
