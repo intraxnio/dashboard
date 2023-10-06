@@ -14,8 +14,8 @@ const logger = require('../logger');
 
 const createToken = (user, res) =>{
 
-const token = sign({id: user._id, email: user.email}, process.env.JSON_SECRET, {expiresIn: '1d'});
-logger.customerLogger.log('info', process.env.JSON_SECRET);
+const token = sign({id: user._id, email: user.email}, `${process.env.JSON_SECRET}`, {expiresIn: '1d'});
+logger.customerLogger.log('info', `${process.env.JSON_SECRET}`);
 
 const options = {
   expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -45,7 +45,7 @@ const token  = req.cookies['token'];
        
     }
     try{
-        verify(token, process.env.JSON_SECRET, function(err, decodedToken) {
+        verify(token, `${process.env.JSON_SECRET}`, function(err, decodedToken) {
             if(err) { /* handle token err */ }
             else {
              req.userId = decodedToken.id;   // Add to req object
@@ -65,7 +65,7 @@ return res.status(500).send();
 
 const creatorToken = (user, res) =>{
 
-  const token = sign({id: user._id, email: user.email}, process.env.JSON_SECRET, {expiresIn: '1d'});
+  const token = sign({id: user._id, email: user.email}, `${process.env.JSON_SECRET}`, {expiresIn: '1d'});
   
   const options = {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -95,7 +95,7 @@ res.status(201).cookie('creator_token', token, options).json({
            
         }
         try{
-            verify(token, process.env.JSON_SECRET, function(err, decodedToken) {
+            verify(token, `${process.env.JSON_SECRET}`, function(err, decodedToken) {
                 if(err) { /* handle token err */ }
                 else {
                  req.userId = decodedToken.id;   // Add to req object
