@@ -154,7 +154,7 @@ router.post("/signup-brand", async (req, res, next) => {
 
 router.post("/brand-login", async (req, res, next) => {
 
-  logger.info('Entered login');
+  // logger.info('Entered login');
 
   try {
     const { email, password } = req.body;
