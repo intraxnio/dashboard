@@ -4,7 +4,7 @@ const customerLogger = createLogger({
 
 transports:[
     new transports.File({
-        fileName: 'customer.log',
+        filename: 'customer.log',
         level: 'info',
         format: format.combine(format.timestamp(), format.json())
     }),
