@@ -22,19 +22,7 @@ const fs = require("fs");
 const app = express();
 app.use(cookieParser());
 
-const winston = require('winston');
-
-// Create a logger
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.simple(),
-  transports: [
-    new winston.transports.File({ filename: 'app.log' }), // Log to a file
-  ],
-});
-
-// Log a message
-logger.info('This is an info message.');
+const logger = require('../logger');
 
 
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
@@ -195,6 +183,7 @@ router.post("/brand-login", async (req, res, next) => {
       
 
       } else {
+        logger.customerLogger.log('error', 'Error creating token');
         return res.status(400).send({
           error: "email, password mismatch",
           data: null,

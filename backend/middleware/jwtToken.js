@@ -3,16 +3,8 @@ const catchAsyncErrors = require("./catchAsyncErrors");
 const {sign, verify} = require("jsonwebtoken");
 const Brand = require('../models/Brand');
 var jwt = require("jsonwebtoken");
-const winston = require('winston');
+const logger = require('../logger');
 
-// Create a logger
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.simple(),
-  transports: [
-    new winston.transports.File({ filename: 'app.log' }), // Log to a file
-  ],
-});
 
 
 
@@ -23,7 +15,7 @@ const logger = winston.createLogger({
 const createToken = (user, res) =>{
 
 const token = sign({id: user._id, email: user.email}, process.env.ACTIVATION_SECRET, {expiresIn: '1d'});
-logger.info('Secret Key:', process.env.ACTIVATION_SECRET);
+logger.customerLogger.log('info', process.env.ACTIVATION_SECRET);
 
 const options = {
   expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
