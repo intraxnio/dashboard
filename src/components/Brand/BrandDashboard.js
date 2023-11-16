@@ -5,6 +5,11 @@ import BrandSideNavBar from './BrandSideNavBar';
 
 function BrandDashboard() {
 
+
+   const baseUrl = "http://localhost:8000/api";
+
+  
+
     async function submit(e) {
 
         e.preventDefault();
@@ -12,7 +17,7 @@ function BrandDashboard() {
         try {
     
           // await axios.post("http://localhost:8000/api/v1/brand/dashboard");
-          await axios.post("https://app.buzzreach.in/api/v1/brand/dashboard");
+          await axios.post(baseUrl +"/brand/dashboard");
     
         }
         catch (e) {

@@ -5,7 +5,6 @@ import axios from "axios";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useSelector } from "react-redux";
 import { Button, TableContainer} from "@mui/material";
-import BalanceComponent from "./BalanceComponent";
 import CircularProgress from '@mui/material/CircularProgress';
 import MoveDownRoundedIcon from '@mui/icons-material/MoveDownRounded';
 
@@ -23,14 +22,16 @@ const searchParams = new URLSearchParams(location.search);
 const user = useSelector(state => state.brandUser);
 const campaignId = searchParams.get("campaignId");
 const [userId, setUserId] = useState("");
-const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [campaignData, setCampaignData] = useState([]);
+const [selectedRows, setSelectedRows] = useState([]);
 const [loading, setLoading] = useState(true);
+const baseUrl = "http://localhost:8000/api";
+
+
 
 
 useEffect(() => {
-    // axios.post("http://localhost:8000/api/v1/brand/campaign-approved-requests", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/campaign-approved-requests", {
+      axios.post(baseUrl+"/brand/campaign-approved-requests", {
       campaignId: campaignId
     }).then(ress=>{
 
@@ -205,13 +206,19 @@ const rows = campaignData;
       <DataGrid
         rows={rows}
         columns={columns}
-        disableSelectionOnClick
-        getRowHeight={() => 80} // Set the desired row height
-        initialState={{
-          // pagination: {
-          //   paginationModel: { page: 0, pageSize: 10 },
-          // },
+        sx={{
+          "&:focus": {
+            outline: "none", // Remove the red border on focus
+          },
         }}
+        isRowSelectable={(params) => {
+          return false; // Disable selection for all rows
+        }}
+        onSelectionModelChange={(newSelection) => {
+          setSelectedRows(newSelection.selectionModel);
+        }}
+        selectionModel={selectedRows}
+        getRowHeight={() => 80} // Set the desired row height
         pageSizeOptions={[10, 20]}
         // checkboxSelection
       />

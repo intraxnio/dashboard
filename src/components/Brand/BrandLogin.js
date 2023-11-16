@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import sideImage from "../../images/banner2.jpg";
+import sideImage from "../../images/IMG_1025.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Box, TextField, Button, Typography, Link, Grid } from "@mui/material";
+import { Box, TextField, Button, Typography, Link, Grid, Rating, Avatar, Stack } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {login} from '../../store/brandSlice';
-
-// const { createToken, isBrandAuthenticated } = require("../../backend/middleware/jwtToken");
+import { useSelector } from "react-redux";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -18,10 +18,28 @@ function BrandLogin() {
   const dispatch = useDispatch();
   const [email, getEmail] = useState("");
   const [password, getPassword] = useState("");
-  console.log("Request URL:", "http://3.214.174.211/api/brand/brand-login"); // Add this line
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.brandUser);
+  const baseUrl = "http://localhost:8000/api";
+  
 
 
-  axios = axios.create({ baseURL: 'http://3.214.174.211/api' });
+
+
+
+
+  
+  useEffect(() => {
+
+    if(user.brand_id){
+
+      navigate("/brand/dashboard");
+
+    }
+    
+
+
+  }, []);
 
 
 
@@ -33,24 +51,23 @@ function BrandLogin() {
     }
 
     else{
+      setIsLoading(true);
 
-      await axios
-      .post("/brand/brand-login",
-
+      await axios.post(baseUrl+"/brand/brand-login",
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
       )
       .then((res) => {
 
         console.log('Entered res block');
+
           const brand_id = res.data.brandObj.brand_id;
           const brand_name = res.data.brandObj.brand_name;
           const brand_category = res.data.brandObj.brand_category;
           const userDetails = { email, brand_id, brand_name, brand_category };
-        console.log('User Details:::', userDetails);
 
-          dispatch(login(userDetails));
-          toast.success("Login Success!");
+           dispatch(login(userDetails));
+           setIsLoading(false);
           navigate("/brand/dashboard");
 
       })
@@ -86,9 +103,75 @@ function BrandLogin() {
 
   return (
     <>
-      <Grid container spacing="2">
+      <Grid container spacing="1" sx={{ height: '100vh' }}>
+
+      <Grid item xs={4} sx={{ background: '#362FD9' }}>
+
+              <Box
+              display="flex"
+              flexDirection={"column"}
+              margin="auto"
+              padding={1}
+              
+               >
+                      
+              <Typography textAlign="start"  sx={{
+                fontSize: '46px', 
+                fontWeight: '500', 
+                color: 'white', 
+                paddingX: '20px', 
+                paddingTop: '25%',
+
+                }}>
+                Let's create a campaign.
+              </Typography>
+
+              <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '3%'}}>
+              Cease the hunt for influencers.
+              </Typography>
+
+              </Box>
+
+
+                <Box
+                  display="flex"
+                  flexDirection={"column"}
+                  margin="auto"
+                  padding={1}
+                  sx={{ marginTop : '20%'}}
+                >
+                    
+         
+
+                <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '2%'}}>
+
+              
+              .Reach <br />
+              .Engagement <br />
+              .Conversions
+                </Typography>
+
+
+
+                </Box>
+
+
+
+
+        </Grid>
+
+        
+        
         <Grid item xs={8}>
+
+
           <form action="#" method="post">
+
+          {isLoading ? (
+           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', marginTop: '30%' }}>
+           <CircularProgress color= 'success' />
+         </div>
+         ) : ( <>
             <Box
               display="flex"
               flexDirection={"column"}
@@ -121,15 +204,23 @@ function BrandLogin() {
                 variant="outlined"
                 label="Enter Password"
               ></TextField>
+
+                <Typography variant="body2" sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Link href="/forgotPassword" underline="none" sx={{ color: '#362FD9'}}>
+                Forgot password?
+                </Link>
+              </Typography>
+
               <Button
                 type="submit"
                 onClick={handleSubmit}
                 variant="contained"
                 sx={{
-                  marginTop: 3,
+                  marginTop: 2,
                   textTransform: "capitalize",
                   fontWeight: "300",
                   fontSize: 16,
+                  background: '#362FD9'
                 }}
                 size="large"
               >
@@ -138,35 +229,35 @@ function BrandLogin() {
               <ToastContainer autoClose= {2000}/>
 
 
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="#" underline="none">
-                  Buzzreach's Terms of Service
+                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  BroadReach's Terms of Service
                 </Link>
               </Typography>
+
               <Button
                 variant="outlined"
                 size="large"
                 sx={{
                   marginTop: 3,
                   textTransform: "capitalize",
-                  fontWeight: "300",
+                  fontWeight: "400",
                   fontSize: 16,
+                  color: '#362FD9'
                 }}
                 onClick={signupButton}
               >
                 Create new Account Here
               </Button>
             </Box>
+            </> )}
           </form>
         </Grid>
-        <Grid item xs={4}>
-          <img
-            className="img-fluid"
-            src={sideImage}
-            alt="Passion into Profession"
-          />
-        </Grid>
+
+
+        
+
       </Grid>
     </>
   );

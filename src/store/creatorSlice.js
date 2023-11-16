@@ -18,12 +18,14 @@ const creatorUserSlice = createSlice({
             state.email = action.payload.email;
             state.creator_id = action.payload.creator_id;
             state.creator_category = action.payload.creator_category;
+            state.isInstagramLinked = action.payload.isInstagramLinked;
         
             const influencerDetails = {
               isLoggedIn: state.isLoggedIn,
               email: state.email,
               creator_id: state.creator_id,
               creator_category: state.creator_category,
+              isInstagramLinked : state.isInstagramLinked
             };
         
             localStorage.setItem("influencerDetails", JSON.stringify(influencerDetails));
@@ -34,6 +36,10 @@ const creatorUserSlice = createSlice({
             state.email = '';
             state.creator_id = '';
             state.creator_category = '';
+            state.isInstagramLinked = false;
+
+            localStorage.removeItem("influencerDetails");
+
         },
     },
 

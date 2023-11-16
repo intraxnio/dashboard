@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button, Avatar, Typography, Grid, TextField, Dialog, Select, MenuItem, DialogContent, DialogActions} from '@mui/material';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Button, Avatar, Typography, Grid, TextField, Dialog, Select, MenuItem, DialogContent, DialogActions, DialogTitle} from '@mui/material';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -16,60 +16,79 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 
+
 export default function ProfileSettings() {
 
   const user = useSelector(state => state.brandUser);
   const [brandName, setBrandName] = useState('');
   const [category, setCategory] = useState('');
   const [email, setEmail] = useState('');
+  const [handle, setHandle] = useState('');
   const [logo, setLogo] = useState('');
-  const [password, setPassword] = useState('');
   const [newName, setNewName] = useState('');
+  const [newInstagram, setNewInstagram] = useState('');
   const [newCategory, setNewCategory] = useState('');
   const fileInputRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+  const [isInstagramDialogOpen, setIsInstagramDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [originalPassword, setOriginalPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordDialogue, setPasswordDialogue] = useState(false);
+
+  const baseUrl = "http://localhost:8000/api";
+
+
 
 
 
   const handleSignOut = () => {
     dispatch(logout());
-    navigate(`/login/brand`);
+    navigate(`/`);
    
   };
 
 
-const fetchProfile = async () =>{
 
-    try{
-// axios.post("http://localhost:8000/api/v1/brand/settings-brand-details", {
-  axios.post("https://app.buzzreach.in/api/v1/brand/settings-brand-details", {
-        userId: user.brand_id,
-      }).then(ress=>{
-          setBrandName(ress.data.brandDetails.brand_name);
-          setCategory(ress.data.brandDetails.category);
-          setEmail(ress.data.brandDetails.email);
-          setLogo(ress.data.brandDetails.brand_logo);
-          setLoading(false);
-      }).catch(e=>{
-  
-      })
 
-    }
+const fetchProfile = useCallback(async () => {
+  try {
+    axios.post(baseUrl + "/brand/settings-brand-details", {
+      userId: user.brand_id,
+    }).then(ress => {
+      setBrandName(ress.data.brandDetails.brand_name);
+      setCategory(ress.data.brandDetails.category);
+      setEmail(ress.data.brandDetails.email);
+      setHandle(ress.data.brandDetails.instagram_handle);
+      setLogo(ress.data.brandDetails.brand_logo);
+      setLoading(false);
+    }).catch(e => {
+      // Handle error
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}, [user.brand_id]);
 
-    catch (error) {
-        console.error(error);
-      }
-}
+useEffect(() => {
 
-  useEffect(() => {
 
-    fetchProfile();
- 
-  }, []);
+  if(!user.brand_id){
+
+    navigate("/");
+
+  }
+  else if(user.brand_id){
+  fetchProfile();
+
+  }
+
+
+}, [fetchProfile]);
 
   const openFileExplorer = () => {
     // Programmatically trigger a click event on the hidden file input
@@ -86,9 +105,7 @@ const fetchProfile = async () =>{
     formData.append('image', selectedFile);
   
     try {
-      // Wait for the Axios request to complete before proceeding
-      // const response = await axios.post("http://localhost:8000/api/v1/brand/update-brand-logo", formData, {
-        const response = await axios.post("https://app.buzzreach.in/api/v1/brand/update-brand-logo", formData, {
+        const response = await axios.post(baseUrl+"/brand/update-brand-logo", formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -114,8 +131,16 @@ const fetchProfile = async () =>{
     setIsDialogOpen(false); // Close the dialog
   };
 
+  const handleDialogPasswordClose = () => {
+    setPasswordDialogue(false);
+  };
+
   const handleCloseCategoryDialog = () => {
     setIsCategoryDialogOpen(false); // Close the dialog
+  };
+
+   const handleInstagramCloseDialog = () => {
+    setIsInstagramDialogOpen(false); // Close the dialog
   };
 
   const handleOpenDialog = () => {
@@ -130,9 +155,14 @@ const fetchProfile = async () =>{
 
 };
 
+const handleOpenInstagramDialog = () => {
+  setNewInstagram(handle);
+  setIsInstagramDialogOpen(true); // Open the dialog
+
+};
+
 const updateBrandName = () => {
-    // axios.post("http://localhost:8000/api/v1/brand/update-brand-name", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/update-brand-name", {
+      axios.post(baseUrl+"/brand/update-brand-name", {
         brand_id: user.brand_id,
         newBrandName: newName,
       })
@@ -149,9 +179,26 @@ const updateBrandName = () => {
       });
   };
 
+  const updateBrandInstagram = () => {
+    axios.post(baseUrl+"/brand/update-brand-instagramHandle", {
+      brand_id: user.brand_id,
+      instagram_handle: newInstagram,
+    })
+    .then((ress) => {
+      if (ress.data.updated) {
+          toast.success("Instagram Handle is updated");
+          fetchProfile();
+      } else if (!ress.data.success) {
+          toast.success("Update failed");
+      }
+    })
+    .catch((e) => {
+      // Handle error
+    });
+};
+
   const updateBrandCategory = () => {
-    // axios.post("http://localhost:8000/api/v1/brand/update-brand-category", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/update-brand-category", {
+      axios.post(baseUrl+"/brand/update-brand-category", {
         brand_id: user.brand_id,
         newBrandCategory: newCategory,
       })
@@ -168,6 +215,64 @@ const updateBrandName = () => {
       });
   };
 
+  const updatePassword = async (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+
+    if(!originalPassword || !newPassword){
+        setIsLoading(false);
+        toast.warning("Enter valid password");
+      }
+
+
+      else {
+
+
+      await axios.post(baseUrl+"/brand/change-password",
+        { userId: user.brand_id, password : originalPassword, newPassword : newPassword },
+        {withCredentials: true}
+      )
+      .then((res) => {
+
+
+            if(!res.data.success){
+
+                setIsLoading(false);
+                toast.error("Password update failed. Please try again.");
+
+            }
+            else if(res.data.success){
+                
+                setIsLoading(false);
+                setPasswordDialogue(false);
+                toast.success("Password updated successfully");
+                
+            }
+
+      })
+      .catch((err) => {
+
+
+        if (err.response && err.response.data.error === "Wrong current password") {
+          toast.warning("Wrong current password");
+        } 
+
+        else if (err.response && err.response.data.error === "email, password mismatch") {
+          toast.warning("Invalid email or password");
+        } 
+        
+        else {
+          toast.error("An error occurred. Please try again later.");
+        }
+      });
+
+    }
+
+    
+  };
+
 
 
   return (
@@ -180,7 +285,7 @@ const updateBrandName = () => {
     <div>
       {/* 1st Line: Profile Photo */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        {logo != "" || logo != null ? (<Avatar src={logo} alt="Profile Avatar"  style={{height: '80px', width: '80px'}}/>):
+        {logo !== "" || logo !== null ? (<Avatar src={logo} alt="Profile Avatar"  style={{height: '80px', width: '80px'}}/>):
         (<Avatar alt="Profile Avatar"  style={{height: '80px', width: '80px'}}>Brand</Avatar>)}
         
         <div style={{ marginLeft: '20px' }}>
@@ -250,7 +355,8 @@ const updateBrandName = () => {
         </div>
                 <hr style={{ color: 'grey', border: 'none', height: '1px', backgroundColor: 'grey' }} />
 
-      {/* 5th Line: Password */}
+              
+      {/* 6th Line: Password */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                 <div style={{ flex: '1' }}>
                     <Typography variant="body2" style={{ fontWeight: 'bold', marginBottom: '12px' }}>
@@ -260,11 +366,29 @@ const updateBrandName = () => {
                     **********
                     </Typography>
                 </div>
-                <Button variant="outlined" color="primary">
+                <Button variant="outlined" color="primary" onClick={()=> {setPasswordDialogue(true)}}>
                     Change Password
                 </Button>
         </div>
                 <hr style={{ color: 'grey', border: 'none', height: '1px', backgroundColor: 'grey' }} />
+
+  {/* 5th Line: Instagram Handle */}
+
+  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <div style={{ flex: '1' }}>
+                    <Typography variant="body2" style={{ fontWeight: 'bold', marginBottom: '12px' }}>
+                    Instagram Handle
+                    </Typography>
+                    <Typography variant="body1">
+                    {handle}
+                    </Typography>
+                </div>
+                <Button variant="outlined" color="primary" onClick={handleOpenInstagramDialog}>
+                    Change Handle
+                </Button>
+        </div>
+                <hr style={{ color: 'grey', border: 'none', height: '1px', backgroundColor: 'grey' }} />
+
 
       {/* 5th Line: Signout Button */}
       <div style={{ textAlign: 'start'}}>
@@ -308,6 +432,39 @@ const updateBrandName = () => {
         </ClickAwayListener>
       )}
 {/* {name dialogue ends} */}
+
+
+{/* {instagram dialogue starts} */}
+
+{ (handle || handle === '') && (
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <Dialog
+            open={isInstagramDialogOpen}
+            onClose={handleInstagramCloseDialog}
+            disableEscapeKeyDown
+            keepMounted
+          >
+            <DialogContent>
+            <TextField type='text' id="instagramHandle" onChange={(e)=>{setNewInstagram(e.target.value)}} margin='normal' variant='outlined' label='Enter Instagram Handle'></TextField>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleInstagramCloseDialog} color="primary">
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  updateBrandInstagram();
+                  handleInstagramCloseDialog();
+                }}
+                color="success"
+              >
+                Update
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </ClickAwayListener>
+      )}
+{/* {instagram dialogue ends} */}
 
 
 
@@ -366,6 +523,74 @@ const updateBrandName = () => {
 {/* {category dialogue ends} */}
     </Grid>
     </Grid>
+
+    {isLoading && (
+          <CircularProgress
+            size={24}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              marginTop: -12, // Center the CircularProgress
+              marginLeft: -12, // Center the CircularProgress
+            }}
+          />
+        )}
+
+
+{user && (
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <Dialog
+            open={passwordDialogue}
+            onClose={handleDialogPasswordClose}
+            disableEscapeKeyDown
+            keepMounted
+          >
+            <DialogTitle>Change Password</DialogTitle>
+            <DialogContent dividers>
+          
+            <Typography sx={{fontSize: '16px', marginTop: '5px'}} >
+                Please enter current password
+              </Typography>
+
+              <TextField
+                type="password"
+                id="password"
+                onChange={(e) => {
+                  setOriginalPassword(e.target.value);
+                }}
+                margin="normal"
+                variant="outlined"
+                label="Current Password"
+              />
+
+              <Typography sx={{fontSize: '16px', marginTop: '5px'}} >
+                Please enter new password
+              </Typography>
+
+              <TextField
+                type="password"
+                id="password"
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+                margin="normal"
+                variant="outlined"
+                label="New Password"
+              />
+
+        </DialogContent>
+            <DialogActions>
+              <Button onClick={()=> setPasswordDialogue(false)} color="primary">
+                Cancel
+              </Button>
+              <Button color="success" onClick={updatePassword}>
+                SUBMIT
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </ClickAwayListener>
+      )}
     </>
     )}
     </>

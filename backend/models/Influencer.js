@@ -14,6 +14,10 @@ const Influencer_Schema = new Schema({
         required: true
     },
 
+    mobile_num:{
+        type: String
+    },
+
     access_token:{
         type: String
     },
@@ -22,8 +26,18 @@ const Influencer_Schema = new Schema({
         type: Number
     },
 
+    token_expiry_date : {
+
+        type: Date
+    },
+
     costPerPost:{
         type: Number
+    },
+
+    reset_pin:{
+        type: Number
+
     },
 
     instagram_business_account_id:{
@@ -32,6 +46,11 @@ const Influencer_Schema = new Schema({
 
     category:{
         type: String
+    },
+
+    is_instagram_connected:{
+        type: Boolean,
+        default: false
     },
     
 

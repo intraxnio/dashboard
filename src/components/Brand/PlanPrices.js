@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Card, CardContent, CardActions, Chip, Divider, List, ListItem, Typography, Button, Switch, Select, MenuItem} from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import { Grid, Card, CardContent, CardActions, Chip, Divider, List, ListItem, Typography, Button, Switch} from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -19,7 +18,6 @@ import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 
 export default function PricingCards() {
   const [pricing, setPricing] = useState('month');
-  const [duration, setDuration] = useState('3');
   const navigate = useNavigate();
 
 
@@ -33,13 +31,6 @@ export default function PricingCards() {
 
   const handleStartNow = () => {
     // history.push(`/nextRoute?pricing=${pricing}&duration=${duration}`);
-  };
-
-  const getPrice = () => {
-    if (pricing === 'year') {
-      return '$390'; // Change to your annual price
-    }
-    return '$39'; // Change to your monthly price
   };
 
   const getPrice2 = () => {
@@ -57,13 +48,13 @@ export default function PricingCards() {
       <Grid item xs={12} sm={6} md={4}>
         <Card variant="outlined">
           <CardContent>
-            <Chip label="Dive in" size="small" variant="outlined" color="default" />
-            <Typography variant="h4">Starter</Typography>
+            <Chip label="&nbsp;default&nbsp;" size="small" variant="outlined" color="default" sx={{marginBottom: '10px'}}/>
+            <Typography sx={{fontSize: '32px'}}>Forever Free</Typography>
             <Divider />
             <List>
               <ListItem>
                 <CampaignOutlinedIcon color="primary" />
-                &nbsp;&nbsp; 3 Campaigns
+                &nbsp;&nbsp; 1 Campaign per month
               </ListItem>
               <ListItem>
                 <AllInclusiveOutlinedIcon color="primary" />
@@ -97,12 +88,12 @@ export default function PricingCards() {
             <Divider />
           </CardContent>
           <CardActions>
-            <Switch
+            {/* <Switch
               checked={pricing === 'year'}
               onChange={handlePricingToggle}
-            />
+            /> */}
             
-            <Typography variant="subtitle1">{getPrice() + '/'}{pricing === 'year' ? 'year' : 'month'}</Typography>
+            {/* <Typography variant="subtitle1">{getPrice() + '/'}{pricing === 'year' ? 'year' : 'month'}</Typography>
 
 
             <Button
@@ -113,7 +104,7 @@ export default function PricingCards() {
               style={{marginLeft: '16px'}}
             >
               Start Plan
-            </Button>
+            </Button> */}
           </CardActions>
         </Card>
       </Grid>
@@ -122,8 +113,8 @@ export default function PricingCards() {
       <Grid item xs={12} sm={6} md={4}>
         <Card variant="outlined">
           <CardContent>
-            <Chip label="Popular" size="small" variant="outlined" color="default" />
-            <Typography variant="h4">Start Up</Typography>
+            <Chip label="popular" size="small" variant="outlined" color="default" sx={{marginBottom: '10px'}} />
+            <Typography sx={{fontSize: '32px'}}>Unlimited</Typography>
             <Divider />
             <List>
             <ListItem>
@@ -177,7 +168,7 @@ export default function PricingCards() {
               onClick={handleStartNow}
               style={{marginLeft: '16px'}}
             >
-              Start Plan
+              Upgrade Now
             </Button>
           </CardActions>
         </Card>

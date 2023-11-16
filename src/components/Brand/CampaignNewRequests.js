@@ -4,13 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useSelector } from "react-redux";
-import { Button, TableContainer } from "@mui/material";
-import BalanceComponent from "./BalanceComponent";
+import { Button, Typography, Tooltip } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Alert from "@mui/material/Alert";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 import MoveDownRoundedIcon from '@mui/icons-material/MoveDownRounded';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -34,10 +32,22 @@ export default function CampaignNewRequests() {
   const [costPerPost, setCostPerPost] = useState("");
   const [infoDialogOpen, setInfoDialogOpen] = useState(false);
   const [infoDialogContent, setInfoDialogContent] = useState("");
+  const [selectedRows, setSelectedRows] = useState([]);
   const [balance, setBalance] = useState("");
   const [loading, setLoading] = useState(true);
+  const baseUrl = "http://localhost:8000/api";
 
 
+
+  function formatNumber(number) {
+    if (number >= 1000000) {
+      return (number / 1000000).toFixed(2) + "M";
+    } else if (number >= 1000) {
+      return (number / 1000).toFixed(2) + "K";
+    } else {
+      return number.toString();
+    }
+  }
 
   const handleOpenDialog = (
     creator_id,
@@ -59,14 +69,15 @@ export default function CampaignNewRequests() {
     }
   };
 
-  const schedulePost = (campaign_id, brandUser_id) => {
+  const schedulePost = (campaign_id, brandUser_id, publishedDate, costPerPost) => {
     
-    // axios.post("http://localhost:8000/api/v1/creator/campaign/publishNow", {
-      axios.post("https://app.buzzreach.in/api/v1/creator/campaign/publishNow", {
+      axios.post(baseUrl+"/brand/campaign/publishNow", {
         influencer_id: currentCreatorId,
         campaign_id: campaign_id,
         media_id: "18022611298510911",
         brandUser_id: brandUser_id,
+        publishDate: publishedDate,
+        costPerPost: costPerPost
       })
       .then(() => {
         // setOpenDialog(false);
@@ -122,15 +133,13 @@ export default function CampaignNewRequests() {
   const fetchData = async () => {
     try {
 
-      // const res = await axios.post("http://localhost:8000/api/v1/brand/campaign-new-requests",
-      const res = await axios.post("https://app.buzzreach.in/api/v1/brand/campaign-new-requests",
+      const res = await axios.post(baseUrl+"/brand/campaign-new-requests",
         {
           campaignId: campaignId,
         }
       );
 
-      // const fetchBalance = await axios.post("http://localhost:8000/api/v1/brand/get-account-balance",
-      const fetchBalance = await axios.post("https://app.buzzreach.in/api/v1/brand/get-account-balance",
+      const fetchBalance = await axios.post(baseUrl+"/brand/get-account-balance",
         {
           brand_id: user.brand_id,
         }
@@ -150,7 +159,7 @@ export default function CampaignNewRequests() {
 
   const showCreatorDetails = (creatorId) => {
     // Redirect to another page with campaignId and userId
-    window.open(`/creator/indiDetails?userId=${creatorId}`, "_blank");
+    window.open(`/indiDetails?userId=${creatorId}`, "_blank");
   };
 
   const successContent = (
@@ -170,22 +179,27 @@ export default function CampaignNewRequests() {
 
   const failedContent = (
     <>
-      <DialogTitle>Error!</DialogTitle>
+      <DialogTitle>Oops!</DialogTitle>
       <DialogContent>
-        Not Enough Account Balance
+        <Typography gutterBottom>
+        Not Enough Credits
+          </Typography>
+          <Typography gutterBottom>
+          Please Buy Credits to Approve the Request.
+          </Typography>
+       
         <br />
-        Please Add Balance to Approve the Requests
+        1 credit = Rs. 1/-
         <br />
-        <Button variant="outlined" color="primary" sx={{ marginTop: "20px" }}>
-          Add Funds
+        <Button variant="outlined" color="success" sx={{ marginTop: "20px", textDecoration: "none", textTransform: "none", }}>
+          Buy Credits
         </Button>
       </DialogContent>
     </>
   );
 
   const handleAccept = () => {
-    axios
-      .post("http://localhost:8000/api/v1/brand/campaign-new-requests-accept", {
+    axios.post(baseUrl+"/brand/campaign-new-requests-accept", {
         campaignId: currentCampaignId,
         creatorId: currentCreatorId,
         caption: currentCampaignCaption,
@@ -195,7 +209,7 @@ export default function CampaignNewRequests() {
       })
       .then((ress) => {
         if (ress.data.success) {
-          schedulePost(currentCampaignId, user.brand_id);
+          schedulePost(currentCampaignId, user.brand_id, currentScheduledDate, costPerPost);
           handleOpenInfoDialog(successContent);
         } else if (!ress.data.success) {
           handleOpenInfoDialog(failedContent);
@@ -207,9 +221,7 @@ export default function CampaignNewRequests() {
   };
 
   const handleDecline = () => {
-    axios
-      .post(
-        "http://localhost:8000/api/v1/brand/campaign-new-requests-decline",
+    axios.post(baseUrl+"/brand/campaign-new-requests-decline",
         {
           campaignId: currentCampaignId,
           creatorId: currentCreatorId,
@@ -252,17 +264,24 @@ export default function CampaignNewRequests() {
     },
     { field: "creatorName", headerName: "Name", width: 120 },
     { field: "category", headerName: "Category", width: 140 },
-    { field: "followers", headerName: "Followers", width: 100 },
+    { field: "followers", headerName: "Followers", width: 120 },
     {
-      field: "pricePerPost",
-      headerName: "Price Per Post",
-      width: 120,
-      renderCell: (params) => `Rs. ${params.value}`,
+      field: "insights",
+      headerName: "Insights",
+      width: 100,
+      renderCell: (params) => (
+        <span
+          onClick={() => showCreatorDetails(params.row.influencer_id)} // Pass the ID or necessary parameter
+          style={{ cursor: "pointer", color: "blue" }}
+        >
+          Insights
+        </span>
+      ),
     },
     {
       field: "profile",
       headerName: "Instagram",
-      width: 100,
+      width: 120,
       renderCell: (params) => (
         <Button
           endIcon={<ArrowRightIcon />}
@@ -281,22 +300,17 @@ export default function CampaignNewRequests() {
       ),
     },
     {
-      field: "insights",
-      headerName: "Insights",
-      width: 80,
-      renderCell: (params) => (
-        <span
-          onClick={() => showCreatorDetails(params.row.influencer_id)} // Pass the ID or necessary parameter
-          style={{ cursor: "pointer", color: "blue" }}
-        >
-          Insights
-        </span>
-      ),
+      field: "pricePerPost",
+      headerName: "Price Per Post",
+      width: 140,
+      renderCell: (params) => `Rs. ${params.value}`,
     },
+
+
     {
-      field: "status",
-      headerName: "Status",
-      width: 100,
+      field: "estAvgReach",
+      headerName: "Est.Avg Reach",
+      width: 140,
       renderCell: (params) => (
         <button
           style={{
@@ -307,19 +321,19 @@ export default function CampaignNewRequests() {
             textDecoration: "none",
           }}
         >
-          {params.value}
+          {formatNumber(params.value)}
         </button>
       ),
     },
     {
       field: "actions",
       headerName: "Actions",
-      width: 180,
+      width: 160,
       renderCell: (params) => (
         <div>
           {params.row.status === "Requested" && (
             <>
-              <Button
+              {/* <Button
                 variant="outlined"
                 color="error"
                 size="small"
@@ -334,7 +348,7 @@ export default function CampaignNewRequests() {
                 }
               >
                 Decline
-              </Button>
+              </Button> */}
               {/* <Button variant='outlined' color='success' size = 'small'  onClick={() => handleAccept(params.row.influencer_id, campaignId)}>Accept</Button> */}
               <Button
                 variant="outlined"
@@ -381,7 +395,7 @@ export default function CampaignNewRequests() {
          >
            <Button
              variant="outlined"
-             onClick={createCampaign}
+            //  onClick={createCampaign}
              style={{
                cursor: "pointer",
                textDecoration: "none",
@@ -389,8 +403,9 @@ export default function CampaignNewRequests() {
              }}
              sx={{ marginRight: "10px" }}
            >
-             Add Funds
+             Buy Credits
            </Button>
+           <Tooltip title={`${balance} Credits = Rs. ${balance}`} arrow>
            <Button
              variant="outlined"
              style={{
@@ -398,18 +413,31 @@ export default function CampaignNewRequests() {
                textDecoration: "none",
                textTransform: "none",
              }}
+             sx={{ paddingX: "20px" }}
+
            >
-             Balance: Rs. {balance}
+             Credits: &nbsp;{balance}
            </Button>
+           </Tooltip>
          </div>
  
          <div style={{ overflowY: "auto", flexGrow: 1 }}>
            <DataGrid
              rows={rows}
              columns={columns}
-             disableSelectionOnClick
+             sx={{
+              "&:focus": {
+                outline: "none", // Remove the red border on focus
+              },
+            }}
+            isRowSelectable={(params) => {
+              return false; // Disable selection for all rows
+            }}
+            onSelectionModelChange={(newSelection) => {
+              setSelectedRows(newSelection.selectionModel);
+            }}
+            selectionModel={selectedRows}
              getRowHeight={() => 80} // Set the desired row height
-             initialState={{}}
              pageSizeOptions={[10, 20]}
              // checkboxSelection
            />

@@ -38,6 +38,11 @@ const Campaign_Schema = new Schema({
     type: String,
   },
 
+  videoDuration: {
+    type: Number,
+    default: 0
+  },
+
   is_onGoing: {
     type: Boolean,
     default: true,

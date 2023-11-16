@@ -45,6 +45,16 @@ const InstagramDetails_Schema = new Schema({
         type: String
     },
 
+    cost_per_post_image : {
+        type : Number
+
+    },
+
+    cost_per_post_video : {
+        type : Number
+
+    },
+
     is_del: {
         type: Boolean,
         default: false

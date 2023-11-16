@@ -1,15 +1,19 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios';
-import { Grid, Box, Paper, Typography, Container, Stack } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import NorthOutlinedIcon from '@mui/icons-material/NorthOutlined';
-import {useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function TotalCompletedCampaigns() {
 
-  const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [totalCompletedCampaigns, setTotalCompletedCampaigns] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [totalCompletedCampaigns, setTotalCompletedCampaigns] = useState('');  
+  const user = useSelector((state) => state.brandUser);
+  const baseUrl = "http://localhost:8000/api";
+
+
 
   function formatNumber(number) {
     if (number >= 1000000) {
@@ -21,43 +25,24 @@ function TotalCompletedCampaigns() {
     }
   }
 
-  const makeFirstRequest = () => {
-    // return axios.get("http://localhost:8000/api/v1/brand/getUser", {
-      return axios.get("https://app.buzzreach.in/api/v1/brand/getUser", {
-        withCredentials: true
-      });
-  };
 
-
-  const makeSecondRequest = (id) => {
-    // axios.post("http://localhost:8000/api/v1/brand/get-total-completed-campaigns", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/get-total-completed-campaigns", {
-      userId: id,
-    }).then(ress=>{
-
-        setTotalCompletedCampaigns(formatNumber(ress.data.data));
-
-    }).catch(e=>{
-
-    })
-  };
 
   useEffect(() => {
     const fetchData = async () => {
+            setLoading(true);
       try {
-        const firstResponse = await makeFirstRequest();
-        console.log('First Response', firstResponse);
-        if (firstResponse.data.data == null) {
-          setIsLoggedIn(false);
-        } else {
-          setUserId(firstResponse.data.data);
-          setIsLoggedIn(true);
+        axios.post(baseUrl+ "/brand/get-total-completed-campaigns", {
+          userId: user.brand_id,
+        }).then(ress=>{
+    
+            setTotalCompletedCampaigns(formatNumber(ress.data.data));
+            setLoading(false);
 
-          const secondResponse = await makeSecondRequest(
-            firstResponse.data.data
-          );
+    
+        }).catch(e=>{
+    
+        })
 
-        }
       } catch (error) {
         console.error(error);
       }
@@ -69,25 +54,29 @@ function TotalCompletedCampaigns() {
   return (
    <>
      <Box sx={{
-        backgroundColor: 'primary.main',
+        backgroundColor: '#3E54AC',
         color: 'white',
         height: '180px',
         width: '300px',
         padding: '10px',
         borderRadius:'10px',
-        
-        '&:hover': {
-            backgroundColor: 'primary.light'
-        }
+      
     }}
     > 
         <Typography sx={{ fontSize: '16px'}}>Completed Campaigns</Typography>
-        <Typography sx={{
-            fontSize:'50px',
-            textAlign:'center',
-            padding:'20px',
-            color:'orange'
-            }}>{totalCompletedCampaigns}</Typography>
+        
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {loading ? (
+          <CircularProgress size={25} color="warning" />
+        ) : (
+          <Typography sx={{
+            fontSize: '50px',
+            textAlign: 'center',
+            padding: '20px',
+            color: 'orange'
+          }}>{totalCompletedCampaigns}</Typography>
+        )}
+      </div>
 
           <Stack direction='row' spacing={1}
           sx={{

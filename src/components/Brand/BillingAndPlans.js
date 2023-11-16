@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Card, CardContent, CardActions, Chip, Divider, List, ListItem, Typography, Button, Switch, Select, MenuItem} from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useNavigate } from "react-router-dom";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { Grid, Card, CardContent, CardActions, Chip, Divider, List, ListItem, Typography, Button } from '@mui/material';
 import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
 import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
@@ -16,6 +12,8 @@ import PlanPrices from './PlanPrices';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -26,27 +24,37 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function BillingAndPlans() {
     
   const user = useSelector(state => state.brandUser);
-  const [pricing, setPricing] = useState('month');
   const [onPlan, setOnPlan] = useState(false);
   const [purchasedPlan, setPurchasedPlan] = useState('');
   const [planDetails, setPlanDetails] = useState([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const baseUrl = "http://localhost:8000/api";
+  
+
 
 
 
   useEffect(() => {
+
+    if(!user.brand_id){
+
+      navigate("/");
+  
+    }
+    else if(user.brand_id){
+
+    
     const fetchData = async () => {
       try {
-        // axios.post("http://localhost:8000/api/v1/brand/check-brand-plan-details", {
-          axios.post("https://app.buzzreach.in/api/v1/brand/check-brand-plan-details", {
+          axios.post(baseUrl+"/brand/check-brand-plan-details", {
             userId: user.brand_id
           }).then(ress=>{
       
             if(ress.data.onPlan){
             setOnPlan(true);
             setPurchasedPlan(ress.data.purchased_plan);
-            getPlanDetails(purchasedPlan);
+            // getPlanDetails(purchasedPlan);
             setLoading(false);
       
             }
@@ -67,29 +75,29 @@ export default function BillingAndPlans() {
     };
 
     fetchData();
+  }
   }, []);
 
 
 
-  const getPlanDetails = async (plan_id) => {
+  // const getPlanDetails = async (plan_id) => {
 
-    try {
-        // await axios.post("http://localhost:8000/api/v1/brand/purchased-plan-details", {
-          await axios.post("https://app.buzzreach.in/api/v1/brand/purchased-plan-details", {
-            planId: plan_id
-          }).then(ress=>{
+  //   try {
+  //         await axios.post(baseUrl+"/brand/purchased-plan-details", {
+  //           planId: plan_id
+  //         }).then(ress=>{
       
-            setPlanDetails(ress.data.planDetails);
+  //           setPlanDetails(ress.data.planDetails);
       
-          }).catch(e=>{
+  //         }).catch(e=>{
       
-          })
+  //         })
       
-      } catch (error) {
-        console.error(error);
-      }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
     
-  };
+  // };
 
   return (
     <>
@@ -102,13 +110,13 @@ export default function BillingAndPlans() {
       <Grid item xs={12} sm={6} md={6}>
         <Card variant="outlined" sx={{py : 4, px : 1}}>
           <CardContent >
-            <Chip label="Current Plan" size="small" variant="outlined" color="default" />
-            <Typography variant="h4">Starter</Typography>
+            <Chip label="&nbsp;Current Plan&nbsp;" size="small" variant="outlined" color="default" sx={{marginBottom: '10px'}} />
+            <Typography sx={{fontSize: '32px'}}>Unlimited</Typography>
             <Divider />
             <List>
               <ListItem>
                 <CampaignOutlinedIcon color="primary" />
-                &nbsp;&nbsp; 3 Campaigns
+                &nbsp;&nbsp; Unlimited Campaigns
               </ListItem>
               <ListItem>
                 <AllInclusiveOutlinedIcon color="primary" />
@@ -147,12 +155,12 @@ export default function BillingAndPlans() {
 
 
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               style={{marginLeft: '16px', textTransform: 'lowercase', width: '22vh', fontSize: '18px'}}
             
             >
-             $39 /month
+             {purchasedPlan === 'SM02' ? '$49 /month' : '$490 /year'}
             </Button>
           </CardActions>
         </Card>

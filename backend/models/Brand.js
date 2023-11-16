@@ -20,9 +20,18 @@ const Brand_Schema = new Schema({
         required: true
     },
 
+    reset_pin:{
+        type: Number
+
+    },
+
     brand_name: {
         type: String,
         required: true
+    },
+
+    instagram_handle: {
+        type: String,
     },
 
     category: {

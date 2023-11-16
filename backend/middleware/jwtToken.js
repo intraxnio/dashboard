@@ -14,8 +14,9 @@ const logger = require('../logger');
 
 const createToken = (user, res) =>{
 
-const token = sign({id: user._id, email: user.email}, `${process.env.JSON_SECRET}`, {expiresIn: '1d'});
-logger.customerLogger.log('info', `${process.env.JSON_SECRET}`);
+
+const token = sign({id: user._id, email: user.email}, `${process.env.JWT_SECRET_KEY}`, {expiresIn: '1d'});
+logger.customerLogger.log('info', `${process.env.JWT_SECRET_KEY}`);
 
 const options = {
   expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -63,7 +64,7 @@ return res.status(500).send();
 
 
 
-const creatorToken = (user, res) =>{
+const creatorToken = (user, res, is_instagram_connected) =>{
 
   const token = sign({id: user._id, email: user.email}, `${process.env.JSON_SECRET}`, {expiresIn: '1d'});
   
@@ -74,7 +75,7 @@ const creatorToken = (user, res) =>{
   };
   
 
-  const creatorObj = { 'creator_id': user._id, 'creator_name': user.brand_name, 'creator_category': user.category };
+  const creatorObj = { 'creator_id': user._id, 'creator_name': user.brand_name, 'creator_category': user.category, 'is_instagram_connected' : is_instagram_connected };
 
 res.status(201).cookie('creator_token', token, options).json({
   token,

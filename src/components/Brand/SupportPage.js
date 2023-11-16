@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
-import { Grid, Card, CardContent, CardActions, Chip, Divider, List, ListItem, Typography, Button, Switch, Select, MenuItem} from '@mui/material';
+import React, { useEffect } from 'react';
+import { Grid, Card, CardContent, CardActions, Divider, List, ListItem, Typography, Button } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import CallIcon from '@mui/icons-material/Call';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 export default function SupportPage() {
+
+  const user = useSelector(state => state.brandUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if(!user.brand_id){
+
+      navigate("/");
+
+    }
+    
+
+
+  }, []);
 
 
   return (
@@ -60,7 +77,7 @@ export default function SupportPage() {
               startIcon={<MailOutlineIcon />}
               style={{marginLeft: '16px', textTransform: 'lowercase'}}
             >
-              support@buzzreach.in
+              support@broadreach.in
             </Button>
           </CardActions>
         </Card>

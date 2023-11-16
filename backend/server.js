@@ -22,12 +22,25 @@ process.on("uncaughtException", (err) => {
   console.log(`shutting down the server for handling uncaught exception`);
 });
 
+// if (process.env.NODE_ENV !== "PRODUCTION") {
+//   require("dotenv").config({
+//     path: "config/.env",
+//   });
+// }
+
+// const corsOptions ={
+//   origin: 'http://3.214.174.211', // Update the origin to match your backend's address and port
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   optionSuccessStatus: 200
+// }
 
 const corsOptions ={
-  origin: 'http://3.214.174.211', // Update the origin to match your backend's address and port
+  // origin: 'https://localhost:4700', 
+  origin: 'http://app.broadreach.in', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionSuccessStatus: 200
+  credentials:true,         
+  optionSuccessStatus:200
 }
 
 app.use(cors(corsOptions));
@@ -36,7 +49,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/brand", brand);
 // app.use("/api/auth", auth);
-// app.use("/api/creator", creator);
+app.use("/api/creator", creator);
 
 
 //Error Handling

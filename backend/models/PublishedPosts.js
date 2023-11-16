@@ -17,11 +17,7 @@ const PublishedPosts_Schema = new Schema({
             {
                 type: String
             },
-
-          verified_on_instagramPage: {
-            type: Boolean,
-            default: false
-        },
+            
 
     brandUser_id: {
         type: mongoose.Schema.Types.ObjectId, 

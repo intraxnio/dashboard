@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useSelector } from "react-redux";
-import { Button, TableContainer } from "@mui/material";
-import BalanceComponent from "./BalanceComponent";
+import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Alert from "@mui/material/Alert";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
-import sideImage from "../../images/banner2.jpg";
-import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -27,12 +22,9 @@ import DoneAllOutlinedIcon from "@mui/icons-material/DoneAllOutlined";
 
 export default function CampaignNewRequests() {
   const location = useLocation();
-  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const user = useSelector((state) => state.brandUser);
   const campaignId = searchParams.get("campaignId");
-  const [userId, setUserId] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [campaignData, setCampaignData] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeclineDialogOpen, setIsDeclineDialogOpen] = useState(false);
@@ -43,6 +35,9 @@ export default function CampaignNewRequests() {
   const [infoDialogOpen, setInfoDialogOpen] = useState(false);
   const [infoDialogContent, setInfoDialogContent] = useState("");
   const [balance, setBalance] = useState("");
+  const baseUrl = "http://localhost:8000/api";
+
+
 
   const handleOpenDialog = (
     creator_id,
@@ -94,15 +89,13 @@ export default function CampaignNewRequests() {
 
   const fetchData = async () => {
     try {
-      // const res = await axios.post("http://localhost:8000/api/v1/brand/campaign-new-requests",
-      const res = await axios.post("https://app.buzzreach.in/api/v1/brand/campaign-new-requests",
+      const res = await axios.post(baseUrl+"/brand/campaign-new-requests",
         {
           campaignId: campaignId,
         }
       );
 
-      // const fetchBalance = await axios.post("http://localhost:8000/api/v1/brand/get-account-balance",
-      const fetchBalance = await axios.post("https://app.buzzreach.in/api/v1/brand/get-account-balance",
+      const fetchBalance = await axios.post(baseUrl+"/brand/get-account-balance",
         {
           brand_id: user.brand_id,
         }
@@ -155,8 +148,7 @@ export default function CampaignNewRequests() {
   );
 
   const handleAccept = () => {
-    // axios.post("http://localhost:8000/api/v1/brand/campaign-new-requests-accept", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/campaign-new-requests-accept", {
+      axios.post(baseUrl+"/brand/campaign-new-requests-accept", {
         campaignId: currentCampaignId,
         creatorId: currentCreatorId,
         costPerPost: costPerPost,
@@ -175,9 +167,7 @@ export default function CampaignNewRequests() {
   };
 
   const handleDecline = () => {
-    axios
-      // .post("http://localhost:8000/api/v1/brand/campaign-new-requests-decline",
-      .post("https://app.buzzreach.in/api/v1/brand/campaign-new-requests-decline",
+    axios.post(baseUrl+"/brand/campaign-new-requests-decline",
         {
           campaignId: currentCampaignId,
           creatorId: currentCreatorId,

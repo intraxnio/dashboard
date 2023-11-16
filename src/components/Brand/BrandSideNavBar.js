@@ -16,10 +16,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { Link } from 'react-router-dom';
-import EventNoteIcon from '@mui/icons-material/EventNote';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Outlet} from "react-router-dom";
@@ -72,7 +70,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: open ? 'transparent' : 'white', // Set the background color here
+  backgroundColor: open ? '#F5F7F8' : '#F5F7F8', // Set the background color here
   boxShadow: 'none', // Remove the shadow
   ...(open && {
     marginLeft: drawerWidth,
@@ -86,20 +84,34 @@ const AppBar = styled(MuiAppBar, {
 
 
 
+// const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     width: drawerWidth,
+//     flexShrink: 0,
+//     whiteSpace: 'nowrap',
+//     boxSizing: 'border-box',
+//     ...(open && {
+//       ...openedMixin(theme),
+//       '& .MuiDrawer-paper': openedMixin(theme),
+//     }),
+//     ...(!open && {
+//       ...closedMixin(theme),
+//       '& .MuiDrawer-paper': closedMixin(theme),
+//     }),
+//   }),
+// );
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+    '& .MuiDrawer-paper': {
+      background: '#F5F7F8', // Set your desired background color here
+      ...(open && openedMixin(theme)),
+      ...(!open && closedMixin(theme)),
+    },
   }),
 );
 
@@ -117,31 +129,17 @@ export default function MiniDrawer() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="secondary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div" color="black">
-            Buzz Reach
-          </Typography>
-        </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+      <Drawer variant="permanent" open={open} >
+        <DrawerHeader sx={{justifyContent: 'center', alignItems: 'center'}}>
+        <Typography variant="h6" color="black">
+            BroadReach
+          </Typography>
+          {/* <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+          </IconButton> */}
         </DrawerHeader>
         <Divider />
 
@@ -224,32 +222,6 @@ export default function MiniDrawer() {
 
         <List>
             <ListItem disablePadding sx={{ display: 'block' }}>
-            <Link style={{ textDecoration: 'none', color: 'black' }} to="/brand/profileSettings">
-              <ListItemButton  sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 1.2,
-                  
-                  
-                }}>
-            <ListItemIcon sx={{
-                    minWidth: 0,
-                    mr: open ? 2 : 'auto',
-                    justifyContent: 'center',
-                  }}>
-                    <Avatar sx={{ bgcolor: blue[500] }} variant="rounded">
-                    <SettingsIcon />
-      </Avatar>
-           
-          </ListItemIcon>
-          <ListItemText primary='Settings' sx={{ opacity: open ? 1 : 0 }}/>
-          </ListItemButton>
-          </Link>
-            </ListItem>
-        </List>
-
-        <List>
-            <ListItem disablePadding sx={{ display: 'block' }}>
             <Link style={{ textDecoration: 'none', color: 'black' }} to="/brand/billing/plans">
               <ListItemButton  sx={{
                   minHeight: 48,
@@ -273,12 +245,41 @@ export default function MiniDrawer() {
             </ListItem>
         </List>
 
+        <List>
+            <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/brand/profileSettings">
+              <ListItemButton  sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 1.2,
+                  
+                  
+                }}>
+            <ListItemIcon sx={{
+                    minWidth: 0,
+                    mr: open ? 2 : 'auto',
+                    justifyContent: 'center',
+                  }}>
+                    <Avatar sx={{ bgcolor: blue[500] }} variant="rounded">
+                    <SettingsIcon />
+      </Avatar>
+           
+          </ListItemIcon>
+
+          <ListItemText primary='Settings' sx={{ opacity: open ? 1 : 0 }}/>
+          </ListItemButton>
+          </Link>
+            </ListItem>
+        </List>
+
+       
+
 
 
       <List sx={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
     
        <ListItem disablePadding sx={{ display: 'block' }}>
-            <Link style={{ textDecoration: 'none', color: 'black' }} to="/brand/support">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/creator/support">
               <ListItemButton  sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',

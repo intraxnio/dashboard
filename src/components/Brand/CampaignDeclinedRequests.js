@@ -21,10 +21,12 @@ const campaignId = searchParams.get("campaignId");
 const [userId, setUserId] = useState("");
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [campaignData, setCampaignData] = useState([]);
+const baseUrl = "http://localhost:8000/api";
+
+
 
 useEffect(() => {
-    // axios.post("http://localhost:8000/api/v1/brand/campaign-declined-requests", {
-      axios.post("https://app.buzzreach.in/api/v1/brand/campaign-declined-requests", {
+      axios.post(baseUrl+"/brand/campaign-declined-requests", {
       campaignId: campaignId
     }).then(ress=>{
 

@@ -4,6 +4,24 @@ const Schema = mongoose.Schema;
 const CampaignRequests_Schema = new Schema({
 
 
+  campaign_name: {
+    type: String,
+  },
+
+  caption: {
+    type: String,
+  },
+
+  brand_id:
+    {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'brands'
+
+    },
+
+  publishDate: {
+    type: Date,
+  },
 
   campaign_id: {
     type: mongoose.Schema.Types.ObjectId,

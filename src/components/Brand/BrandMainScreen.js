@@ -1,39 +1,45 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Grid, Box, Paper, Typography, Container, Stack } from "@mui/material";
-import NorthOutlinedIcon from "@mui/icons-material/NorthOutlined";
-// import ChartsCountry from "../Creator/ChartsCountry";
-// import  GenderChart  from "../Creator/GenderChart";
-// import  AgeChart  from "../Creator/AgeChart";
-// import ChartsCity from "../Creator/ChartsCity";
-// import RecentPosts from "../Creator/RecentPosts";
-import { useNavigate } from "react-router-dom";
-// import BoxFollowers from "../Creator/BoxFollowers";
-// import BoxPosts from "../Creator/BoxPosts";
-// import BoxReach from "../Creator/BoxReach";
-// import BoxImpressions from "../Creator/BoxImpressions";
+import React, { useEffect} from "react";
+import { Grid } from "@mui/material";
 import TotalCampaignsBox from "./TotalCampaignsBox";
 import TotalOngoingCampaignsBox from "./TotalOngoingCampaignsBox";
 import TotalCompletedCampaigns from "./TotalCompletedCampaigns";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 function BrandMainScreen() {
 
   const user = useSelector(state => state.brandUser);
+  const navigate = useNavigate();
 
+
+
+  useEffect(() => {
+
+    if(!user.brand_id){
+
+      navigate("/");
+
+    }
+    
+
+
+  }, []);
 
   return (
     <>
  
 
-      {user.isLoggedIn ? (
+      {user.brand_id ? (
         <>
-         {/* <Grid
+         <Grid
          container
          spacing={1}
          direction="row"
          alignItems="center"
-         sx={{ marginTop: "36px", borderTop: "1" }}
        >
          <Grid
            item
@@ -77,38 +83,8 @@ function BrandMainScreen() {
          <TotalCompletedCampaigns />
          </Grid>
 
-         </Grid> */}
+         </Grid>
 
-
-         <Grid
-         container
-         spacing={1}
-         direction="row"
-         alignItems="center"
-         sx={{ marginTop: "46px", marginBottom: "46px", borderTop: "1" }}
-       >
-        <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          width: '100%',
-        }}
-        >
-        <iframe
-          width="900"
-          height="456"
-          src='https://www.youtube.com/embed/FrpIhVTlMYc'
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          target="_blank"
-        ></iframe>
-        </div>
-        </Grid>
 
         </>
        
