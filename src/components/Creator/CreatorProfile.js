@@ -17,7 +17,9 @@ function CreatorProfile() {
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(true);
   const [ creatorCampDetails, setCreatorCampDetails ] = useState('');
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
   function formatNumber(number) {

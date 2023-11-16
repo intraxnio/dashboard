@@ -57,6 +57,8 @@ function ShowCampaignDetails() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 
@@ -78,12 +80,12 @@ const steps = [
 ];
 
   const makeSecondRequest = (id) => {
-    return axios.post("http://localhost:8000/api/creator/get-campaign-details", {
+    return axios.post(baseUrl + "/creator/get-campaign-details", {
         userId: id, campaignId: campaignId });
   };
 
   const makeThirdRequest = () => {
-    return axios.post("http://localhost:8000/api/creator/campaign/check-shown-interest", {
+    return axios.post(baseUrl + "/creator/campaign/check-shown-interest", {
         userId: user.creator_id, campaignId: campaignId });
   };
 
@@ -132,7 +134,7 @@ const steps = [
    
     try {
 
-        axios.post("http://localhost:8000/api/creator/campaign/show-interest", {
+        axios.post(baseUrl + "/creator/campaign/show-interest", {
           userId: user.creator_id,
           campaignId: campaignId,
           price: price,

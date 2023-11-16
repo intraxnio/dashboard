@@ -9,6 +9,8 @@ function IndiBoxReach({userId}) {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [reach, setReach] = useState('');
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
   function formatNumber(number) {
     if (number >= 1000000) {
@@ -22,7 +24,7 @@ function IndiBoxReach({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post("http://localhost:8000/api/brand/creator-reach-28days", {
+    axios.post(baseUrl +"/brand/creator-reach-28days", {
       userId: id,
     }).then(ress=>{
 

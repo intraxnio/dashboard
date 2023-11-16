@@ -40,7 +40,8 @@ function BrandSignup() {
   const [isFocused, setIsFocused] = useState(false);
 
 
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
 
   const handleClickAway = () => {
     //this function keeps the dialogue open, even when user clicks outside the dialogue. dont delete this function

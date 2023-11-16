@@ -14,12 +14,14 @@ function InstagramCode() {
   const navigate = useNavigate();
     const location = useLocation();
     const access_code = new URLSearchParams(location.search).get('code');
-    var fb_redirecturl = 'https://localhost:4700/insta_graph_dialogue';
+    var fb_redirecturl = 'https://app.broadreach.in/insta_graph_dialogue';
   const dispatch = useDispatch();
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
   
     const makeSecondRequest = (id) => {
-      return axios.post("http://localhost:8000/api/creator/fb_insta_redirect_url", {
+      return axios.post(baseUrl + "/creator/fb_insta_redirect_url", {
         access_code,
         fb_redirecturl,    
         userId: id });

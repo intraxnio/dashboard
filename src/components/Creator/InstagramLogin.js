@@ -26,7 +26,9 @@ function InstagramLogin() {
   const [profile, setProfile] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

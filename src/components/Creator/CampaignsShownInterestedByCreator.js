@@ -36,6 +36,8 @@ export default function CampaignsShownInterestedByCreator() {
   const [campaignData, setCampaignData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(true);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 
@@ -60,7 +62,7 @@ useEffect(() => {
 
   
 
-    axios.post("http://localhost:8000/api/creator/myCampaigns", {
+    axios.post(baseUrl + "/creator/myCampaigns", {
       userId: user.creator_id,
     }).then(ress=>{
 

@@ -52,7 +52,9 @@ function CreateCampaign() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
   const today = new Date();

@@ -9,6 +9,8 @@ function IndiBoxFollowers({userId}) {
 
   const navigate = useNavigate();
   const [followers, setFollowers] = useState('');
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
   function formatNumber(number) {
     if (number >= 1000000) {
@@ -22,7 +24,7 @@ function IndiBoxFollowers({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post("http://localhost:8000/api/brand/creator-followers", {
+    axios.post(baseUrl + "/brand/creator-followers", {
       userId: id,
     }).then(ress=>{
 

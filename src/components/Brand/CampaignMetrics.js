@@ -19,7 +19,9 @@ function CampaignMetrics() {
   const [totalReach, setTotalReach] = useState('');
   const [totalImpressions, setTotalImpressions] = useState('');
   const [totalBudget, setTotalBudget] = useState('');
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

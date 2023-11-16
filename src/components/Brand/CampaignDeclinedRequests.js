@@ -21,7 +21,9 @@ const campaignId = searchParams.get("campaignId");
 const [userId, setUserId] = useState("");
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [campaignData, setCampaignData] = useState([]);
-const baseUrl = "http://localhost:8000/api";
+// const baseUrl = "http://localhost:8000/api";
+const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

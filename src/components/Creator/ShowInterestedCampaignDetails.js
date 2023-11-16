@@ -52,12 +52,14 @@ function ShowInterestedCampaignDetails() {
   const [interestDialogOpen, setInterestDialogOpen] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 
 
   const makeSecondRequest = (id) => {
-    return axios.post("http://localhost:8000/api/creator/get-myCampaign-details", {
+    return axios.post(baseUrl + "/creator/get-myCampaign-details", {
         userId: id, campaignId: campaignId });
   };
 

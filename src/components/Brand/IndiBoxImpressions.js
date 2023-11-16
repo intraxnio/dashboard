@@ -9,6 +9,8 @@ function IndiBoxImpressions({userId}) {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [impressions, setImpressions] = useState('');
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
   function formatNumber(number) {
     if (number >= 1000000) {
@@ -22,7 +24,7 @@ function IndiBoxImpressions({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post("http://localhost:8000/api/brand/creator-impressions-28days", {
+    axios.post(baseUrl + "/brand/creator-impressions-28days", {
       userId: id,
     }).then(ress=>{
 

@@ -12,13 +12,15 @@ function AgeWiseChart(){
 const user = useSelector(state => state.creatorUser);
 const [data, setData] = useState([]);
 const [loading, setLoading] = useState(true);
+const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 useEffect(() => {
 
   setTimeout(()=>{
 
-    axios.post("http://localhost:8000/api/v1/creator/creator-age-wise-followers", {
+    axios.post(baseUrl + "/creator/creator-age-wise-followers", {
       userId: user.creator_id,
     }).then(ress=>{
   

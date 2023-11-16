@@ -10,11 +10,13 @@ function IndiAgeWiseChart({userId}){
 
 const [data, setData] = useState([]);
 const [loading, setLoading] = useState(true);
+const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 
 const makeSecondRequest = (id) => {
-  axios.post("http://localhost:8000/api/brand/creator-age-wise-followers", {
+  axios.post(baseUrl+ "/brand/creator-age-wise-followers", {
     userId: id,
   }).then(ress=>{
 

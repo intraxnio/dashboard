@@ -35,6 +35,8 @@ export default function CampaignsApprovedForCreator() {
   const [campaignData, setCampaignData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(true);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 
@@ -59,7 +61,7 @@ export default function CampaignsApprovedForCreator() {
 
   
 
-    axios.post("http://localhost:8000/api/v1/creator/approved/campaigns", {
+    axios.post(baseUrl + "/creator/approved/campaigns", {
       userId: user.creator_id,
     }).then(ress=>{
 

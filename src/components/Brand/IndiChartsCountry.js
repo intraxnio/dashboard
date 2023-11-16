@@ -13,10 +13,12 @@ function IndiChartsCountry({userId}) {
   const [posts, setPosts] = useState('');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
   const makeSecondRequest = (id) => {
-    axios.post("http://localhost:8000/api/brand/creator-audience-countries", {
+    axios.post(baseUrl + "/brand/creator-audience-countries", {
       userId: id,
     }).then(ress=>{
 

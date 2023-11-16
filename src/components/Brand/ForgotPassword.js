@@ -20,7 +20,9 @@ function ForgotPassword() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogForPassword, setDialogForPassword] = useState(false);
 
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

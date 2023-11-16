@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 // const username= "intraxnio";
 // const password = 'Pa55w0Rd';
 // var dbUrl= "mongodb+srv://"+username+":"+password+"@cluster0.1u64z5l.mongodb.net/?retryWrites=true&w=majority"
+
 var dbUrl= process.env.MONGODB_URL;
 
 

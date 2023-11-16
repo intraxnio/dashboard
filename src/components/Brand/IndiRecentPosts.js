@@ -10,6 +10,8 @@ function IndiTableComponent({userId}) {
     // const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [posts, setPosts] = useState([]);
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
     function formatNumber(number) {
       if (number >= 1000000) {
@@ -23,7 +25,7 @@ function IndiTableComponent({userId}) {
   
     
     const makeSecondRequest = (id) => {
-      axios.post("http://localhost:8000/api/brand/creator-dashboard-posts", {
+      axios.post(baseUrl + "/brand/creator-dashboard-posts", {
         userId: id,
       }).then(ress=>{
   

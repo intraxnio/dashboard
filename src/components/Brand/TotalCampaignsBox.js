@@ -13,7 +13,9 @@ function TotalCampaignsBox() {
   const [totalCampaigns, setTotalCampaigns] = useState('');
   const user = useSelector((state) => state.brandUser);
 
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

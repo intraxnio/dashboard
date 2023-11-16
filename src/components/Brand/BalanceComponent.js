@@ -12,7 +12,9 @@ export default function BalanceComponent() {
 
 const user = useSelector(state => state.brandUser);
 const [balance, setBalance] = useState('');
-const baseUrl = "http://localhost:8000/api";
+// const baseUrl = "http://localhost:8000/api";
+const baseUrl = "http://13.234.41.129:8000/api";
+
 
 
 

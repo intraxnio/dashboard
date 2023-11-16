@@ -9,6 +9,8 @@ function IndiBoxPosts({userId}) {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [posts, setPosts] = useState('');
+  const baseUrl = "http://13.234.41.129:8000/api";
+
 
   function formatNumber(number) {
     if (number >= 1000000) {
@@ -22,7 +24,7 @@ function IndiBoxPosts({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post("http://localhost:8000/api/brand/creator-posts", {
+    axios.post(baseUrl + "/brand/creator-posts", {
       userId: id,
     }).then(ress=>{
 
