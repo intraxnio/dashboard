@@ -20,7 +20,7 @@ function BrandLogin() {
   const [password, getPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.brandUser);
-  const baseUrl = "http://localhost:8000/api";
+  const baseUrl = "http://13.234.41.129:8000/api";
   // proxy_pass http://127.0.0.1:8000;
   
 
