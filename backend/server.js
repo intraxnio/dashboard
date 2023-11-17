@@ -37,7 +37,7 @@ process.on("uncaughtException", (err) => {
 // }
 
 const corsOptions = {
-  origin: 'https://app.broadreach.in',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionSuccessStatus: 200,
