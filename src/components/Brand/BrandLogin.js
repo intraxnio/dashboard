@@ -21,7 +21,7 @@ function BrandLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.brandUser);
   // const baseUrl = "https://127.0.0.1:8000/api";
-  // const baseUrl = "https://13.234.41.129:8000/api";
+  const baseUrl = "https://app.broadreach.in:8000/api";
 
   // proxy_pass http://127.0.0.1:8000;
   
@@ -56,8 +56,7 @@ function BrandLogin() {
     else{
       setIsLoading(true);
 
-      // await axios.post(baseUrl+"/brand/brand-login",
-      await axios.post("/api/brand/brand-login",
+      await axios.post(baseUrl+"/brand/brand-login",
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
       )
