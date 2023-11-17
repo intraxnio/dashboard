@@ -37,11 +37,18 @@ process.on("uncaughtException", (err) => {
 
 const corsOptions ={
   // origin: 'https://localhost:4700', 
-  origin: ['https://app.broadreach.in', 'https://api.broadreach.in'], 
+  origin: 'https://app.broadreach.in', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials:true,         
   optionSuccessStatus:200
 }
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://app.broadreach.in');
+  res.header('Access-Control-Allow-Methods', 'GET, HEAD, PATCH, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(cors(corsOptions));
 
