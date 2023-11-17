@@ -56,7 +56,7 @@ app.use("/api/creator", creator);
 app.use(ErrorHandler);
 
 //create server
-const server = app.listen(8000, () => {
+const server = app.listen(443, () => {
   // console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
 
