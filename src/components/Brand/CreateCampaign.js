@@ -53,7 +53,7 @@ function CreateCampaign() {
   const [showAlert, setShowAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 

@@ -16,7 +16,7 @@ function InstagramCode() {
     const access_code = new URLSearchParams(location.search).get('code');
     var fb_redirecturl = 'https://app.broadreach.in/insta_graph_dialogue';
   const dispatch = useDispatch();
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
   

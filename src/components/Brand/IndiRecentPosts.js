@@ -10,7 +10,7 @@ function IndiTableComponent({userId}) {
     // const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [posts, setPosts] = useState([]);
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
     function formatNumber(number) {

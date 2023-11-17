@@ -36,7 +36,7 @@ export default function CampaignNewRequests() {
   const [infoDialogContent, setInfoDialogContent] = useState("");
   const [balance, setBalance] = useState("");
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 

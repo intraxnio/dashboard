@@ -27,7 +27,7 @@ function CreatorLogin() {
   var fbAppID = '957873452119557';
   var fb_redirecturl = 'https://app.broadreach.in/insta_graph_dialogue';
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 

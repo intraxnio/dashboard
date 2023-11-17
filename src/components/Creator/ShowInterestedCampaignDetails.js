@@ -52,7 +52,7 @@ function ShowInterestedCampaignDetails() {
   const [interestDialogOpen, setInterestDialogOpen] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 

@@ -28,7 +28,7 @@ export default function CampaignMetricsIndividualPosts({ campaignId }) {
   const [selectedRows, setSelectedRows] = useState([]);
   const [loading, setLoading] = useState(true);
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
   useEffect(() => {

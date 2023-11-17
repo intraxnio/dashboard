@@ -35,7 +35,7 @@ export default function CampaignsApprovedForCreator() {
   const [campaignData, setCampaignData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(true);
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 

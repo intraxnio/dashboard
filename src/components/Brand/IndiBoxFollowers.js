@@ -9,7 +9,7 @@ function IndiBoxFollowers({userId}) {
 
   const navigate = useNavigate();
   const [followers, setFollowers] = useState('');
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
 
   function formatNumber(number) {

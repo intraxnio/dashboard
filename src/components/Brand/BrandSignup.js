@@ -41,7 +41,7 @@ function BrandSignup() {
 
 
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "http://13.234.41.129:8000/api";
+  const baseUrl = "https://13.234.41.129:8000/api";
 
   const handleClickAway = () => {
     //this function keeps the dialogue open, even when user clicks outside the dialogue. dont delete this function
