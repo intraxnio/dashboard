@@ -21,6 +21,7 @@ function BrandLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.brandUser);
   // const baseUrl = "https://127.0.0.1:8000/api";
+  // const baseUrl = "https://127.0.0.1:8000/api";
   const baseUrl = "https://app.broadreach.in:8000/api";
 
   // proxy_pass http://127.0.0.1:8000;
