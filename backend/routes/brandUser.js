@@ -60,7 +60,7 @@ const generatePin = () => {
 
 
 
-router.get("/endpoint-1", (req, res, next) => {
+router.get("/api/endpoint-1", (req, res, next) => {
 
   res.status(200).json({
     success: true,
