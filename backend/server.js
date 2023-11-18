@@ -54,9 +54,9 @@ app.use(cors(corsOptions));
 
 
 
-app.use("/api/brand", brand);
+app.use("/brand", brand);
 // app.use("/api/auth", auth);
-app.use("/api/creator", creator);
+app.use("/creator", creator);
 
 app.get("/api/endpoint-1", (req, res, next) => {
 

@@ -58,7 +58,7 @@ function BrandLogin() {
       setIsLoading(true);
 
       // await axios.post(baseUrl+"brand/brand-login",
-      await axios.post("/api/api/brand/brand-login",
+      await axios.post("/api/brand/brand-login",
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
       )
