@@ -113,7 +113,7 @@ function CreatorSignup() {
       else {
 
 
-      await axios.post(baseUrl+"/creator/check-resetPin-withDb-InfluencerTemp",
+      await axios.post("/api/creator/check-resetPin-withDb-InfluencerTemp",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )

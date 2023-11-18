@@ -46,7 +46,7 @@ function CreatorProfile() {
     const fetchData = async () => {
       try {
 
-            axios.post(baseUrl + "/creator/creator-camp-details", {
+            axios.post("/api/creator/creator-camp-details", {
             userId: user.creator_id
           }).then(ress=>{
       

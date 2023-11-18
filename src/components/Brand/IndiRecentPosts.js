@@ -25,7 +25,7 @@ function IndiTableComponent({userId}) {
   
     
     const makeSecondRequest = (id) => {
-      axios.post(baseUrl + "/brand/creator-dashboard-posts", {
+      axios.post("/api/brand/creator-dashboard-posts", {
         userId: id,
       }).then(ress=>{
   

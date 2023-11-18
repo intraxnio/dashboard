@@ -62,7 +62,7 @@ useEffect(() => {
 
   
 
-    axios.post(baseUrl + "/creator/myCampaigns", {
+    axios.post("/api/creator/myCampaigns", {
       userId: user.creator_id,
     }).then(ress=>{
 

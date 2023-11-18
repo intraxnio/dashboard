@@ -24,7 +24,7 @@ function IndiBoxFollowers({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post(baseUrl + "/brand/creator-followers", {
+    axios.post("/api/brand/creator-followers", {
       userId: id,
     }).then(ress=>{
 

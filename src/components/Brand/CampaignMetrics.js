@@ -36,7 +36,7 @@ function CampaignMetrics() {
   }
 
   useEffect(() => {
-      axios.post(baseUrl+"/brand/completed-campaign-metrics", {
+      axios.post("/api/brand/completed-campaign-metrics", {
         campaignId: campaignId,
       }).then(ress=>{
         

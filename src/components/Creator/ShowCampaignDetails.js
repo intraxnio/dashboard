@@ -80,12 +80,12 @@ const steps = [
 ];
 
   const makeSecondRequest = (id) => {
-    return axios.post(baseUrl + "/creator/get-campaign-details", {
+    return axios.post("/api/creator/get-campaign-details", {
         userId: id, campaignId: campaignId });
   };
 
   const makeThirdRequest = () => {
-    return axios.post(baseUrl + "/creator/campaign/check-shown-interest", {
+    return axios.post("/api/creator/campaign/check-shown-interest", {
         userId: user.creator_id, campaignId: campaignId });
   };
 
@@ -134,7 +134,7 @@ const steps = [
    
     try {
 
-        axios.post(baseUrl + "/creator/campaign/show-interest", {
+        axios.post("/api/creator/campaign/show-interest", {
           userId: user.creator_id,
           campaignId: campaignId,
           price: price,

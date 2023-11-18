@@ -55,7 +55,7 @@ export default function CreatorScheduledPosts() {
     setTimeout(()=>{
       
 
-    axios.post("http://localhost:8000/api/v1/creator/scheduled/scheduled-campaigns", {
+    axios.post("/api/creator/scheduled/scheduled-campaigns", {
       userId: user.creator_id
     }).then(ress=>{
 

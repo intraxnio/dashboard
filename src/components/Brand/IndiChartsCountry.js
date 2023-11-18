@@ -18,7 +18,7 @@ function IndiChartsCountry({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post(baseUrl + "/brand/creator-audience-countries", {
+    axios.post("/api/brand/creator-audience-countries", {
       userId: id,
     }).then(ress=>{
 

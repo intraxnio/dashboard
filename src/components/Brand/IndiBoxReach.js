@@ -24,7 +24,7 @@ function IndiBoxReach({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post(baseUrl +"/brand/creator-reach-28days", {
+    axios.post("/api/brand/creator-reach-28days", {
       userId: id,
     }).then(ress=>{
 

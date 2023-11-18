@@ -63,7 +63,7 @@ export default function CampaignsOpenForCreator() {
     if(user.creator_id){
 
 
-  axios.post(baseUrl + "/creator/get-campaigns", {
+  axios.post("/api/creator/get-campaigns", {
       userId: user.creator_id,
     }).then(ress=>{
 

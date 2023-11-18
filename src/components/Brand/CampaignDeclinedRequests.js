@@ -28,7 +28,7 @@ const baseUrl = "https://13.234.41.129:8000/api";
 
 
 useEffect(() => {
-      axios.post(baseUrl+"/brand/campaign-declined-requests", {
+      axios.post("/api/brand/campaign-declined-requests", {
       campaignId: campaignId
     }).then(ress=>{
 

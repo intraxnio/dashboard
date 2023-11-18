@@ -283,7 +283,7 @@ setImageFiles(selectedFiles);
 
     setLoading(true);
 
-    await axios.post(baseUrl+"/brand/create-campaign", dataForm, {
+    await axios.post("/api/brand/create-campaign", dataForm, {
       withCredentials: true,
       headers: {
         'Content-Type': 'multipart/form-data',

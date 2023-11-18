@@ -18,7 +18,7 @@ async function cancelEdit(e){
   async function updateCampaign(e) {
 
     e.preventDefault();
-      await axios.post(baseUrl+"/brand/update-campaign", {
+      await axios.post("/api/brand/update-campaign", {
       campaignName: campaignName,
       caption: caption,
       // publishDate: selectedDate,

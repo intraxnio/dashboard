@@ -33,13 +33,13 @@ export default function CampaignMetricsIndividualPosts({ campaignId }) {
 
   useEffect(() => {
     axios
-      .post(baseUrl + "/brand/completed-campaign-metrics-from-Api", {
+      .post("/api/brand/completed-campaign-metrics-from-Api", {
         campaignId: campaignId,
       })
       .then((res) => {
         if (res.data.status) {
           axios
-            .post(baseUrl + "/brand/completed-campaign-metrics-table-from-Db", {
+            .post("/api/brand/completed-campaign-metrics-table-from-Db", {
               campaignId: campaignId,
             })
             .then((ress) => {

@@ -61,7 +61,7 @@ export default function CampaignsApprovedForCreator() {
 
   
 
-    axios.post(baseUrl + "/creator/approved/campaigns", {
+    axios.post("/api/creator/approved/campaigns", {
       userId: user.creator_id,
     }).then(ress=>{
 

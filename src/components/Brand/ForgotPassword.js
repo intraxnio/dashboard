@@ -52,7 +52,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl+"/brand/check-email-exists-sendMail",
+      await axios.post("/api/brand/check-email-exists-sendMail",
         { email: email.toLowerCase() },
         {withCredentials: true}
       )
@@ -106,7 +106,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl+"/brand/check-resetPin-withDb",
+      await axios.post("/api/brand/check-resetPin-withDb",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )
@@ -170,7 +170,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl+"/brand/update-password",
+      await axios.post("/api/brand/update-password",
         { email: email.toLowerCase(), password : password },
         {withCredentials: true}
       )

@@ -20,7 +20,7 @@ function IndiChartsCity({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post(baseUrl + "/brand/creator-audience-cities", {
+    axios.post("/api/brand/creator-audience-cities", {
       userId: id,
     }).then(ress=>{
 

@@ -38,7 +38,7 @@ function TotalRevenueGenerated() {
       setLoading(true);
       try {
 
-        axios.post(baseUrl+"/creator/total-revenue-generated", {
+        axios.post("/api/creator/total-revenue-generated", {
           userId: user.creator_id,
         }).then(ress=>{
     

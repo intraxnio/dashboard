@@ -24,7 +24,7 @@ function IndiBoxImpressions({userId}) {
 
 
   const makeSecondRequest = (id) => {
-    axios.post(baseUrl + "/brand/creator-impressions-28days", {
+    axios.post("/api/brand/creator-impressions-28days", {
       userId: id,
     }).then(ress=>{
 

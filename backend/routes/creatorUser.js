@@ -45,7 +45,7 @@ const axios = require("axios");
 
 var fbAppID = "957873452119557";
 // var fb_redirecturl = "https://localhost:4700/insta_redirect_url";
-var fb_redirecturl = "https://localhost:4700/insta_graph_dialogue";
+var fb_redirecturl = "https://app.broadreach.in/insta_graph_dialogue";
 var fb_secret = "f4c9a7fd08841f50856f684b0448fff8";
 
 

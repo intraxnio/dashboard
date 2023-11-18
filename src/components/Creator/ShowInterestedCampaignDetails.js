@@ -59,7 +59,7 @@ function ShowInterestedCampaignDetails() {
 
 
   const makeSecondRequest = (id) => {
-    return axios.post(baseUrl + "/creator/get-myCampaign-details", {
+    return axios.post("/api/creator/get-myCampaign-details", {
         userId: id, campaignId: campaignId });
   };
 

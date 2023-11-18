@@ -56,7 +56,7 @@ function CreatorLogin() {
 
       setIsLoading(true);
 
-    await axios.post( baseUrl+"/creator/creator-login",
+    await axios.post("/api/creator/creator-login",
 
         { email: email, password: password },
         {withCredentials: true}

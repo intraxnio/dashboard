@@ -91,13 +91,13 @@ export default function CampaignNewRequests() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.post(baseUrl+"/brand/campaign-new-requests",
+      const res = await axios.post("/api/brand/campaign-new-requests",
         {
           campaignId: campaignId,
         }
       );
 
-      const fetchBalance = await axios.post(baseUrl+"/brand/get-account-balance",
+      const fetchBalance = await axios.post("/api/brand/get-account-balance",
         {
           brand_id: user.brand_id,
         }
@@ -150,7 +150,7 @@ export default function CampaignNewRequests() {
   );
 
   const handleAccept = () => {
-      axios.post(baseUrl+"/brand/campaign-new-requests-accept", {
+      axios.post("/api/brand/campaign-new-requests-accept", {
         campaignId: currentCampaignId,
         creatorId: currentCreatorId,
         costPerPost: costPerPost,
@@ -169,7 +169,7 @@ export default function CampaignNewRequests() {
   };
 
   const handleDecline = () => {
-    axios.post(baseUrl+"/brand/campaign-new-requests-decline",
+    axios.post("/api/brand/campaign-new-requests-decline",
         {
           campaignId: currentCampaignId,
           creatorId: currentCreatorId,

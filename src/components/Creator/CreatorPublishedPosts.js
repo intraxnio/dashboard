@@ -55,7 +55,7 @@ export default function CreatorPublishedPosts() {
     setTimeout(()=>{
       
 
-    axios.post("http://localhost:8000/api/v1/creator/campaigns/published-campaigns", {
+    axios.post("/api/creator/campaigns/published-campaigns", {
       userId: user.creator_id
     }).then(ress=>{
 

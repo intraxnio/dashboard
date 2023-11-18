@@ -16,7 +16,7 @@ const baseUrl = "https://13.234.41.129:8000/api";
 
 
 const makeSecondRequest = (id) => {
-  axios.post(baseUrl+ "/brand/creator-age-wise-followers", {
+  axios.post("/api/brand/creator-age-wise-followers", {
     userId: id,
   }).then(ress=>{
 

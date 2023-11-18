@@ -38,7 +38,7 @@ function TotalCampaignsDone() {
       setLoading(true);
       try {
 
-        axios.post(baseUrl+"/creator/get-total-campaigns-done", {
+        axios.post("/api/creator/get-total-campaigns-done", {
           userId: user.creator_id,
         }).then(ress=>{
     

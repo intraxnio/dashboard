@@ -21,7 +21,7 @@ function InstagramCode() {
 
   
     const makeSecondRequest = (id) => {
-      return axios.post(baseUrl + "/creator/fb_insta_redirect_url", {
+      return axios.post("/api/creator/fb_insta_redirect_url", {
         access_code,
         fb_redirecturl,    
         userId: id });

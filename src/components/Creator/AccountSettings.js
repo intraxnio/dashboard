@@ -55,7 +55,7 @@ export default function AccountSettings() {
 
 const fetchProfile = useCallback(async () => {
   try {
-    axios.post(baseUrl + "/creator/email-mobile", {
+    axios.post("/api/creator/email-mobile", {
       userId: user.creator_id,
     }).then(ress => {
       setCategory(ress.data.data.category);
@@ -115,7 +115,7 @@ useEffect(() => {
       else {
 
 
-      await axios.post(baseUrl+"/creator/change-password",
+      await axios.post("/api/creator/change-password",
         { userId: user.creator_id, password : originalPassword, newPassword : newPassword },
         {withCredentials: true}
       )

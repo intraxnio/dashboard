@@ -20,7 +20,7 @@ import {login} from '../../store/creatorSlice';
 function InstagramLogin() {
 
   var fbAppID = '957873452119557';
-  var fb_redirecturl = 'https://localhost:4700/insta_graph_dialogue';
+  var fb_redirecturl = 'https://app.broadreach.in/insta_graph_dialogue';
   const user = useSelector(state => state.creatorUser);
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState('');
@@ -41,7 +41,7 @@ function InstagramLogin() {
 
       try {
 
-        axios.post(baseUrl+"/creator/profile-followers-name-image", {
+        axios.post("/api/creator/profile-followers-name-image", {
           userId: user.creator_id,
         }).then(ress=>{
     

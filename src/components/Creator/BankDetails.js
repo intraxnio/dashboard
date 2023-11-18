@@ -42,7 +42,7 @@ export default function BankDetails() {
 
 const fetchBankDetails = useCallback(async () => {
   try {
-    axios.post(baseUrl + "/creator/bank-details", {
+    axios.post("/api/creator/bank-details", {
       userId: user.creator_id,
     }).then(ress => {
 
@@ -101,7 +101,7 @@ useEffect(() => {
       else {
 
 
-      await axios.post(baseUrl+"/creator/submit-bankDetails",
+      await axios.post("/api/creator/submit-bankDetails",
         { userId: user.creator_id,
             bankName : bankName,
             accountNumber : accountNumber,
