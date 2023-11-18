@@ -13,13 +13,12 @@ export default function BalanceComponent() {
 const user = useSelector(state => state.brandUser);
 const [balance, setBalance] = useState('');
 // const baseUrl = "http://localhost:8000/api";
-const baseUrl = "https://13.234.41.129:8000/api";
 
 
 
 
 useEffect(() => {
-      axios.post(baseUrl+ "/brand/get-account-balance", {
+      axios.post("/api/brand/get-account-balance", {
       brand_id: user.brand_id
     }).then(ress=>{
 

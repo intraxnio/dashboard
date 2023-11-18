@@ -30,7 +30,6 @@ export default function BillingAndPlans() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
 
   
 
@@ -49,7 +48,7 @@ export default function BillingAndPlans() {
     
     const fetchData = async () => {
       try {
-          axios.post(baseUrl+"/brand/check-brand-plan-details", {
+          axios.post("/api/brand/check-brand-plan-details", {
             userId: user.brand_id
           }).then(ress=>{
       

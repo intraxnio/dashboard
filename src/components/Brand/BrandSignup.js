@@ -84,7 +84,7 @@ function BrandSignup() {
       setIsLoading(true);
 
       try {
-          const response = await axios.post(baseUrl+"/brand/signup-brand", {
+          const response = await axios.post("/api/brand/signup-brand", {
           email: email,
           password: password,
           brand: brand,
@@ -138,7 +138,7 @@ function BrandSignup() {
       else {
 
 
-      await axios.post(baseUrl+"/brand/check-resetPin-withDb-brandTemps",
+      await axios.post("/api/brand/check-resetPin-withDb-brandTemps",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )

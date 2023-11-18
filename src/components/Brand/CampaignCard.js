@@ -97,7 +97,7 @@ export default function CampaignCard() {
   const fetchData = async () => {
     try {
 
-      axios.post(baseUrl+"/brand/all-campaigns", {
+      axios.post("/api/brand/all-campaigns", {
         userId: user.brand_id,
       })
       .then((ress) => {
@@ -161,7 +161,7 @@ export default function CampaignCard() {
 
     try{
 
-      axios.post(baseUrl+"/brand/check-campaign-deletable", {
+      axios.post("/api/brand/check-campaign-deletable", {
         campaignId: currentCampaignId,
       })
       .then((ress) => {
@@ -196,7 +196,7 @@ export default function CampaignCard() {
   };
 
   const handleMarkAccept = () => {
-    axios.post(baseUrl+"/brand/campaign-mark-completed", {
+    axios.post("/api/brand/campaign-mark-completed", {
         campaignId: currentCampaignId,
       })
       .then((ress) => {
@@ -216,7 +216,7 @@ export default function CampaignCard() {
   };
 
   const handleDeleteAccept = () => {
-    axios.post(baseUrl+"/brand/campaign-delete", {
+    axios.post("/api/brand/campaign-delete", {
         campaignId: currentCampaignId,
       })
       .then((ress) => {
@@ -241,7 +241,7 @@ export default function CampaignCard() {
   const createCampaign = async (e) => {
     e.preventDefault();
 
-      axios.post(baseUrl+"/brand/check-brand-plan-details", {
+      axios.post("/api/brand/check-brand-plan-details", {
       userId: user.brand_id
     }).then(ress=>{
 

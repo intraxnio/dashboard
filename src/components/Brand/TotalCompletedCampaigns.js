@@ -33,7 +33,7 @@ function TotalCompletedCampaigns() {
     const fetchData = async () => {
             setLoading(true);
       try {
-        axios.post(baseUrl+ "/brand/get-total-completed-campaigns", {
+        axios.post("/api/brand/get-total-completed-campaigns", {
           userId: user.brand_id,
         }).then(ress=>{
     

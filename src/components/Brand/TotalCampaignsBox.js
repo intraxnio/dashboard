@@ -37,7 +37,7 @@ function TotalCampaignsBox() {
       setLoading(true);
       try {
 
-        axios.post(baseUrl+"/brand/get-total-campaigns", {
+        axios.post("/api/brand/get-total-campaigns", {
           userId: user.brand_id,
         }).then(ress=>{
     

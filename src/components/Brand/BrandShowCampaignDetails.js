@@ -35,20 +35,19 @@ function BrandShowCampaignDetails() {
   const [requests, setRequests] = useState();
   const user = useSelector(state => state.brandUser);
   // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
 
  
 
 
   const makeSecondRequest = (id) => {
     // return axios.post("http://localhost:8000/api/v1/brand/get-campaign-details", {
-      return axios.post(baseUrl+"/brand/get-campaign-details", {
+      return axios.post("/api/brand/get-campaign-details", {
         userId: id, campaignId: campaignId });
   };
 
   const makeThirdRequest = () => {
     // return axios.post("http://localhost:8000/api/v1/brand/campaign-new-requests-total-number", {
-      return axios.post(baseUrl+"/brand/campaign-new-requests-total-number", {
+      return axios.post("/api/brand/campaign-new-requests-total-number", {
         campaignId: campaignId });
   };
 

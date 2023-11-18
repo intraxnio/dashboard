@@ -33,7 +33,7 @@ const baseUrl = "https://13.234.41.129:8000/api";
 
 
 useEffect(() => {
-      axios.post(baseUrl+"/brand/campaign-approved-requests", {
+      axios.post("/api/brand/campaign-approved-requests", {
       campaignId: campaignId
     }).then(ress=>{
 
