@@ -58,6 +58,16 @@ app.use("/api/brand", brand);
 // app.use("/api/auth", auth);
 app.use("/api/creator", creator);
 
+app.get("/endpoint-1", (req, res, next) => {
+
+  res.status(200).json({
+    success: true,
+
+    data: {
+      message: 'Hi Jaffa...'
+    }
+  });
+});
 
 //Error Handling
 app.use(ErrorHandler);
