@@ -58,7 +58,7 @@ app.use("/api/brand", brand);
 // app.use("/api/auth", auth);
 app.use("/api/creator", creator);
 
-app.get("/endpoint-1", (req, res, next) => {
+app.get("api/endpoint-1", (req, res, next) => {
 
   res.status(200).json({
     success: true,
