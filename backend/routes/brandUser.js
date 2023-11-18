@@ -66,7 +66,7 @@ router.get("/endpoint-1", (req, res, next) => {
     success: true,
 
     data: {
-      message: 'Hi Jaffa...'
+      message: 'Hi Jaffa...from brandUser'
     }
   });
 });
