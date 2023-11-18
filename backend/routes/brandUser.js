@@ -59,6 +59,19 @@ const generatePin = () => {
 };
 
 
+
+router.get("/endpoint-1", (req, res, next) => {
+
+  res.status(200).json({
+    success: true,
+
+    data: {
+      message: 'Hi Jaffa...'
+    }
+  });
+});
+
+
 router.post("/signup-brand", async (req, res, next) => {
   try {
     const { email, password, brand, category, igHandle } = req.body;
