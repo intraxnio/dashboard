@@ -208,7 +208,7 @@ function CreatorSignup() {
       flexDirection={'column'} 
       maxWidth={450} 
       margin='auto'
-      marginTop={15}
+      marginTop={8}
       padding={1}
       >
         <Typography variant='h5' padding={3} textAlign='center'>Influencer Signup</Typography>
