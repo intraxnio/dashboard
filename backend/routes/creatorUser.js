@@ -20,6 +20,7 @@ const PublishedPosts = require("../models/PublishedPosts");
 const ScheduledPosts = require("../models/ScheduledPosts");
 const CreatorBankDetails = require("../models/BankDetails");
 const AllBankNames = require("../models/AllBanks");
+const AllCreatorCategories = require("../models/AllCreatorCategories");
 var jwt = require("jsonwebtoken");
 var jwtSecret = "P@sswordIsDangerous#";
 const { body, validationResult } = require("express-validator");
