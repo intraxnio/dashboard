@@ -19,6 +19,7 @@ const Brand = require("../models/Brand");
 const PublishedPosts = require("../models/PublishedPosts");
 const ScheduledPosts = require("../models/ScheduledPosts");
 const CreatorBankDetails = require("../models/BankDetails");
+const AllBankNames = require("../models/AllBanks");
 var jwt = require("jsonwebtoken");
 var jwtSecret = "P@sswordIsDangerous#";
 const { body, validationResult } = require("express-validator");
@@ -998,6 +999,7 @@ router.post('/get-campaigns', async (req, res) => {
       _id: { $nin: excludedCampaignIds }, // Exclude campaigns with interest
       brand_category: { $in: categoryMapping[userDetails.category] },
       is_completed: false,
+      in_review: false,
       publishDate: { $gt: today }
     }).populate('brandUser_id');
 
@@ -2127,6 +2129,17 @@ router.post('/total-revenue-generated', async function (req, res){
 
 
 
+
+});
+
+router.get('/get-all-bank-names', async function (req, res) {
+
+  await AllBankNames.find().then(async (result)=>{
+
+    res.status(200).send({ data: result});
+    res.end();
+
+  });
 
 });
 

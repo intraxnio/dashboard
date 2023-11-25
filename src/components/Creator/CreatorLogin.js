@@ -26,8 +26,6 @@ function CreatorLogin() {
   const [isLoading, setIsLoading] = useState(false);
   var fbAppID = '957873452119557';
   var fb_redirecturl = 'https://app.broadreach.in/insta_graph_dialogue';
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
 
 
 
@@ -181,7 +179,7 @@ function CreatorLogin() {
 
               <Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="#" underline="none" sx={{color: '#362FD9'}}>
+                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
                   BroadReach's Terms of Service
                 </Link>
               </Typography>

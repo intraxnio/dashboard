@@ -20,17 +20,6 @@ function BrandLogin() {
   const [password, getPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.brandUser);
-  // const baseUrl = "https://127.0.0.1:8000/api";
-  // const baseUrl = "https://127.0.0.1:8000/api";
-  const baseUrl = "https://app.broadreach.in:8000/api/";
-
-  // proxy_pass http://127.0.0.1:8000;
-  
-
-
-
-
-
 
   
   useEffect(() => {
@@ -57,14 +46,11 @@ function BrandLogin() {
     else{
       setIsLoading(true);
 
-      // await axios.post(baseUrl+"brand/brand-login",
       await axios.post("/api/brand/brand-login",
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
       )
       .then((res) => {
-
-        console.log('Entered res block');
 
           const brand_id = res.data.brandObj.brand_id;
           const brand_name = res.data.brandObj.brand_name;

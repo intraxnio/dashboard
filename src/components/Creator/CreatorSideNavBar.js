@@ -2,27 +2,24 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import { deepOrange, green, purple, blue, orange, indigo } from '@mui/material/colors';
+import { deepOrange, blue, indigo } from '@mui/material/colors';
 import { Outlet} from "react-router-dom";
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import PortraitOutlinedIcon from '@mui/icons-material/PortraitOutlined';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 
 
@@ -46,6 +43,7 @@ function ResponsiveDrawer(props) {
       <Divider />
 
       <List>
+
         <ListItem key="Campaigns" disablePadding>
           <Link
             style={{ textDecoration: "none", color: "black" }}
@@ -54,7 +52,7 @@ function ResponsiveDrawer(props) {
           >
             <ListItemButton>
               <ListItemIcon>
-                <ArticleOutlinedIcon />
+                <ArticleOutlinedIcon sx={{ color: deepOrange[500] }}/>
               </ListItemIcon>
               <ListItemText primary="Campaigns" />
             </ListItemButton>
@@ -70,7 +68,7 @@ function ResponsiveDrawer(props) {
           >
             <ListItemButton>
               <ListItemIcon>
-                <PortraitOutlinedIcon />
+                <PortraitOutlinedIcon sx={{ color: blue[500] }}/>
               </ListItemIcon>
               <ListItemText primary="Profile" />
             </ListItemButton>
@@ -78,6 +76,24 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
       </List>
+
+      <List sx={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+    
+      <ListItem key="Support" disablePadding>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to="/creator/support"
+            onClick={handleDrawerToggle}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <SupportAgentIcon sx={{ color: indigo[500] }}/>
+              </ListItemIcon>
+              <ListItemText primary="Support" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+</List>
 
       <Divider />
     </div>

@@ -410,7 +410,7 @@ else {
 });
 
 
-router.post("/create-campaign", upload.array('images', 5), async (req, res, next) => {
+router.post("/create-campaign", upload.array('images', 10), async (req, res, next) => {
   const {
     userId,
     campaignName,
@@ -584,41 +584,57 @@ router.post('/check-campaign-deletable', (req, res, next) => {
     });
 
 
-router.post('/all-campaigns', async (req, res, next) => {
-  const user_id = req.body.userId;
+    router.post('/all-campaigns', async (req, res, next) => {
+      const user_id = req.body.userId;
+    
+      const result = await Campaign.find({ 'brandUser_id': user_id, 'is_del': false });
+    
+      // result.sort((a, b) => {
+      //   if (a.is_completed === b.is_completed) {
+      //     return a._id - b._id; // Sort by _id
+      //   }
+      //   if (a.is_completed === false) {
+      //     return -1; // On-Going campaigns come first
+      //   }
+      //   return 1; // Completed campaigns come next
+      // });
 
-  const result = await Campaign.find({ 'brandUser_id': user_id, 'is_del': false });
-
-  result.sort((a, b) => {
-    if (a.is_completed === b.is_completed) {
-      return a._id - b._id; // Sort by _id
-    }
-    if (a.is_completed === false) {
-      return -1; // On-Going campaigns come first
-    }
-    return 1; // Completed campaigns come next
-  });
-
-
-  const tableData = await Promise.all(result.map(async (data, index) => {
-  
-  
-    return {
-      id: index + 1,
-      campaignId: data._id,
-      name: data.campaign_name,
-      createdDate: data.created_at,
-      description: data.description,
-      publishDate: data.publishDate,
-      status: data.is_completed,
-      avatar: data.mediaFiles[0],
-      fileType: data.fileType,
-    };
-  }));
-  
-
-  res.status(200).send({ data: tableData });
-});
+      result.sort((a, b) => {
+        const dateA = new Date(a.created_at);
+        const dateB = new Date(b.created_at);
+      
+        // Compare dates in descending order
+        return dateB - dateA;
+      });
+    
+      const tableData = await Promise.all(result.map(async (data, index) => {
+        
+        let status = 'In-Review';
+        if (data.is_completed) {
+          status = 'Completed';
+        } else if (data.is_onGoing) {
+          status = 'On-Going';
+        } else if (data.in_review){
+          status = 'In-Review'
+        }
+    
+        return {
+          id: index + 1,
+          campaignId: data._id,
+          name: data.campaign_name,
+          createdDate: data.created_at,
+          description: data.description,
+          publishDate: data.publishDate,
+          status: status,
+          avatar: data.mediaFiles[0],
+          fileType: data.fileType,
+          is_completed : data.is_completed,
+          is_onGoing : data.is_onGoing,
+        };
+      }));
+    
+      res.status(200).send({ data: tableData });
+    });
 
 
 

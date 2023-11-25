@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import sideImage from '../../images/banner2.jpg'
+import React, { useState, useEffect, useCallback } from 'react'
 // import logo from '../images/Intraxn-logo.svg';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -13,7 +11,7 @@ import {
   Grid,
   MenuItem,
   Select,
-  ClickAwayListener, Dialog, DialogTitle, DialogContent, DialogActions,
+  ClickAwayListener, Dialog, DialogTitle, DialogContent, DialogActions, InputLabel, FormControl
   
 } from '@mui/material';
 import { toast } from "react-toastify";
@@ -30,12 +28,40 @@ function CreatorSignup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mobileNum, setMobileNum] = useState('');
-  const [category, setCategory] = useState('Actor');
+  const [category, setCategory] = useState('');
+  const [allCategories, setAllCategories] = useState([ ]);
   const [isLoading, setIsLoading] = useState(false);
   const [emailCode, setEmailCode] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
+
+
+
+
+
+
+
+  const getAllCategories = useCallback(async () => {
+
+    try {
+      axios.get("/api/creator/get-all-creator-categories").then(catResult => {
+  
+        setAllCategories(catResult.data.data);
+  
+      }).catch(er => {
+        // Handle error
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  
+  useEffect(() => {
+  
+      getAllCategories();
+  
+  
+  }, [getAllCategories]);
+
 
 
 
@@ -77,7 +103,7 @@ function CreatorSignup() {
 
     try {
 
-      await axios.post("http://localhost:8000/api/creator/signup-creator", 
+      await axios.post("/api/creator/signup-creator", 
       { email: email, password: password, category: category }).then((res) => {
 
         if(res.data.success){
@@ -201,35 +227,25 @@ function CreatorSignup() {
           label='Enter 10 digit mobile number'
           inputProps={{ maxLength: 10 }}
         />
-        <Select
-        labelId="category-label"
-        id="category-select"
-        value={category}
-        onChange={(e)=>{setCategory(e.target.value)}} >
-        <MenuItem disabled value="">Select Category</MenuItem>
-        <MenuItem value="Actor">Actor</MenuItem>
-        <MenuItem value="Artist">Artist</MenuItem>
-        <MenuItem value="Automotive">Automotive</MenuItem>
-        <MenuItem value="Baby or Kids">Baby | Kids</MenuItem>
-        <MenuItem value="Bank or Finance">Banking | Finance</MenuItem>
-        <MenuItem value="Beauty and Cosmetics">Beauty | Cosmetics</MenuItem>
-        <MenuItem value="Blogger or Vlogger">Blogger | Vlogger</MenuItem>
-        <MenuItem value="Digital Creator">Digital Creator</MenuItem>
-        <MenuItem value="Education">Education | E-learning</MenuItem>
-        <MenuItem value="Fashion Model">Fashion Model</MenuItem>
-        <MenuItem value="Fitness and Gym">Fitness | Gym</MenuItem>
-        <MenuItem value="Food Vlogger">Food Vlogger</MenuItem>
-        <MenuItem value="Gamer">Gamer</MenuItem>
-        <MenuItem value="Health and Wellness">Health | Wellness</MenuItem>
-        <MenuItem value="Home and Decor">Home | Decor</MenuItem>
-        <MenuItem value="Kitchen or Cooking">Kitchen | Cooking</MenuItem>
-        <MenuItem value="Musician or Band">Musician | Band</MenuItem>
-        <MenuItem value="Photographer">Photographer</MenuItem>
-        <MenuItem value="Real Estate">Real Estate</MenuItem>
-        <MenuItem value="Sports">Sports</MenuItem>
-        <MenuItem value="Travel or Outdoor">Travel | Outdoor</MenuItem>
-        {/* Add more MenuItem components for additional categories */}
-      </Select>
+
+<FormControl fullWidth>
+      {category ? null : <InputLabel id="creator-category">Creator Category</InputLabel>}
+      <Select
+      id="category-select"
+      value={category}
+      onChange={(e)=>{setCategory(e.target.value)}} >
+      {
+      allCategories.sort((a, b) => a.creator_category.localeCompare(b.creator_category)) // Sort banks alphabetically
+    .map((categoryName) => (
+      <MenuItem key={categoryName.creator_category} value={categoryName.creator_category}>
+        {categoryName.creator_category}
+      </MenuItem>
+    ))}
+     
+    </Select>
+    </FormControl>
+
+
         <Button type='submit' onClick={submit} variant='contained' 
                 sx={{
                       marginTop:3,
@@ -241,12 +257,13 @@ function CreatorSignup() {
                       }} 
                 size='large'>Create Account</Button>
 
-        <Typography variant="body2" sx={{marginTop : '5px'}}>
+<Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="#" underline="none" sx={{color: '#362FD9'}}>
+                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
                   BroadReach's Terms of Service
                 </Link>
               </Typography>
+              
         <Button variant='outlined' size='large' onClick={creatorLoginGo}
         sx={{
           marginTop:3,

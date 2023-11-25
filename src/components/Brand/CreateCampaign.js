@@ -86,8 +86,8 @@ function CreateCampaign() {
 
 
     if(fileType === 'video'){
-
-    const getVideoDetails = (videoFile) => {
+   setImageFiles(selectedFiles);
+ const getVideoDetails = (videoFile) => {
       return new Promise((resolve, reject) => {
           const videoElement = document.createElement('video');
           videoElement.src = URL.createObjectURL(videoFile);
@@ -133,7 +133,16 @@ processVideoFiles();
 
   else if(fileType === 'image')
   {
+    if (selectedFiles.length > 10) {
+      toast.error("You can only select up to 10 images.");
+      e.target.value = null;
+      return;
+    }
+
+    else {
 setImageFiles(selectedFiles);
+
+    }
 
   }
 
@@ -192,44 +201,6 @@ setImageFiles(selectedFiles);
       toast.warning("Please upload media file(s)");
     }
 
-    // else if( videoDuration > 60 && (videoWidth < 1920 || videoHeight < 1080 || videoHeight > 1080)){
-    //   setLoading(false);
-    //   setErrorMessage("For videos longer than one minute, it's recommended to use an aspect ratio of 16:9 with a width of (1080) px and a height of (608) px maximum.");
-    //   setErrorMessage(
-    //     <>
-    //     <Typography sx={{fontSize :'14px'}}>
-    //       For videos longer than one minute, Required video dimensions: <br />
-    //     </Typography>
-    //     <Typography sx={{fontSize :'15px'}}>
-    //       Width = 1920px &nbsp;&nbsp;Height = 1080px
-    //     </Typography>
-    //     </>
-
-    //     )
-    //   setShowAlert(true);
-     
-    // }
-
-    // else if( videoDuration < 60 && (videoWidth < 1080 || videoHeight < 1920 || videoHeight > 1920) ){
-    //   setLoading(false);
-    //   // toast.warning("For longer videos (1 Min+), Aspect Ratio should be 16:9 (1080 X 608)px ");
-    //   setErrorMessage(
-    //     <>
-    //     <Typography sx={{fontSize :'14px'}}>
-    //     Video with a duration of less than 60 seconds will be uploaded as REEL. <br />
-    //     </Typography>
-
-    //     <Typography sx={{fontSize :'15px'}}>
-    //     Required Video Dimensions: Width = <span></span> 1080px &nbsp;&nbsp;Height = 1920px
-    //     </Typography>
-    //     </>
-
-    //     )
-
-
-    //   setShowAlert(true);
-     
-    // }
 
     else if ( (fileType === 'video') && ( videoDuration > 60 && (videoWidth < 1920 || videoHeight < 1080 || videoHeight > 1080))) {
       setLoading(false);
@@ -348,7 +319,7 @@ setImageFiles(selectedFiles);
                       <input
                         type="file"
                         name="images"
-                        accept={fileType === "image" ? ".jpg, .jpeg" : ".mp4, .gif"}
+                        accept={fileType === "image" ? ".jpg, .jpeg" : ".mp4"}
                         multiple={fileType === "image"}
                         onChange={handleImageChange}
                       />
@@ -452,7 +423,7 @@ setImageFiles(selectedFiles);
             Please cross-check campaign details, cannot be edited further.
           </Typography>
           <Typography gutterBottom>
-          You will start receiving creators requests once campaign is created.
+          You will start receiving creators requests once campaign is Approved.
           </Typography>
           <Typography gutterBottom>
            Are you sure want to create new campaign?

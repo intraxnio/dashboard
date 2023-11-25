@@ -2,29 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Grid} from "@mui/material";
 import { Stack} from "@mui/material";
-import sideImage from '../../images/banner2.jpg'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContentText from "@mui/material/DialogContentText";
-import Chip from '@mui/material/Chip';
-import Tooltip from '@mui/material/Tooltip';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 import {useNavigate } from "react-router-dom";
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
 
@@ -36,8 +23,6 @@ export default function CampaignsOpenForCreator() {
   const [campaignData, setCampaignData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(true);
-  const baseUrl = "https://13.234.41.129:8000/api";
-
 
 
 
@@ -91,12 +76,29 @@ export default function CampaignsOpenForCreator() {
 
   };
 
+  const calculateRemainingTime = (endDate) => {
+    const currentDate = new Date();
+    const endDateTime = new Date(endDate);
+    const timeDifference = endDateTime - currentDate;
+    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hoursRemaining = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (daysRemaining > 0) {
+      return `${daysRemaining} days`;
+    } else if (hoursRemaining > 0) {
+      return `${hoursRemaining} hours`;
+    } else {
+      return 'Less than 1 hour';
+    }
+  };
+
+
   return (
     <>
- {user.isLoggedIn ? ( !loading ? 
-  
-  
-  (<Grid container spacing={1} direction='row'  sx={{marginTop:'64px', borderTop:'1'}}>        
+
+{loading ? (<CircularProgress />) : (<>
+
+      {campaignData !== null && campaignData.length !== 0  ? ( <Grid container spacing={1} direction='row'  sx={{marginTop:'64px', borderTop:'1'}}>        
 
 {campaignData.map((item) =>
 
@@ -122,42 +124,15 @@ justifyContent="center"
   />
 
     <Stack direction='column'>
-      {/* { item.fileType === 'image' ? (
-         <CardMedia
-         component="img"
-         image={item.mediaFiles[0]}
-         alt="Paella dish"
-         sx={{paddingLeft: '10px', maxHeight : '140px'}}
-       />
-      ) : (
-       <div sx={{ flex: 1, alignItems: 'center', justifyContent: 'center',  height: 200, width: 100, borderRadius: 5, borderWidth: '0.2px', borderColor: 'green'}}>
-
-                <PlayCircleOutlineIcon />
-       </div>
-      )} */}
-
 
   <CardContent sx={{marginLeft: '56px'}}>
-    {/* <Typography variant="body2" color="text.secondary" sx={{marginBottom: '14px', wordWrap: 'break-word', fontSize : '16px'}}>
-     Caption: {(item.caption).slice(0, 80)+'...'}
-    </Typography>
-    <Typography variant="body2" color="text.secondary">
-    Publish Date: {new Date(item.publishDate).toISOString().slice(0, 10)}
-    </Typography> */}
-
-    {/* <CardContent style={{ display: 'flex', justifyContent: 'flex-end' }}>
-    <Button variant="outlined" color="primary" onClick={()=>{onShowDetails(item._id)}}>
-      View Details
-    </Button>
-    </CardContent> */}
 
 <Typography sx={{color: 'black', fontSize : '16px'}}>
     {(item.campaign_name).slice(0, 100)+'...'}
     </Typography>
 
 <Typography variant="body2" sx={{color: 'black'}}>
-    {/* Ends in: {new Date(item.publishDate).toISOString().slice(0, 10)} */}
-    Ends in: 8 days
+    Ends in: {calculateRemainingTime(item.publishDate)}
     </Typography>
 
     <Stack direction='row' spacing={1} marginTop={1}>
@@ -184,7 +159,22 @@ justifyContent="center"
 
     )}
 
-</Grid>) : <CircularProgress />) : ( <Typography>Please login</Typography> )}
+</Grid>) : (
+      <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "50vh", // Adjust the height as needed
+    }}
+  >
+    <PostAddIcon style={{ fontSize: '60px', marginBottom: '20px', color: '#5D12D2'}}/>
+    <div> No NEW Campaigns</div>
+  </div>
+    )}
+    </>)}
+
 
 
     </>

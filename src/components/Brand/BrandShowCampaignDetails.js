@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Box,
   Grid,
-  Stack,
-  TextField,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions
+  TextField
 } from "@mui/material";
 import axios from "axios";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import { Carousel } from "react-responsive-carousel"; // Import Carousel component
 import ReactPlayer from "react-player";
-import { format, isValid } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
 
 
 
@@ -30,25 +23,15 @@ function BrandShowCampaignDetails() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const campaignId = searchParams.get("campaignId");
-  const [userId, setUserId] = useState("");
   const [campaignData, setCampaignData] = useState([]);
-  const [requests, setRequests] = useState();
   const user = useSelector(state => state.brandUser);
-  // const baseUrl = "http://localhost:8000/api";
 
  
 
 
   const makeSecondRequest = (id) => {
-    // return axios.post("http://localhost:8000/api/v1/brand/get-campaign-details", {
       return axios.post("/api/brand/get-campaign-details", {
         userId: id, campaignId: campaignId });
-  };
-
-  const makeThirdRequest = () => {
-    // return axios.post("http://localhost:8000/api/v1/brand/campaign-new-requests-total-number", {
-      return axios.post("/api/brand/campaign-new-requests-total-number", {
-        campaignId: campaignId });
   };
 
 
@@ -56,12 +39,8 @@ function BrandShowCampaignDetails() {
     const fetchData = async () => {
       try {
       
-        setUserId(user.brand_id);
         const secondResponse = await makeSecondRequest(user.brand_id);
         setCampaignData(secondResponse.data.data);
-       
-        const thirdResponse = await makeThirdRequest();
-        setRequests(thirdResponse.data.requestsNumber);
 
       } catch (error) {
         console.error(error);

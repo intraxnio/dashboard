@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Typography, Grid, TextField, Dialog, Select, MenuItem, DialogActions, DialogTitle, Box} from '@mui/material';
+import { Button, Typography, Grid, TextField, Dialog, Select, MenuItem, InputLabel, FormControl, Box} from '@mui/material';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ export default function BankDetails() {
 
   const user = useSelector(state => state.creatorUser);
   const [bankDetails, setBankDetails] = useState('');
+  const [allBankNames, setAllBankNames] = useState([ ]);
   const [accountNumber, setAccountNumber] = useState('');
   const [ifsc, setIfsc] = useState('');
   const [bankName, setBankName] = useState('ICICI BANK');
@@ -31,14 +32,22 @@ export default function BankDetails() {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
 
+  const getAllBankNames = () => {
 
-
-
-
-
+    try {
+      axios.get("/api/creator/get-all-bank-names").then(bankResult => {
+  
+        setAllBankNames(bankResult.data.data);
+  
+      }).catch(er => {
+        // Handle error
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  
+  }
 
 const fetchBankDetails = useCallback(async () => {
   try {
@@ -48,6 +57,7 @@ const fetchBankDetails = useCallback(async () => {
 
       setBankDetails(ress.data.data);
       setLoading(false);
+      getAllBankNames();
     }).catch(e => {
       // Handle error
     });
@@ -174,18 +184,22 @@ useEffect(() => {
     marginTop={5}
     padding={1}
     >
-         <Select
-      labelId="category-label"
+          <FormControl fullWidth>
+      {bankName ? null : <InputLabel id="bank-label">Select Bank</InputLabel>}
+      <Select
       id="category-select"
       value={bankName}
       onChange={(e)=>{setBankName(e.target.value)}} >
-      <MenuItem value="ICICI BANK">ICICI BANK</MenuItem>
-      <MenuItem value="HDFC BANK">HDFC BANK</MenuItem>
-      <MenuItem value="ANDHRA BANK">ANDHRA BANK</MenuItem>
-      <MenuItem value="YES BANK">YES BANK</MenuItem>
-      <MenuItem value="BANK OF INDIA">BANK OF INDIA</MenuItem>
+      {allBankNames
+    .sort((a, b) => a.bank_name.localeCompare(b.bank_name)) // Sort banks alphabetically
+    .map((nameOfBank) => (
+      <MenuItem key={nameOfBank.bank_name} value={nameOfBank.bank_name}>
+        {nameOfBank.bank_name}
+      </MenuItem>
+    ))}
      
     </Select>
+    </FormControl>
 
                           
       <TextField type='email' id='accountNumber' onChange={(e)=>{setAccountNumber(e.target.value)}} margin='normal' variant='outlined' label='Account Number'></TextField>

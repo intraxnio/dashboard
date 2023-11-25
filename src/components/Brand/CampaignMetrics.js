@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Box, Typography, TableContainer, Stack, Button } from "@mui/material";
-import NorthOutlinedIcon from "@mui/icons-material/NorthOutlined";
+import { TableContainer } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CampaignMetricsIndividualPosts from "./CampaignMetricsIndividualPosts";
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import {
   Select,
   Rating, 
   Avatar, 
-  Stack, ClickAwayListener, Dialog, DialogTitle, DialogContent, DialogActions, InputAdornment
+  Stack, ClickAwayListener, Dialog, DialogTitle, DialogContent, DialogActions, InputAdornment, InputLabel, FormControl
 } from '@mui/material';
 import { toast } from "react-toastify";
 import sideImage from "../../images/IMG_1025.jpg";
@@ -31,17 +31,38 @@ function BrandSignup() {
   const [password, setPassword] = useState('');
   const [brand, setBrand] = useState('');
   const [handle, setHandle] = useState('');
-  const [website, setWebsite] = useState('');
-  const [category, setCategory] = useState('Art and Design');
+  const [category, setCategory] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [emailCode, setEmailCode] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [allCategories, setAllCategories] = useState([ ]);
+  
+
+  const getAllCategories = useCallback(async () => {
+
+    try {
+      axios.get("/api/brand/get-all-brand-categories").then(catResult => {
+  
+        setAllCategories(catResult.data.data);
+  
+      }).catch(er => {
+        // Handle error
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  
+  useEffect(() => {
+  
+      getAllCategories();
+  
+  
+  }, [getAllCategories]);
 
 
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
 
   const handleClickAway = () => {
     //this function keeps the dialogue open, even when user clicks outside the dialogue. dont delete this function
@@ -301,32 +322,23 @@ function BrandSignup() {
         <TextField type='email' id='email' sx={{ marginBottom : '12px'}} onChange={(e)=>{setEmail(e.target.value)}} variant='outlined' label='Work Email'></TextField>
         <TextField type='password' id="password"  sx={{ marginBottom : '12px'}} onChange={(e)=>{setPassword(e.target.value)}} variant='outlined' label='Create a Password'></TextField>
         <TextField type='text' id="brandName" sx={{ marginBottom : '12px'}} onChange={(e)=>{setBrand(e.target.value)}} variant='outlined' label='Brand Name'></TextField>
-        <Select
-        labelId="category-label"
-        id="category-select"
-        value={category}
-        onChange={(e)=>{setCategory(e.target.value)}} >
-        <MenuItem disabled value="">Select your brand category</MenuItem>
-        <MenuItem value="Art and Design">Art and Design</MenuItem>
-        <MenuItem value="Automotive">Automotive</MenuItem>
-        <MenuItem value="Banking and Finance">Banking | Finance</MenuItem>
-        <MenuItem value="Beauty and Cosmetics">Beauty & Cosmetics</MenuItem>
-        <MenuItem value="Education and E-learning">Education & E-learning</MenuItem>
-        <MenuItem value="Entertainment and Media">Entertainment & Media</MenuItem>
-        <MenuItem value="Fashion">Fashion</MenuItem>
-        <MenuItem value="Fitness and Gym">Fitness & Gym</MenuItem>
-        <MenuItem value="Gaming">Gaming</MenuItem>
-        <MenuItem value="Groceries">Groceries</MenuItem>
-        <MenuItem value="Health and Wellness">Health & Wellness</MenuItem>
-        <MenuItem value="Home and Decor">Home & Decor</MenuItem>
-        <MenuItem value="Kitchen and Cooking">Kitchen | Cooking</MenuItem>
-        <MenuItem value="Lifestyle">Lifestyle</MenuItem>
-        <MenuItem value="Outdoor and Adventure">Outdoor & Adventure</MenuItem>
-        <MenuItem value="Pets and Animals">Pets & Animals</MenuItem>
-        <MenuItem value="Technology and Electronics">Technology & Electronics</MenuItem>
-        <MenuItem value="Travel and Tourism">Travel & Tourism</MenuItem>
-        {/* Add more MenuItem components for additional categories */}
-      </Select>
+       
+        <FormControl fullWidth>
+      {category ? null : <InputLabel id="brand-category">Brand Category</InputLabel>}
+      <Select
+      id="category-select"
+      value={category}
+      onChange={(e)=>{setCategory(e.target.value)}} >
+      {
+      allCategories.sort((a, b) => a.brand_category.localeCompare(b.brand_category)) // Sort banks alphabetically
+    .map((categoryName) => (
+      <MenuItem key={categoryName.brand_category} value={categoryName.brand_category}>
+        {categoryName.brand_category}
+      </MenuItem>
+    ))}
+     
+    </Select>
+    </FormControl>
 
       {/* <Stack sx={{ display : 'flex', flexDirection : 'row', justifyContent : 'space-between'}}> */}
       <TextField type='text' id="instagramHandle" onChange={handleInputChange} margin='normal' variant='outlined'

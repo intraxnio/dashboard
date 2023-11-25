@@ -18,8 +18,6 @@ const navigate = useNavigate();
 const searchParams = new URLSearchParams(location.search);
 const user = useSelector(state => state.brandUser);
 const campaignId = searchParams.get("campaignId");
-const [userId, setUserId] = useState("");
-const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [campaignData, setCampaignData] = useState([]);
 // const baseUrl = "http://localhost:8000/api";
 const baseUrl = "https://13.234.41.129:8000/api";
@@ -33,7 +31,6 @@ useEffect(() => {
     }).then(ress=>{
 
         setCampaignData(ress.data.campaignData);
-        setUserId(user.brand_id);
 
 
     }).catch(e=>{

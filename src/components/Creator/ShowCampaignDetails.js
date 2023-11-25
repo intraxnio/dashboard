@@ -57,7 +57,7 @@ function ShowCampaignDetails() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const baseUrl = "https://13.234.41.129:8000/api";
+
 
 
 
@@ -283,16 +283,32 @@ const steps = [
 
 
   
-  <Grid item xs={12} sm={6} md={6} lg={8}>
+  <Grid item xs={12} sm={4} md={4} lg={6}>
 
     <Box display='flex' flexDirection={'column'} padding={1} >
 
-    <Button onClick={handleCopyCaption} variant="outlined" color="primary">
-  Copy Caption
-</Button>
+    <TextField
+        label="Caption"
+        variant="outlined"
+        multiline
+        InputProps={{ readOnly: true }}
+        InputLabelProps={{
+          shrink: true, // Move the label up when there's a value
+          margin: 'dense', // Adjust the margin to avoid overlap
+          transform: 'translate(14px, 16px) scale(1)', // Adjust the label's position
+        }}
+        rows={9}
+        value={campaignData.caption}
+        sx={{
+          width: '100%',
+          marginBottom: '10px',
+          marginTop : '16px'
+        }}
+      />
+
+    <Button onClick={handleCopyCaption} variant="contained" sx={{ background : '#2B3499'}}> Copy Caption </Button>
   
      <TextField
-        label="Caption"
         variant="outlined"
         multiline
         InputLabelProps={{
@@ -320,7 +336,7 @@ const steps = [
         sx={{
           width: '100%',
           marginBottom: '22px',
-          marginTop : '16px'
+          marginTop : '22px'
         }}
       />
 

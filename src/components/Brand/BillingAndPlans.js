@@ -26,13 +26,8 @@ export default function BillingAndPlans() {
   const user = useSelector(state => state.brandUser);
   const [onPlan, setOnPlan] = useState(false);
   const [purchasedPlan, setPurchasedPlan] = useState('');
-  const [planDetails, setPlanDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  // const baseUrl = "http://localhost:8000/api";
-
-  
-
 
 
 

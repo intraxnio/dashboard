@@ -89,11 +89,6 @@ export default function CampaignCard() {
 
 
 
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
-
-
-
   const fetchData = async () => {
     try {
 
@@ -277,7 +272,19 @@ export default function CampaignCard() {
   };
   
 
-
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Completed':
+        return 'warning';
+      case 'On-Going':
+        return 'secondary';
+      case 'In-Review':
+        return 'primary'; // You can choose an appropriate color for 'In-Review'
+      default:
+        return 'default';
+    }
+  };
+  
 
 const columns = [
   // { field: 'id', headerName: 'S.No', width: 50 },
@@ -357,26 +364,41 @@ const columns = [
     },
   },
 
+  // { 
+  //   field: 'status', 
+  //   headerName: 'Status', 
+  //   width: 130,
+  //   renderCell: (params) => (
+  //     <Chip
+  //     size='small'
+  //     label = {params.value ? 'Completed' : 'On - Going'}
+  //     variant="outlined"
+  //     color={params.value ? "warning" : "secondary"}
+  //   />
+  //   ),
+  // },
+
   { 
     field: 'status', 
     headerName: 'Status', 
     width: 130,
     renderCell: (params) => (
       <Chip
-      size='small'
-      label = {params.value ? 'Completed' : 'On - Going'}
-      variant="outlined"
-      color={params.value ? "warning" : "secondary"}
-    />
+        size='small'
+        label={params.value}
+        variant="outlined"
+        color={getStatusColor(params.value)}
+      />
     ),
   },
+  
 
   {
     field: 'campaignId',
     headerName: 'Campaign Details',
     width: 160,
     renderCell: (params) => {
-      const isCompleted = params.row.status; // Assuming 'is_completed' is a field in your campaignData
+      const isCompleted = params.row.is_completed; // Assuming 'is_completed' is a field in your campaignData
   
       return (
         isCompleted ? (
@@ -395,7 +417,7 @@ const columns = [
   {
     width: 40,
     renderCell: (params) => {
-      const isCompleted = params.row.status;
+      const isCompleted = params.row.is_completed;
   
       return (
 
