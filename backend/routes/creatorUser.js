@@ -2143,6 +2143,17 @@ router.get('/get-all-bank-names', async function (req, res) {
 
 });
 
+router.get('/get-all-creator-categories', async function (req, res) {
+
+  await AllCreatorCategories.find().then(async (result)=>{
+
+    res.status(200).send({ data: result});
+    res.end();
+
+  });
+
+});
+
 
 
 // this piece of cron shit will check & update campaigns whether completed or not in DB eveyday @12:00
