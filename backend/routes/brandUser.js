@@ -16,6 +16,8 @@ const CampaignApprovedRequests = require('../models/CampaignApprovedRequests');
 const CampaignDeclinedRequests = require('../models/CampaignDeclinedRequests');
 const PlanDetails = require('../models/PlanDetails');
 const ScheduledPosts = require("../models/ScheduledPosts");
+const AllBrandCategories = require('../models/AllBrandCategories');
+
 
 const multer = require('multer');
 const { body, validationResult } = require("express-validator");
@@ -1411,6 +1413,17 @@ catch(e){
 
 
 
+
+});
+
+router.get('/get-all-brand-categories', async function (req, res) {
+
+  await AllBrandCategories.find().then(async (result)=>{
+
+    res.status(200).send({ data: result});
+    res.end();
+
+  });
 
 });
 

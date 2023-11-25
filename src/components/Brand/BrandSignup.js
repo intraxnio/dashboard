@@ -31,6 +31,7 @@ function BrandSignup() {
   const [password, setPassword] = useState('');
   const [brand, setBrand] = useState('');
   const [handle, setHandle] = useState('');
+  const [website, setWebsite] = useState('');
   const [category, setCategory] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
