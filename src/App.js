@@ -28,7 +28,7 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path="/login/brand" element={< UserLogin/>}/>
+          <Route path="/" element={< UserLogin/>}/>
            <Route path="/signup/brand" element={< UserSignup/>}/>
            <Route path=":linkId" element={<RedirectLink/>}/>
            <Route path="/forgotPassword" element={<ForgotPassword/>}/>
