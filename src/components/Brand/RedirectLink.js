@@ -21,8 +21,8 @@ function RedirectLink() {
   const user = useSelector((state) => state.brandUser);
   const navigate = useNavigate();
   const { linkId } = useParams();
-  const baseUrl = 'http://localhost:8001';
-  const baseUrl2 = "http://localhost:8001/usersOn";
+  const baseUrl = '/api';
+  const baseUrl2 = "/api/usersOn";
   const [isPasswordProtected, setIsPasswordProtected] = useState(false);
   const [password, setPassword] = useState('');
   const [pdfFile, setPdfFile] = useState('');
@@ -43,7 +43,7 @@ function RedirectLink() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(baseUrl + '/', {
+        const response = await axios.post('/api/usersOn/', {
           shortId: linkId,
         });
 

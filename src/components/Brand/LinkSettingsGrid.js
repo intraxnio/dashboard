@@ -53,7 +53,7 @@ function LinkSettingsGrid({ shortId }) {
   const [utmSource, setUtmSource] = useState("");
   const [utmMedium, setUtmMedium] = useState("");
   const [utmCampaign, setUtmCampaign] = useState("");
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
   const containerRef = useRef(null);
   const [touchStartX, setTouchStartX] = useState(null);
 
@@ -113,7 +113,7 @@ function LinkSettingsGrid({ shortId }) {
 
   const getTrackingCodes = (async () => {
 
-      await axios.post(baseUrl + "/get-user-tracking-codes", { userId: user.user_id }).then((catResult) => {
+      await axios.post("/api/usersOn/get-user-tracking-codes", { userId: user.user_id }).then((catResult) => {
 
         // Transform the tracking codes to the desired object structure
         const formattedTrackingCodes = catResult.data.data.map((code) => ({
@@ -131,7 +131,7 @@ function LinkSettingsGrid({ shortId }) {
     setLoading(true);
     try {
 
-      axios.post(baseUrl + "/get-link-details", {
+      axios.post("/api/usersOn/get-link-details", {
         shortId : shortId
       }).then(ress=>{
 
@@ -288,7 +288,7 @@ const updateLinkDetails = () => {
 
 
 
-    axios.post(baseUrl + "/update-link-details-trackingId-social", formData, {
+    axios.post("/api/usersOn/update-link-details-trackingId-social", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -325,7 +325,7 @@ const updateLinkDetails = () => {
     formData.append("utmCampaign", utmCampaign);
 
 
-    axios.post(baseUrl + "/update-link-details-with-social", formData, {
+    axios.post("/api/usersOn/update-link-details-with-social", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -368,7 +368,7 @@ const updatePdfLinkDetails = () => {
   else {
 
     
-  axios.post(baseUrl + "/update-pdflink-details", {
+  axios.post("/api/usersOn/update-pdflink-details", {
     shortId: shortId,
     passwordProtected: isPasswordProtected,
     password : password,
@@ -396,7 +396,7 @@ const updatePdfLinkDetails = () => {
 
 const addTrackingCode = () => {
 
-    axios.post(baseUrl + "/add-tracking-code", {
+    axios.post("/api/usersOn/add-tracking-code", {
       userId: user.user_id,
       tracking_code_name: newTrackingCodeName,
       newCodeScript : newCodeScript

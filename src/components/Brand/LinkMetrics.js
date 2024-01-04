@@ -45,7 +45,7 @@ export default function LinkMetrics() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
 
 
  
@@ -92,7 +92,7 @@ export default function LinkMetrics() {
         setLoading(true);
         try {
   
-          axios.post(baseUrl + "/get-total-clicks-for-chart", {
+          axios.post("/api/usersOn/get-total-clicks-for-chart", {
             shortId : linkId
           }).then(ress=>{
       

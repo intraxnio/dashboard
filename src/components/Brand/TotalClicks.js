@@ -12,7 +12,7 @@ function TotalClicks({ shortId, onDataAvailable }) {
   const [loading, setLoading] = useState(false);
   const [clicksData, setClicksData] = useState('');
   const user = useSelector((state) => state.brandUser);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
 
 
 
@@ -37,7 +37,7 @@ function TotalClicks({ shortId, onDataAvailable }) {
       setLoading(true);
       try {
 
-        axios.post(baseUrl + "/get-total-clicks", {
+        axios.post("/api/usersOn/get-total-clicks", {
           shortId : shortId
         }).then(ress=>{
     

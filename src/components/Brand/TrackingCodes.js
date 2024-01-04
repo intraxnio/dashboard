@@ -55,7 +55,7 @@ export default function TrackingCodes() {
   const [linkData, setLinkData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedRows, setSelectedRows] = useState([]);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
   const theme = useTheme();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -73,7 +73,7 @@ export default function TrackingCodes() {
 
   const handleEditClick = async (trackingId) => {
     try {
-      const response = await axios.post(baseUrl + "/get-tracking-code-details", {
+      const response = await axios.post("/api/usersOn/get-tracking-code-details", {
         trackingCodeId: trackingId,
       });
 
@@ -97,7 +97,7 @@ export default function TrackingCodes() {
 
   const deleteTrackingCode = async () => {
 
-    axios.post(baseUrl + "/delete-tracking-code", {
+    axios.post("/api/usersOn/delete-tracking-code", {
       trackingCodeId: deletableTrackingId,
     
     })
@@ -116,7 +116,7 @@ export default function TrackingCodes() {
 
 const addTrackingCode = () => {
 
-  axios.post(baseUrl + "/add-tracking-code", {
+  axios.post("/api/usersOn/add-tracking-code", {
     userId: user.user_id,
     tracking_code_name: newTrackingCodeName,
     newCodeScript : newCodeScript
@@ -145,7 +145,7 @@ const openDeleteDialogPrompt = async (trackingId) => {
   const fetchData = async () => {
     try {
 
-      axios.post(baseUrl + "/tracking-codes", {
+      axios.post("/api/usersOn/tracking-codes", {
         userId: user.user_id,
       })
       .then((ress) => {
@@ -206,7 +206,7 @@ const handleOpenDeleteDialog = () => {
 
 const updateLinkDetails = (trackingId) => {
 
-    axios.post(baseUrl + "/update-tracking-code", {
+    axios.post("/api/usersOn/update-tracking-code", {
       trackingCodeId: trackingId,
       tracking_code_title: newCodeTitle,
       tracking_code_script: newScript,

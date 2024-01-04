@@ -62,7 +62,7 @@ function CreateCampaign() {
   const [newCodeScript, setNewCodeScript] = useState('');
   const [pdfPassword, setPdfPassword] = useState('');
   const [isPasswordProtected, setIsPasswordProtected] = useState("false");
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
   const httpsText = 'https://';
 
   const containerRef = useRef(null);
@@ -106,7 +106,7 @@ function CreateCampaign() {
   const getTrackingCodes = (async () => {
 
     try {
-      axios.post(baseUrl + "/get-user-tracking-codes", { userId : user.user_id}).then(catResult => {
+      axios.post("/api/usersOn/get-user-tracking-codes", { userId : user.user_id}).then(catResult => {
   
         setAllTrackingCodes(catResult.data.data);
   
@@ -131,7 +131,7 @@ function CreateCampaign() {
 
   const addTrackingCode = () => {
 
-    axios.post(baseUrl + "/add-tracking-code", {
+    axios.post("/api/usersOn/add-tracking-code", {
       userId: user.user_id,
       tracking_code_name: newTrackingCodeName,
       newCodeScript : newCodeScript
@@ -421,7 +421,7 @@ const handleUploadButtonClick = () => {
           formData.append("isPasswordProtected", isPasswordProtected);
           formData.append("pdfPassword", pdfPassword);
           
-          await axios.post(baseUrl + "/create-link-pdf", formData, {
+          await axios.post("/api/usersOn/create-link-pdf", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -488,7 +488,7 @@ const handleUploadButtonClick = () => {
           formData.append("utmMedium", utmMedium);
           formData.append("utmCampaign", utmCampaign);
           
-          await axios.post(baseUrl + "/create-link", formData, {
+          await axios.post("/api/usersOn/create-link", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

@@ -52,7 +52,7 @@ export default function LinksCard() {
   const [linkData, setLinkData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedRows, setSelectedRows] = useState([]);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -83,7 +83,7 @@ export default function LinksCard() {
   const fetchData = async () => {
     try {
 
-      axios.post(baseUrl + "/all-links", {
+      axios.post("/api/usersOn/all-links", {
         userId: user.user_id,
       })
       .then((ress) => {

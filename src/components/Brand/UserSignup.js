@@ -44,7 +44,7 @@ function BrandSignup() {
   const [emailCode, setEmailCode] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -55,7 +55,7 @@ function BrandSignup() {
 
     setIsLoading(true);
 
-    await axios.post(baseUrl + "/user-login-gmail",
+    await axios.post("/api/usersOn/user-login-gmail",
     { email: email_gm, firstName: firstName, lastName: lastName, picture : picture },
     {withCredentials: true}
   )
@@ -117,7 +117,7 @@ function BrandSignup() {
       setIsLoading(true);
 
       try {
-          const response = await axios.post(baseUrl + "/signup-user", {
+          const response = await axios.post("/api/usersOn/signup-user", {
           email: email,
           password: password,
         });
@@ -168,7 +168,7 @@ function BrandSignup() {
       else {
 
 
-      await axios.post(baseUrl + "/check-resetPin-withDb-brandTemps",
+      await axios.post("/api/usersOn/check-resetPin-withDb-brandTemps",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )

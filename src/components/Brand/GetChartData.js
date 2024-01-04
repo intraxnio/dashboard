@@ -20,7 +20,7 @@ function GetChartData({ shortId }) {
   const [uniqueVisitors, setuniqueVisitors] = useState([ ]);
   const [repeatVisitors, setRepeatVisitors] = useState([ ]);
   const user = useSelector((state) => state.brandUser);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
 
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function GetChartData({ shortId }) {
       setLoading(true);
       try {
 
-        axios.post(baseUrl + "/get-total-clicks-for-chart", {
+        axios.post("/api/usersOn/get-total-clicks-for-chart", {
           shortId : shortId
         }).then(ress=>{
     

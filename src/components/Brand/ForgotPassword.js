@@ -19,7 +19,7 @@ function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogForPassword, setDialogForPassword] = useState(false);
-  const baseUrl = "http://localhost:8001/usersOn";
+  // const baseUrl = "http://localhost:8001/usersOn";
 
 
 
@@ -52,7 +52,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl + "/check-email-exists-sendMail",
+      await axios.post("/api/usersOn/check-email-exists-sendMail",
         { email: email.toLowerCase() },
         {withCredentials: true}
       )
@@ -106,7 +106,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl + "/check-resetPin-withDb",
+      await axios.post("/api/usersOn/check-resetPin-withDb",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )
@@ -170,7 +170,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post(baseUrl + "/update-password",
+      await axios.post("/api/usersOn/update-password",
         { email: email.toLowerCase(), password : password },
         {withCredentials: true}
       )
