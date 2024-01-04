@@ -14,12 +14,28 @@ app.use(express.json());
 app.use(userAgent.express());
 app.use(bodyParser.urlencoded({extended: true, limit:"50mb"}));
 
+// const corsOptions = {
+//   origin: 'https://localhost:4300',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
+
+// app.use(cors(corsOptions));
+
 const corsOptions = {
-  origin: 'https://localhost:4300',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionSuccessStatus: 200,
 };
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', corsOptions.origin);
+  res.header('Access-Control-Allow-Methods', corsOptions.methods);
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(cors(corsOptions));
 

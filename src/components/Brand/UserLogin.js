@@ -49,7 +49,7 @@ function BrandLogin() {
 
     setIsLoading(true);
 
-    await axios.post(baseUrl + "/user-login-gmail",
+    await axios.post("/api/usersOn/user-login-gmail",
     { email: email_gm, firstName: firstName, lastName: lastName, picture : picture },
     {withCredentials: true}
   )
@@ -80,7 +80,7 @@ function BrandLogin() {
     else{
       setIsLoading(true);
 
-      await axios.post(baseUrl + "/user-login",
+      await axios.post("/api/usersOn/user-login",
         { email: email.toLowerCase(), password: password },
         {withCredentials: true}
       )

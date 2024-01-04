@@ -29,8 +29,8 @@ const s3 = new S3Client({
   //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   // },
   credentials: {
-    accessKeyId: 'AKIA4IATHDGVSTWZ5REO',
-    secretAccessKey: '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',
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
   region: 'us-east-1',
 });
@@ -923,7 +923,7 @@ router.post('/add-tracking-code', async function (req, res) {
 
           const createUrlRecord = async (file, shortId, userId, fileType, linkTitle) => {
             const params = {
-                Bucket: 'lynkis',
+                Bucket: 'linckonebucket',
                 Key: `pdfs/${Date.now()}_${file.originalname}`,
                 Body: file.buffer,
                 ContentType: file.mimetype,
@@ -1054,7 +1054,7 @@ router.post('/add-tracking-code', async function (req, res) {
 
         
         const params = {
-          Bucket: 'lynkis',
+          Bucket: 'linckonebucket',
           Key: `images/${Date.now()}_${file.originalname}`,
           Body: file.buffer,
           ContentType: file.mimetype,
@@ -1106,7 +1106,7 @@ router.post('/add-tracking-code', async function (req, res) {
 
         
       const params = {
-        Bucket: 'lynkis',
+        Bucket: 'linckonebucket',
         Key: `images/${Date.now()}_${file.originalname}`,
         Body: file.buffer,
         ContentType: file.mimetype,
@@ -1189,7 +1189,7 @@ router.post('/update-link-details-trackingId-social', upload.single('socialImage
   if(socialImage){
 
     const newImageParams = {
-      Bucket: 'lynkis',
+      Bucket: 'linckonebucket',
       Key: `images/${Date.now()}_${socialImage.originalname}`,
       Body: socialImage.buffer,
       ContentType: socialImage.mimetype,
@@ -1279,7 +1279,7 @@ router.post('/update-link-details-with-social', upload.single('socialImage'), as
   if(socialImage){
 
     const newImageParams = {
-      Bucket: 'lynkis',
+      Bucket: 'linckonebucket',
       Key: `images/${Date.now()}_${socialImage.originalname}`,
       Body: socialImage.buffer,
       ContentType: socialImage.mimetype,
