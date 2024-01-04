@@ -37,6 +37,10 @@ font-family: 'Roboto', sans-serif; */
 
 /* BodyMain component's two buttons styling - START*/
 
+.google-login-button {
+  width: 100%;
+}
+
 .login-btn-grad-main{
   background-image: linear-gradient(
     to right,
@@ -149,6 +153,8 @@ font-family: 'Roboto', sans-serif; */
   text-decoration: none;
   color: white;
 }
+
+
 
 
 

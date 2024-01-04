@@ -19,9 +19,9 @@ function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogForPassword, setDialogForPassword] = useState(false);
+  const baseUrl = "http://localhost:8001/usersOn";
 
-  // const baseUrl = "http://localhost:8000/api";
-  const baseUrl = "https://13.234.41.129:8000/api";
+
 
 
 
@@ -52,7 +52,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post("/api/brand/check-email-exists-sendMail",
+      await axios.post(baseUrl + "/check-email-exists-sendMail",
         { email: email.toLowerCase() },
         {withCredentials: true}
       )
@@ -106,7 +106,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post("/api/brand/check-resetPin-withDb",
+      await axios.post(baseUrl + "/check-resetPin-withDb",
         { email: email.toLowerCase(), pin : emailCode },
         {withCredentials: true}
       )
@@ -170,7 +170,7 @@ function ForgotPassword() {
       else {
 
 
-      await axios.post("/api/brand/update-password",
+      await axios.post(baseUrl + "/update-password",
         { email: email.toLowerCase(), password : password },
         {withCredentials: true}
       )
@@ -191,7 +191,7 @@ function ForgotPassword() {
           
                 setTimeout(() => {
 
-                    navigate("/");
+                    navigate("/login/brand");
                     
                 }, 2000);
 
@@ -246,7 +246,7 @@ function ForgotPassword() {
               </Typography>
 
               <Typography sx={{fontSize: '16px', color: '#A9A9A9', marginTop: '20px'}} >
-                A 6 digit code will be sent to the given email id to reset your password.
+                A 6 digit code will be sent over mail to reset your password.
               </Typography>
 
               <TextField

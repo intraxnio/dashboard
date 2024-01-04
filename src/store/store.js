@@ -7,7 +7,7 @@ const persistedState = persistedStateJSON
   ? JSON.parse(persistedStateJSON)
   : {};
 
-  const brandPersistedStateJSON = localStorage.getItem("brandDetails");
+  const brandPersistedStateJSON = localStorage.getItem("userDetails");
   const brandPersistedState = brandPersistedStateJSON
     ? JSON.parse(brandPersistedStateJSON)
     : {};

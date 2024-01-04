@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
-// const username= "intraxnio";
-// const password = 'Pa55w0Rd';
-// var dbUrl= "mongodb+srv://"+username+":"+password+"@cluster0.1u64z5l.mongodb.net/?retryWrites=true&w=majority"
-
-var dbUrl= process.env.MONGODB_URL;
-
+const username= "brandthisin";
+const password = 'Pa55w0Rd1234';
+var dbUrl = "mongodb+srv://" + username + ":" + password + "@cluster0.0md4vf5.mongodb.net/?retryWrites=true&w=majority"
 
 
 const connectToMongo = ()=>{
