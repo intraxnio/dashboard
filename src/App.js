@@ -16,6 +16,7 @@ import Support from './components/Brand/Support';
 import TrackingCodes from './components/Brand/TrackingCodes';
 import Profile from './components/Brand/Profile';
 import ForgotPassword from './components/Brand/ForgotPassword';
+import LandingPage from './components/LandingPage';
 
 
 
@@ -28,7 +29,8 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path="/" element={< UserLogin/>}/>
+          <Route path="/" element={< LandingPage/>}/>
+          <Route path="/login" element={< UserLogin/>}/>
            <Route path="/signup/brand" element={< UserSignup/>}/>
            <Route path=":linkId" element={<RedirectLink/>}/>
            <Route path="/forgotPassword" element={<ForgotPassword/>}/>

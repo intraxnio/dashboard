@@ -21,7 +21,7 @@ function Profile() {
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(true);
   const [ userDetails, setUserDetails ] = useState('');
-  // const baseUrl = "http://localhost:8001/usersOn";
+  const baseUrl = "http://localhost:8001/usersOn";
   const [passwordDialogue, setPasswordDialogue] = useState(false);
   const [originalPassword, setOriginalPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -55,6 +55,7 @@ function Profile() {
       try {
 
             axios.post("/api/usersOn/get-user-details", {
+              // axios.post(baseUrl + "/get-user-details", {
             userId: user.user_id
           }).then(ress=>{
       

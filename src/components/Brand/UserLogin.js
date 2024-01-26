@@ -33,6 +33,8 @@ function BrandLogin() {
   
   useEffect(() => {
 
+  
+
     if(user.user_id){
 
       navigate("/brand/linksCard");

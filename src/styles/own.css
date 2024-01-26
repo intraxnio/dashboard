@@ -150,7 +150,7 @@ font-family: 'Roboto', sans-serif; */
 }
 
 .footer-subhead-decoration{
-  text-decoration: none;
+  text-decoration: none !important;
   color: white;
 }
 
@@ -246,13 +246,390 @@ font-family: 'Roboto', sans-serif; */
     padding-bottom: 30px;
     
   }
+
+  .txt-1 {
+    font-family: "Inter";
+    font-size: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .custom-drop-width{
+    width:20rem;
+  }
+
+
+  .txt-2 {
+    font-family: "Inter";
+    font-size: 60px;
+    font-weight: 700;
+    color: #11009E;
+
+  }
+
+  .txt-3 {
+    font-family: "Poppins";
+    padding-left: 3rem;
+    font-size: 3rem;
+    font-weight: 500;
+  }
+
+  .txt-4 {
+    font-family: "Inter";
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding-right: 10rem;
+    text-align: start;
+  }
+
+  .img-1 {
+    margin-top: 3rem;
+  }
+
+  .pricing-txt {
+    font-family: "Poppins";
+    font-size: 2rem;
+    font-weight: 500;
+    color: #2f2e2e;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .pricing-txt-price {
+    font-family: "Poppins";
+    font-size: 3rem;
+    font-weight: 500;
+    color: #0E21A0;
+    margin-bottom: 15px;
+  }
+
+
+  .bb-txt-1 {
+    font-family: "Poppins";
+    font-size: 32px;
+    font-weight: 500;
+    color: #2f2e2e;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  
+  .bb-txt-2 {
+    font-family: "Inter";
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #2f2e2e;
+    margin-bottom: 25px;
+    line-height: 28px;
+  }
+
+  .bb-txt-3 {
+    font-family: "Inter";
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2f2e2e;
+  }
+  .bb-txt-4 {
+    font-family: "Inter";
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2f2e2e;
+  }
+  .bb-txt-5 {
+    font-family: "Inter";
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2f2e2e;
+  }
+
+  .inf-txt-1 {
+    font-family: "Inter";
+    font-size: 60px;
+    font-weight: 700;
+    color: #2f2e2e;
+    margin-top: 10px;
+    padding-bottom: 30px;
+    
+  }
+
+  .signup-btn-grad {
+    background-image: linear-gradient(
+      to right,
+      #6319f8 0%,
+      #7752FE 51%,
+      #7752FE 100%
+    );
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    display: flex;
+    text-decoration: none;
+    font-weight: 400;
+    width: 100%;
+
+  
+  }
+
+  .signup-btn-grad-2 {
+    background-image: linear-gradient(
+      to right,
+      #6319f8 0%,
+      #7752FE 51%,
+      #7752FE 100%
+    );
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    display: flex;
+    max-width: 50%;
+    text-decoration: none;
+    margin-top: 20px;
+    font-weight: 500;
+
+  
+  }
+  .subtext{
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #7D7C7C;
+
+  }
+
+  .get-started-button-credit-card{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    
+  }
+
+  .creator-underline {
+    padding-bottom: 1px;
+    position: relative;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Inter';
+    font-size: 42px;
+    color: #11009E;
+    
+  }
+
+  .creator-underline-marketer {
+    padding-bottom: 1px;
+    position: relative;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Inter';
+    font-size: 60px;
+  }
+
+  .creator-underline-marketer::after {
+    background: #ff2340;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      #ff0e1a 50%,
+      transparent 100%
+    );
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+  }
+
+  .row-center {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+  }
+  
+  .right-arrow-1 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #0056f5; /* Adjust color as needed */
+    margin-right: 10px;
+  }
+  
+  .right-arrow-2 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #8b00d0; /* Adjust color as needed */
+    margin-right: 10px;
+  }
+  
+  .right-arrow-3 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #78b13f; /* Adjust color as needed */
+    margin-right: 10px;
+  }
+
+  .dot-1 {
+    width: 10px;
+    height: 10px;
+    background-color: #0056f5; /* Adjust color as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+
+  }
+
+  .dot-2 {
+    width: 10px;
+    height: 10px;
+    background-color: #8b00d0; /* Adjust color as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+
+  }
+
+  .dot-3 {
+    width: 10px;
+    height: 10px;
+    background-color: #78b13f; /* Adjust color as needed */
+    border-radius: 50%;
+    margin-right: 10px;
+
+  }
+
+  .just-arrow-1 {
+    margin-right: 10px;
+    display: inline-block;
+    color: #0056f5; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+
+  .just-arrow-2 {
+    margin-right: 10px;
+    display: inline-block;
+    color: #8b00d0; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+
+  .just-arrow-3 {
+    margin-right: 10px;
+    display: inline-block;
+    color: #78b13f; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+ 
+}
+
+.features-details{
+  padding-left: 32px;
 }
 
 /* Mobile Device*/
 @media (max-width: 576px) {
+
+  .row-center {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+  }
+  
+  .right-arrow-1 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #0056f5; /* Adjust color as needed */
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+  
+  .right-arrow-2 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #8b00d0; /* Adjust color as needed */
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+  
+  .right-arrow-3 {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid #78b13f; /* Adjust color as needed */
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+
+  .dot-1 {
+    width: 20px;
+    height: 15px;
+    background-color: #0056f5; /* Adjust color as needed */
+    border-radius: 100%;
+    margin-right: 10px;
+    align-self: flex-start;
+    margin-top: 6px;
+
+  }
+
+  .dot-2 {
+    width: 20px;
+    height: 14px;
+    background-color: #8b00d0; /* Adjust color as needed */
+    border-radius: 100%;
+    margin-right: 10px;
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+
+  .dot-3 {
+    width: 20px;
+    height: 13px;
+    background-color: #78b13f; /* Adjust color as needed */
+    border-radius: 100%;
+    margin-right: 10px;
+    align-self: flex-start;
+    margin-top: 6px;
+
+
+  }
+
+  .just-arrow-1 {
+    margin-right: 10px;
+    align-self: flex-start;
+    display: inline-block;
+    color: #0056f5; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+
+  .just-arrow-2 {
+    margin-right: 10px;
+    align-self: flex-start;
+    display: inline-block;
+    color: #8b00d0; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+
+  .just-arrow-3 {
+    margin-right: 10px;
+    align-self: flex-start;
+    display: inline-block;
+    color: #78b13f; /* Adjust color as needed */
+    font-size: 22px; /* Adjust font size as needed */
+  }
+
   .txt-1 {
     font-family: "Poppins";
-    font-size: 16px;
+    font-size: 22px;
     margin-top: 1.2rem;
     font-weight: 400;
     padding-left: 1rem;
@@ -263,6 +640,7 @@ font-family: 'Roboto', sans-serif; */
     font-size: 30px;
     font-weight: 700;
     padding-left: 1rem;
+    color: #11009E;
   }
 
   .txt-3 {
@@ -273,14 +651,40 @@ font-family: 'Roboto', sans-serif; */
   }
 
   .txt-4 {
-    font-family: "Poppins";
+    font-family: "Inter";
     padding-top: 0.5rem;
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 500;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
 
     /* text-align: center; */
+  }
+
+  .features-details{
+    padding-left: 20px;
+  }
+
+
+  .pricing-txt {
+    font-family: "Poppins";
+    font-size: 2rem;
+    font-weight: 500;
+    color: #2f2e2e;
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+
+  .pricing-txt-price {
+    font-family: "Poppins";
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #0E21A0;
+    margin-bottom: 15px;
+  }
+
+  .img-1 {
+    margin-top: 1rem;
   }
 
   .img-1 {
@@ -293,55 +697,144 @@ font-family: 'Roboto', sans-serif; */
   }
 
   .bb-txt-1 {
-    font-family: "Poppins";
-    font-size: 1.2rem;
+    font-family: "Inter";
+    font-size: 22px;
     font-weight: 700;
     color: #2f2e2e;
-    margin-bottom: 15px;
     margin-top: 10px;
 
   }
 
   .bb-txt-2 {
-    font-family: "Poppins";
+    font-family: "Inter";
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 15px;
     line-height: 25px;
     color: #2f2e2e;
   }
 
   .bb-txt-3 {
-    font-family: "Poppins";
-    font-size: 15px;
-    font-weight: 400;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
     color: #2f2e2e;
-    margin-bottom: 5px;
   }
   .bb-txt-4 {
-    font-family: "Poppins";
-    font-size: 15px;
-    font-weight: 400;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
     color: #2f2e2e;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
   .bb-txt-5 {
-    font-family: "Poppins";
-    font-size: 15px;
-    font-weight: 400;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 500;
     color: #2f2e2e;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
   }
 
   .inf-txt-1 {
-    font-family: "Poppins";
-    font-size: 50px;
-    font-weight: 700;
+    font-family: "Inter";
+    font-size: 52px;
+    font-weight: 600;
     color: #2f2e2e;
     padding-top: 30px;
     padding-bottom: 30px;
     line-height: 60px;
     
+  }
+
+  .subtext{
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #7D7C7C;
+  }
+
+  .get-started-button-credit-card{
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+    
+  }
+
+  .gradient-text {
+    /* Fallback: Set a background color. */
+    background-color: #ca4246;
+    font-size: 1.9rem;
+  
+    /* Create the gradient. */
+    background-image: linear-gradient(
+      45deg,
+      #ca4246 16.666%,
+      #e16541 16.666%,
+      #e16541 33.333%,
+      #f18f43 33.333%,
+      #f18f43 50%,
+      #8b9862 50%,
+      #8b9862 66.666%,
+      #476098 66.666%,
+      #476098 83.333%,
+      #a7489b 83.333%
+    );
+  
+    /* Set the background size and repeat properties. */
+    background-size: 100%;
+    background-repeat: repeat;
+  
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    -webkit-background-clip: text;
+    background-clip: '';
+    -webkit-text-fill-color: transparent;
+  
+    /* Animate the text when loading the element. */
+    /* This animates it on page load and when hovering out. */
+    animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
+  }
+  
+  .gradient-text:hover {
+    animation: rainbow-text-simple-animation 0.5s ease-in forwards;
+  }
+
+  .creator-underline-marketer {
+    padding-bottom: 1px;
+    position: relative;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Inter';
+    font-size: 52px;
+  }
+
+  .creator-underline-marketer::after {
+    background: #ff2340;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      #ff0e1a 50%,
+      transparent 100%
+    );
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+  }
+
+  .creator-underline {
+    padding-bottom: 1px;
+    position: relative;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Inter';
+    font-size: 26px;
+    color: #11009E;
+
   }
 
 }
@@ -362,10 +855,55 @@ font-family: 'Roboto', sans-serif; */
 }
 
 .megaRes {
-  color: #7149c6;
   position: relative;
   text-decoration: none;
   font-weight: 500;
+  color: #D80032;
+
+}
+
+.signup-btn-grad {
+  background-image: linear-gradient(
+      to right,
+      #6319f8 0%,
+      #11009E 51%,
+      #7752FE 100%
+    );
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+  height: 50px;
+  font-weight: 500;
+  background-color: #11009E;
+
+
+}
+
+.signup-btn-grad-2 {
+  background-image: linear-gradient(
+      to right,
+      #6319f8 0%,
+      #11009E 51%,
+      #7752FE 100%
+    );
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+  height: 50px;
+  font-weight: 500;
+  background-color: #11009E;
+
+
 }
 
 
@@ -464,7 +1002,7 @@ font-family: 'Roboto', sans-serif; */
   text-decoration: none;
 }
 
-.creator-underline::after {
+/* .creator-underline::after {
   background: #ff2340;
   background: linear-gradient(
     to right,
@@ -478,7 +1016,7 @@ font-family: 'Roboto', sans-serif; */
   left: 0;
   height: 2px;
   width: 100%;
-}
+} */
 
 .body-tag-styles {
   font-family: "Poppins";
