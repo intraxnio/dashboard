@@ -16,12 +16,12 @@ export default function Footer() {
                 
               <ul>
                 <li className="footer-head-text">Useful</li>
-                <li className="footer-content-text"><Link to="/terms-conditions" className="footer-subhead-decoration">Terms & Conditions</Link></li>
-                <li className="footer-content-text"><Link href="/privacy-policy" className="footer-subhead-decoration">Privacy Policy</Link></li>
-                <li className="footer-content-text"><Link href="/cancellation-policy" className="footer-subhead-decoration">Cancellation & Refund</Link></li>
-                <li className="footer-content-text"><Link href="/shipping-policy" className="footer-subhead-decoration">Shipping Policy</Link></li>
-                <li className="footer-content-text"><Link href="/support/contact" className="footer-subhead-decoration">Contact Us</Link></li>
-                <li className="footer-content-text"><Link href="/sitemap.xml" className="footer-subhead-decoration">Sitemap</Link></li>
+                <li className="footer-content-text"><Link to="/terms" className="footer-subhead-decoration">Terms & Conditions</Link></li>
+                <li className="footer-content-text"><Link to="/privacy-policy" className="footer-subhead-decoration">Privacy Policy</Link></li>
+                <li className="footer-content-text"><Link to="/cancellation-refund" className="footer-subhead-decoration">Cancellation & Refund</Link></li>
+                <li className="footer-content-text"><Link to="/shipping-policy" className="footer-subhead-decoration">Shipping Policy</Link></li>
+                <li className="footer-content-text"><Link to="/contact" className="footer-subhead-decoration">Contact Us</Link></li>
+                {/* <li className="footer-content-text"><Link to="/sitemap.xml" className="footer-subhead-decoration">Sitemap</Link></li> */}
 
               </ul>
             </div>
@@ -70,11 +70,11 @@ export default function Footer() {
                   Follow us 
                 </li>
                 <li className="footer-content-text my-1">
-                  <Link href="https://www.instagram.com/broadreach.in/"><a><img  className="img-fluid rounded icon-image" src={instagram} alt="instagram-icon" width={50} height={25} /></a></Link>
-                  <Link href="https://www.facebook.com/broadreach.in"><a><img  className="img-fluid rounded icon-image" src={facebook} alt="facebook-icon" width={50} height={25} /></a></Link>
+                  {/* <Link href="https://www.instagram.com/broadreach.in/"><a><img  className="img-fluid rounded icon-image" src={instagram} alt="instagram-icon" width={50} height={25} /></a></Link> */}
+                  {/* <Link href="https://www.facebook.com/broadreach.in"><a><img  className="img-fluid rounded icon-image" src={facebook} alt="facebook-icon" width={50} height={25} /></a></Link> */}
                   {/* <Link href="https://www.youtube.com"><a><Image  className="img-fluid rounded icon-image mt-1" src={youtube} alt="youtube-icon" width={55} height={35} /></a></Link>
                   <Link href="https://www.twitter.com"><a><Image  className="img-fluid rounded icon-image" src={twitter} alt="twitter-icon" width={50} height={25} /></a></Link> */}
-                  <Link href="https://www.linkedin.com/company/broadreachin/"><a><img  className="img-fluid rounded icon-image" src={linkedin} alt="linkedin-icon" width={50} height={25} /></a></Link>
+                  <Link to="https://www.linkedin.com/company/linck-one/"><a><img  className="img-fluid rounded icon-image" src={linkedin} alt="linkedin-icon" width={38} height={22} /></a></Link>
 
                   
                 </li>
@@ -86,7 +86,7 @@ export default function Footer() {
 
 
         <div className="container text-center my-3">
-          <span className="fw-normal" style={{color: "#B9B4C7"}}>Copyright &copy;linck.one 2023</span>
+          <span className="fw-normal" style={{color: "#B9B4C7"}}>Copyright &copy;linck.one 2024</span>
         </div>
       </div>
     </>

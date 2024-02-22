@@ -159,7 +159,7 @@ function BodyBlocks() {
             <div className="container mx-auto h2 pt-2">Pick the plan that best suits your requirements.</div>
             <div className="container mx-auto row pt-2 pb-4">Target the right audience by our retargeting feature.</div>
             <div className="container mx-auto "> <div className="col-md-12 col-12">
-            <Link href="/pricing"><button className="btn signup-btn-grad-2 btn-g-fonts text-white">View Plans</button></Link>
+            <Link to="/pricing" style={{textDecoration: 'none'}}><button className="btn signup-btn-grad-2 btn-g-fonts text-white">View Plans</button></Link>
 
           </div></div>
             </div>
@@ -278,7 +278,7 @@ function BodyBlocks() {
           <div className="col-md-6 col-12 my-auto">
             <div className="container mx-auto h2 pt-2 pb-4">NO limits on number of clicks per link.</div>
             <div className="container mx-auto "> <div className="col-md-12 col-12">
-            <Link href="/pricing"><button className="btn login-btn-grad btn-g-fonts text-white">View Plans</button></Link>
+            <Link to="/pricing" style={{textDecoration: 'none'}}><button className="btn login-btn-grad btn-g-fonts text-white">View Plans</button></Link>
 
           </div></div>
             </div>

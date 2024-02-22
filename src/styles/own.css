@@ -1226,6 +1226,12 @@ font-family: 'Roboto', sans-serif; */
   border-right: var(--borderWidth) solid var(--borderColor);
 }
 
+.cussLine{
+  display: flex;
+  /* align-items: center; */
+  /* vertical-align: middle; */
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -1277,6 +1283,42 @@ font-family: 'Roboto', sans-serif; */
   padding-bottom: 60px;
 
 }
+
+
+.price-btn-color-1{
+
+  background-color: #8b00d0;
+
+}
+
+.price-btn-color-1:hover {
+  background-color: #78b13f;
+  color: #fff;
+}
+
+.price-btn-color-2{
+
+  background-color: #78b13f;
+
+}
+
+.price-btn-color-2:hover {
+  background-color: #8b00d0;
+  color: #fff;
+}
+
+.custom-btn-group{
+  border-color: transparent;
+}
+/* Social Icons Css*/
+
+
+.custom-row-pricing{
+  border: 1px solid #000; /* Add your desired border style here */
+  height: 100px; /* Add your desired height here */
+  padding: 10px; /* Add padding if needed */
+}
+
 
 /* Social Icons Css*/
 

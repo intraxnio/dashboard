@@ -32,7 +32,7 @@ function Profile() {
 
   const handleSignOut = () => {
     dispatch(logout());
-    navigate(`/login/brand`);
+    navigate(`/login`);
    
   };
 
@@ -45,7 +45,7 @@ function Profile() {
 
     if(!user.user_id){
 
-      navigate("/login/brand");
+      navigate("/login");
   
     }
     else if(user.user_id){

@@ -77,7 +77,7 @@ export default function Support() {
               startIcon={<MailOutlineIcon />}
               style={{marginLeft: '16px', textTransform: 'lowercase'}}
             >
-              support@lynk.is
+              support@linck.one
             </Button>
           </CardActions>
         </Card>

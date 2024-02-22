@@ -17,6 +17,13 @@ import TrackingCodes from './components/Brand/TrackingCodes';
 import Profile from './components/Brand/Profile';
 import ForgotPassword from './components/Brand/ForgotPassword';
 import LandingPage from './components/LandingPage';
+import Pricing from './components/Pricing';
+import Terms from './components/Terms';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import CancellationRefund from './components/CancellationRefund';
+import ShippingPolicy from './components/ShippingPolicy';
+import ContactUs from './components/ContactUs';
+
 
 
 
@@ -26,6 +33,9 @@ function App() {
     <LocalizationProvider dateAdapter= {AdapterDateFns}>
     <div className="App">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+
 
       <Router>
         <Routes>
@@ -34,6 +44,13 @@ function App() {
            <Route path="/signup/brand" element={< UserSignup/>}/>
            <Route path=":linkId" element={<RedirectLink/>}/>
            <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+           <Route path="/pricing" element={<Pricing/>}/>
+           <Route path="/terms" element={<Terms/>}/>
+           <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+           <Route path="/cancellation-refund" element={<CancellationRefund/>}/>
+           <Route path="/shipping-policy" element={<ShippingPolicy/>}/>
+           <Route path="/contact" element={<ContactUs/>}/>
+
 
 
 

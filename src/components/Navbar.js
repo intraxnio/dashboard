@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+
 export default function Navbar() {
     return (
 
@@ -9,7 +10,7 @@ export default function Navbar() {
             <div className="container" > 
                 <Link to="/" className="navbar-brand" style={{fontSize: '22px', fontWeight: 500, color: '#11009E', fontFamily: "Poppins" }} >linck<span style={{color: '#D80032', fontSize: '28px'}}>.</span>one</Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse justify-content-center navbar-collapse ms-md-5" id="navbarNav">
@@ -29,7 +30,7 @@ export default function Navbar() {
 
 
                     </ul>
-                </div>
+                </div> */}
             </div>
 
 
