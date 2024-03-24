@@ -531,14 +531,16 @@ router.post("/create-new-invoice", async function (req, res) {
 await generatePDF(invoiceHTML, invoiceNumber, brand_id, totalAmountInt, payeeName, payeeMobile, payeeEmail, selectedProducts)
   .then(() => {
 
+    res.status(200).send({ invoiceCreated: true});
+    res.end();
+
       // console.log(`PDF generated successfully at ${outputPath}`);
   })
   .catch((err) => {
       console.error('Error generating PDF:', err);
   });
 
-  res.status(200).send({ invoiceCreated: true});
-  res.end();
+  
 
     }
 
@@ -716,84 +718,79 @@ function generatePDF(html, invoiceNumber, user_id, totalAmount, payeeName, payee
   let paymentLinkId = '';
   let shortUrl = '';
 
-  // Creating the payment link
-  return instance.paymentLink.create({
-    amount: totalAmount * 100,
-    currency: "INR",
-    accept_partial: false,
-    description: "purchase invoice",
-    customer: {
-      name: payeeName,
-      email: payeeEmail,
-      contact: "+91" + payeeMobile
-    },
-    notify: {
-      sms: true,
-      email: false
-    },
-    reminder_enable: true,
-    callback_url: "https://www.billsbook.cloud/verifyPayment",
-    callback_method: "get"
-  })
-  .then((result) => {
-    // Extracting necessary data from the result
-    shortUrl = result.short_url;
-    paymentLinkId = result.id;
+            instance.paymentLink.create({
+              amount: totalAmount*100,
+              currency: "INR",
+              accept_partial: false,
+              description: "purchase invoice",
+              customer: {
+                name: payeeName,
+                email: payeeEmail,
+                contact: "+91"+payeeMobile
+              },
+              notify: {
+                sms: true,
+                email: false
+              },
+              reminder_enable: true,
+              callback_url: "https://www.billsbook.cloud/verifyPayment",
+              callback_method: "get"
+            }).then((result =>{
 
-    // Creating the PDF
-    return new Promise((resolve, reject) => {
-      pdf.create(html).toStream((err, stream) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+              shortUrl = result.short_url;
+              paymentLinkId = result.id;
+            }))
 
-        // Prepare the upload parameters
-        const params = {
-          Bucket: "billsbookbucket",
-          Key: `invoices/${Date.now()}_${invoiceNumber}`,
-          Body: stream,
-          ContentType: 'application/pdf',
-          ServerSideEncryption: "AES256",
-        };
 
-        // Uploading PDF to S3
-        s3.send(new PutObjectCommand(params))
-          .then(() => {
-            // Construct and return the S3 URL
-            const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+  return new Promise((resolve, reject) => {
+    pdf.create(html).toStream((err, stream) => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
-            // Update the invoice with the S3 URL
-            return Invoices.create({
-              invoice_number: invoiceNumber,
-              brandUser_id: user_id,
-              invoice_amount: totalAmount,
-              payee_name: payeeName,
-              payee_mobile_number: payeeMobile,
-              products_details: selectedProducts,
-              invoice_pdf_file: s3Url,
-              payee_email: payeeEmail ? payeeEmail : '',
-              shortUrl: shortUrl,
-              payment_link_id: paymentLinkId
-            });
-          })
-          .then((updatedInvoice) => {
-            resolve(updatedInvoice); // Resolve with the updated invoice
-          })
-          .catch((error) => {
-            console.error("Error uploading PDF to S3:", error);
-            reject(error); // Reject with the error
-          });
-      });
+      // Prepare the upload parameters
+      const params = {
+        Bucket: "billsbookbucket",
+        Key: `invoices/${Date.now()}_${invoiceNumber}`,
+        Body: stream,
+        ContentType: 'application/pdf',
+        ServerSideEncryption: "AES256",
+      };
+
+      s3.send(new PutObjectCommand(params))
+        .then(() => {
+          // Construct and return the S3 URL
+          const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+          // Update the invoice with the S3 URL
+          
+        
+          return Invoices.create({
+            invoice_number : invoiceNumber,
+            brandUser_id: user_id,
+            invoice_amount: totalAmount,
+            payee_name: payeeName,
+            payee_mobile_number : payeeMobile,
+            products_details : selectedProducts,
+            invoice_pdf_file : s3Url,
+            payee_email : payeeEmail ? payeeEmail : '',
+            shortUrl : shortUrl,
+            payment_link_id : paymentLinkId
+    
+          });    
+          
+        })
+        .then((updatedInvoice) => {
+          resolve(updatedInvoice); // Resolve with the updated invoice
+        })
+        .catch((error) => {
+          console.error("Error uploading PDF to S3:", error);
+          reject(error); // Reject with the error
+        });
     });
-  })
-  .catch((error) => {
-    console.error("Error creating payment link:", error);
-    throw error; // Throw the error to be caught by the caller
   });
 }
-
-
 
 
 
