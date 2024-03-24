@@ -10,16 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function Support() {
+export default function SupportPage() {
 
   const user = useSelector(state => state.brandUser);
   const navigate = useNavigate();
 
   useEffect(() => {
 
-    if(!user.user_id){
+    if(!user.brand_id){
 
-      navigate("/login/brand");
+      navigate("/");
 
     }
     
@@ -52,7 +52,7 @@ export default function Support() {
               </ListItem>
               <ListItem>
                 <CheckIcon color="primary" />
-                &nbsp;&nbsp; Campaign Setup
+                &nbsp;&nbsp; Catalogue Setup
               </ListItem>
               <ListItem>
                 <CheckIcon color="primary" />
@@ -77,12 +77,63 @@ export default function Support() {
               startIcon={<MailOutlineIcon />}
               style={{marginLeft: '16px', textTransform: 'lowercase'}}
             >
-              support@linck.one
+              support@billsbook.online
             </Button>
           </CardActions>
         </Card>
       </Grid>
+      
 
+      <Grid item xs={12} sm={6} md={4}>
+        <Card variant="outlined">
+          <CardContent>
+            <Typography variant="h5" sx={{marginBottom: 3}}>Phone Support</Typography>
+            <Divider />
+            <List>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; Priority Phone Support
+              </ListItem>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; Monday - Friday
+              </ListItem>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; 10:00AM - 05:00PM IST
+              </ListItem>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; Account Setup
+              </ListItem>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; Catalogue Setup
+              </ListItem>
+              <ListItem>
+                <CheckIcon color="primary" />
+                &nbsp;&nbsp; On-demand Reports (PDF)
+              </ListItem>
+             
+            </List>
+            <Divider />
+          </CardContent>
+          <CardActions>
+        
+            {/* <Typography variant="subtitle1">{getPrice() + '/'}{pricing === 'year' ? 'year' : 'month'}</Typography> */}
+
+
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<CallIcon />}
+              style={{marginLeft: '16px', textTransform: 'lowercase'}}
+            >
+              +91 6305420874
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
     </Grid>
     </>
   );
