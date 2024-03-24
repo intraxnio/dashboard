@@ -594,7 +594,7 @@ router.post('/all-invoices', async (req, res) => {
       invoiceId: data._id,
       payeeName: data.payee_name,
       payeeMobile: data.payee_mobile_number,
-      invoice: data.invoice_pdf_file,
+      invoice: data._id,
       invoiceAmount: data.invoice_amount,
       paymentStatus: data.is_payment_captured,
       createdDate: data.created_at,
@@ -728,7 +728,6 @@ router.post('/verifyPayment', async (req, res) => {
 router.post('/is-pdf-link-available', async (req, res) => {
 
       const invoiceId = req.body.invoiceId;
-      const invoiceNumber = generatePin();
 
   await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
 
@@ -768,7 +767,7 @@ router.post('/is-pdf-link-available', async (req, res) => {
       
   const params = {
     Bucket: "billsbookbucket",
-    Key: `invoices/${Date.now()}_${invoiceNumber}`,
+    Key: `invoices/${Date.now()}_${result.invoice_number}`,
     Body: stream,
     ContentType: 'application/pdf',
     ServerSideEncryption: "AES256",
