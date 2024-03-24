@@ -40,11 +40,11 @@ app.use((req, res, next) => {
 
 
 
-app.use("/usersOn", brand);
+app.use("/brand", brand);
 
 
 //create server
-const server = app.listen(8000, () => {
+const server = app.listen(8001, () => {
   // console.log('Server is running on http://localhost:8000');
 });
 
