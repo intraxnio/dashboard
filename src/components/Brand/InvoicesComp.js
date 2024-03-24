@@ -84,11 +84,32 @@ export default function LinksCard() {
     }
   };
 
-  const openPdfInvoice = (pdfUrl) => {
-    // Open the PDF URL in a new tab
-    window.open(pdfUrl, "_blank");
-};
+  const openPdfInvoice = (invoiceId) => {
 
+    try {
+
+setLoading('true');
+      axios.post("/api/brand/is-pdf-link-available", {
+          invoiceId: invoiceId,
+        })
+        .then((ress) => {
+        setLoading(false);
+    window.open(ress.data.filePdf, "_blank");
+
+        })
+        .catch((e) => {
+          // Handle error
+        });
+  
+  
+      } catch (error) {
+        console.error(error);
+      }
+
+    
+    // Open the PDF URL in a new tab
+    // window.open(pdfUrl, "_blank");
+};
 
   const fetchData = async () => {
     try {

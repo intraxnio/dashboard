@@ -512,29 +512,51 @@ router.post("/create-new-invoice", async function (req, res) {
 
     if(result){
 
-      const currentDate = dayjs().format('DD-MM-YYYY'); 
       const invoiceNumber = generatePin();
-  
-      const invoiceHTML = generateInvoice({
-        date: currentDate,
-        invoiceNumber: invoiceNumber,
-        payeeName: payeeName,
-        payeeMobile: '+91 '+ payeeMobile,
-        companyName: result.brand_name,
-        companyAddress: result.address,
-        companyGSTIN: result.gstin,
-        productDetails: selectedProducts,
-        amountToPay : totalAmountInt
-      });
+      var instance = new Razorpay({ key_id: razorpayKey, key_secret: razorpaySecret })
 
-      // const outputPath = 'invoice.pdf';
-await generatePDF(invoiceHTML, invoiceNumber, brand_id, totalAmountInt, payeeName, payeeMobile, payeeEmail, selectedProducts);
-
-    res.status(200).send({ invoiceCreated: true});
-    res.end();
-
-
-  
+      try {
+        // Create payment link
+        const result = await instance.paymentLink.create({
+          amount: totalAmount * 100,
+          currency: "INR",
+          accept_partial: false,
+          description: "purchase invoice",
+          customer: {
+            name: payeeName,
+            email: payeeEmail,
+            contact: "+91" + payeeMobile
+          },
+          notify: {
+            sms: true,
+            email: false
+          },
+          reminder_enable: true,
+          callback_url: "https://www.billsbook.cloud/verifyPayment",
+          callback_method: "get"
+        });
+    
+        await Invoices.create({
+          invoice_number: invoiceNumber,
+          brandUser_id: brand_id,
+          invoice_amount: totalAmountInt,
+          payee_name: payeeName,
+          payee_mobile_number: payeeMobile,
+          products_details: selectedProducts,
+          invoice_pdf_file: '',
+          payee_email: payeeEmail ? payeeEmail : '',
+          shortUrl: result.short_url,
+          payment_link_id: result.id
+        });
+    
+        res.status(200).send({ invoiceCreated: true});
+        res.end();
+      
+    
+      } catch (error) {
+        console.error("Error generating PDF or saving record:", error);
+        throw error;
+      }
 
     }
 
@@ -703,83 +725,86 @@ router.post('/verifyPayment', async (req, res) => {
 
 });
 
+router.post('/is-pdf-link-available', async (req, res) => {
 
+      const invoiceId = req.body.invoiceId;
+      const invoiceNumber = generatePin();
 
-async function generatePDF(html, invoiceNumber, user_id, totalAmount, payeeName, payeeMobile, payeeEmail, selectedProducts) {
-  var instance = new Razorpay({ key_id: process.env.RZP_KEY, key_secret: process.env.RZP_SECRET })
+  await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
 
-  let paymentLinkId = '';
-  let shortUrl = '';
+    if(result && (!result.invoice_pdf_file == '' || !result.invoice_pdf_file ==undefined)){
 
-  try {
-    // Create payment link
-    const result = await instance.paymentLink.create({
-      amount: totalAmount * 100,
-      currency: "INR",
-      accept_partial: false,
-      description: "purchase invoice",
-      customer: {
-        name: payeeName,
-        email: payeeEmail,
-        contact: "+91" + payeeMobile
-      },
-      notify: {
-        sms: true,
-        email: false
-      },
-      reminder_enable: true,
-      callback_url: "https://www.billsbook.cloud/verifyPayment",
-      callback_method: "get"
-    });
+      res.status(200).send({ filePdf: result.invoice_pdf_file});
+      res.end();
 
-    // Extract payment link data
-    shortUrl = result.short_url;
-    paymentLinkId = result.id;
+    }
 
-    // Generate PDF
-    const stream = await new Promise((resolve, reject) => {
-      pdf.create(html).toStream((err, stream) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(stream);
+    else{
+
+      const dateString = result.created_at.toISOString().substring(0, 10);
+  
+      const invoiceHTML = generateInvoice({
+        date: dateString,
+        invoiceNumber: result.invoice_number,
+        payeeName: result.payee_name,
+        payeeMobile: '+91 '+ result.payee_mobile_number,
+        companyName: result.brandUser_id.brand_name,
+        companyAddress: result.brandUser_id.address,
+        companyGSTIN: result.brandUser_id.gstin,
+        productDetails: result.products_details,
+        amountToPay : result.invoice_amount
       });
-    });
 
-    // Prepare upload parameters
-    const params = {
-      Bucket: "billsbookbucket",
-      Key: `invoices/${Date.now()}_${invoiceNumber}`,
-      Body: stream,
-      ContentType: 'application/pdf',
-      ServerSideEncryption: "AES256",
-    };
+      const stream = await new Promise((resolve, reject) => {
+        pdf.create(invoiceHTML).toStream((err, stream) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(stream);
+        });
+      });
 
-    // Upload PDF to S3
-    await s3.send(new PutObjectCommand(params));
+      
+  const params = {
+    Bucket: "billsbookbucket",
+    Key: `invoices/${Date.now()}_${invoiceNumber}`,
+    Body: stream,
+    ContentType: 'application/pdf',
+    ServerSideEncryption: "AES256",
+  };
 
-    // Construct S3 URL
-    const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+  // Upload PDF to S3
+  await s3.send(new PutObjectCommand(params));
 
-    // Save record to the database
-    await Invoices.create({
-      invoice_number: invoiceNumber,
-      brandUser_id: user_id,
-      invoice_amount: totalAmount,
-      payee_name: payeeName,
-      payee_mobile_number: payeeMobile,
-      products_details: selectedProducts,
-      invoice_pdf_file: s3Url,
-      payee_email: payeeEmail ? payeeEmail : '',
-      shortUrl: shortUrl,
-      payment_link_id: paymentLinkId
-    });
-  } catch (error) {
-    console.error("Error generating PDF or saving record:", error);
-    throw error;
-  }
-}
+  // Construct S3 URL
+  const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+  await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+
+  res.status(200).send({ filePdf: s3Url });
+  res.end();
+
+
+    }
+  
+  
+
+
+  }).catch(e2=>{
+
+    console.log('Error2', e2);
+
+  })
+
+
+
+  
+
+
+})
+
+
 
 
 
