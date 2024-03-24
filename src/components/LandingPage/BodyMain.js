@@ -48,7 +48,7 @@ function BodyMain() {
 
 
 
-      <div className="container row justify-content-center mt-1 mb-5 pt-4 pb-4 mx-auto">
+      {/* <div className="container row justify-content-center mt-1 mb-5 pt-4 pb-4 mx-auto">
         <div className="container col-6 col-md-3 col-lg-3 text-center body-tag-styles">
           1.2 M <br />{" "}
           <span className="body-bottom-tag-styles">Short Links</span>
@@ -65,7 +65,7 @@ function BodyMain() {
           50 M+ <br />{" "}
           <span className="body-bottom-tag-styles">Clicks</span>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
