@@ -19,6 +19,9 @@ import {
 import { toast } from "react-toastify";
 import sideImage from "../../images/IMG_1025.jpg";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 
 
@@ -39,6 +42,9 @@ function BrandSignup() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [allCategories, setAllCategories] = useState([ ]);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   // const baseUrl = "http://localhost:8000/api";
   
 
@@ -190,6 +196,71 @@ function BrandSignup() {
   return (
     <>
 {/* <Grid container spacing='2'> */}
+
+{isSmallScreen ? (
+
+<Grid item xs={12} paddingX ={2}>
+<form action='#' method='post'>
+
+
+{isLoading ? (
+ <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+ <CircularProgress color= 'success' />
+</div>
+) : ( <>
+
+      <Box 
+      display='flex' 
+      flexDirection={'column'} 
+      maxWidth={450} 
+      margin='auto'
+      marginTop={12}
+      >
+        <Typography variant='h5' textAlign='center' sx={{ marginBottom : '22px'}}>Brand Signup</Typography>
+
+        <TextField type='email' id='email' sx={{ marginBottom : '12px'}} onChange={(e)=>{setEmail(e.target.value)}} variant='outlined' label='Email'></TextField>
+        <TextField type='password' id="password"  sx={{ marginBottom : '12px'}} onChange={(e)=>{setPassword(e.target.value)}} variant='outlined' label='Create a Password'></TextField>
+        <TextField type='text' id="brandName" sx={{ marginBottom : '12px'}} onChange={(e)=>{setBrand(e.target.value)}} variant='outlined' label='Brand Name'></TextField>
+
+        <Button type='submit' onClick={submit} variant='contained' 
+                sx={{
+                      marginTop:3,
+                      textTransform:'capitalize',
+                      fontWeight: '300',
+                      fontSize: 16,
+                      background: '#362FD9'
+                      }} 
+                size='large'>Create Account</Button>
+
+<Typography variant="body2" sx={{marginTop : '5px'}}>
+                I agree to{" "}
+                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  Invoices's Terms of Service
+                </Link>
+              </Typography>
+          <Button variant='outlined' size='large' 
+        sx={{
+          marginTop:3,
+          textTransform:'capitalize',
+          fontWeight: '300',
+          fontSize: 16,
+          fontWeight: "400",
+          color: '#362FD9'
+
+          }} 
+          onClick={loginButton}
+          >Already have an account? Login here</Button>
+      </Box>
+
+      </>)}
+
+      <ToastContainer autoClose={2000} />
+
+
+      </form>
+
+</Grid> ): (
+
 <Grid container spacing="1" sx={{ height: '100vh' }}>
 
 
@@ -336,7 +407,7 @@ function BrandSignup() {
 </Grid>
 
 
-</Grid>
+</Grid> )}
 
 
 

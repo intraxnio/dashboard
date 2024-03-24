@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch} from 'react-redux';
 import {login} from '../../store/brandSlice';
 import { useSelector } from "react-redux";
+import { useTheme } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -22,6 +23,7 @@ function BrandLogin() {
   const [password, getPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.brandUser);
+  const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   // const baseUrl = "http://localhost:8000/api";
