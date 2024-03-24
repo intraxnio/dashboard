@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 
 
-app.use("/brand", brand);
+app.use("/usersOn", brand);
 
 
 //create server
