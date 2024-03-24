@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-// const username = process.env.DB_USERNAME;
-// const password = process.env.DB_PASSWORD;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
 
-const username = 'groopsappin';
-const password = '9ZUmTwIcAHCLwaUn';
+// const username = 'groopsappin';
+// const password = '9ZUmTwIcAHCLwaUn';
 
 // var dbUrl= "mongodb+srv://"+username+":"+password+"@cluster0.1u64z5l.mongodb.net/?retryWrites=true&w=majority"
 
