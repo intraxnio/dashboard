@@ -711,7 +711,7 @@ router.post('/verifyPayment', async (req, res) => {
 
 function generatePDF(html, invoiceNumber, user_id, totalAmount, payeeName, payeeMobile, payeeEmail, selectedProducts) {
   
-  var instance = new Razorpay({ key_id: razorpayKey, key_secret: razorpaySecret })
+  var instance = new Razorpay({ key_id: process.env.RZP_KEY, key_secret: process.env.RZP_SECRET })
 
   let paymentLinkId = '';
   let shortUrl = '';
