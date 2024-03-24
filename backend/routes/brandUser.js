@@ -731,7 +731,7 @@ function generatePDF(html, invoiceNumber, user_id, totalAmount, payeeName, payee
                 email: false
               },
               reminder_enable: true,
-              callback_url: "https://app.billsbook.online/verifyPayment",
+              callback_url: "https://www.billsbook.cloud/verifyPayment",
               callback_method: "get"
             }).then((result =>{
 

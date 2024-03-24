@@ -162,7 +162,7 @@ function BodyBlocks() {
             <div className="container mx-auto h2 pt-2">The best choice we made for startups.</div>
             <div className="container mx-auto row pt-2 pb-4">Get payment done no matter what.</div>
             <div className="container mx-auto "> <div className="col-md-12 col-12">
-            <Link to="/pricing" style={{textDecoration: 'none'}}><button className="btn signup-btn-grad-2 btn-g-fonts text-white">Explore Now</button></Link>
+            <Link to="/login/brand" style={{textDecoration: 'none'}}><button className="btn signup-btn-grad-2 btn-g-fonts text-white">Explore Now</button></Link>
 
           </div></div>
             </div>
@@ -281,7 +281,7 @@ function BodyBlocks() {
           <div className="col-md-6 col-12 my-auto">
             <div className="container mx-auto h2 pt-2 pb-4">NO limits on number of payments you accept.</div>
             <div className="container mx-auto "> <div className="col-md-12 col-12">
-            <Link to="/pricing" style={{textDecoration: 'none'}}><button className="btn login-btn-grad btn-g-fonts text-white">Signup Now</button></Link>
+            <Link to="/login/brand" style={{textDecoration: 'none'}}><button className="btn login-btn-grad btn-g-fonts text-white">Signup Now</button></Link>
 
           </div></div>
             </div>

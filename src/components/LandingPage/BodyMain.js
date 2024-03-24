@@ -34,7 +34,7 @@ function BodyMain() {
         </div>
 
       <div className="col-md-4 col-12 get-started-button-credit-card " >
-          <Link to="/login" style={{textDecoration: 'none'}}>
+          <Link to="/login/brand" style={{textDecoration: 'none'}}>
             <button className="btn signup-btn-grad btn-g-fonts" >
               Get Started
             </button>
