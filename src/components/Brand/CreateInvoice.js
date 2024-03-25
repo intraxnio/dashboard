@@ -168,7 +168,7 @@ function CreateInvoice() {
     <>
    <Button startIcon={<KeyboardBackspaceIcon />} onClick={handleBackClick}>Back</Button>
 
-        <Grid container>
+        <Grid container sx={{ paddingBottom : '60px'}}>
 
                 <Grid item xs={12} sm={10} md={8}>
                     <Box
@@ -229,7 +229,7 @@ function CreateInvoice() {
                       ></TextField>
 
 <FormControl variant="outlined" fullWidth>
-          <InputLabel id="product-select-label">Select Product</InputLabel>
+          <InputLabel id="product-select-label">Select Product(s)</InputLabel>
           <Select
             labelId="product-select-label"
             id="product-select"

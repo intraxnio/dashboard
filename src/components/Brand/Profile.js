@@ -221,6 +221,8 @@ const updateBrandName = () => {
 
     {loading ? (<CircularProgress />) : (
     <>
+    <div style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+
     <Grid container spacing={2}>
     <Grid item xs={12} sm={6} md={8}>
     <div>
@@ -404,6 +406,8 @@ const updateBrandName = () => {
 {/* {category dialogue ends} */}
     </Grid>
     </Grid>
+
+    </div>
 
     {isLoading && (
           <CircularProgress

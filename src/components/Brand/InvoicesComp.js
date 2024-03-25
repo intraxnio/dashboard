@@ -260,155 +260,148 @@ export default function LinksCard() {
   return (
 <>
 
-    <ThemeProvider theme={theme}>
+<ThemeProvider theme={theme}>
+
+<div style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+
+
+
+  {isSmallScreen ? 
+  (
+    <Grid sx={{ paddingX : '6px', paddingBottom : '22px'}}>
+
+  <Button
+  startIcon = { < AddLinkIcon />}
+  variant="outlined"
+  color="primary"
+  onClick={createCampaign}
+  sx={{ marginTop: "14px", marginBottom : '16px', color: deepOrange[500], cursor: 'pointer', textDecoration: 'none', textTransform: 'none'}}
+  >
+  Create Invoice
+  </Button>
+
+
     
+    {invoicesData.map((invoice) => (
+  <Card sx={{ marginBottom : '16px'}}>
+<CardContent sx={{ display : 'flex', flexDirection : 'row', justifyContent: 'space-between'}}>
 
-      {isSmallScreen ? 
-      (
-        <>
+<Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Date</Typography>
+  <Typography >{dayjs.utc(invoice.createdDate).locale('en').format('DD-MM-YYYY')}</Typography>
+  </Stack>
 
-      <Button
-      startIcon = { < AddLinkIcon />}
-      variant="outlined"
-      color="primary"
-      onClick={createCampaign}
-      sx={{ marginTop: "14px", color: deepOrange[500]}}
-      style={{
-        cursor: 'pointer',
-        textDecoration: 'none',
-        textTransform: 'none'
-      }} 
-      >
-      Create Invoice
-      </Button>
+  <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Name</Typography>
+  <Typography >{invoice.payeeName}</Typography>
+  </Stack>
 
+  <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Mobile</Typography>
+  <Typography >{invoice.payeeMobile}</Typography>
+  </Stack>
+
+ 
+
+</CardContent>
+
+<CardContent sx={{ display : 'flex', flexDirection : 'row', justifyContent: 'space-between'}}>
+
+   <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Amount</Typography>
+  <Typography >Rs. {invoice.invoiceAmount}</Typography>
+  </Stack>
+
+  <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Payment Status</Typography>
+  <Typography sx={{ color: invoice.paymentStatus ? green[500] : deepOrange[500]}}>{invoice.paymentStatus ? 'Success' : 'Pending'}</Typography>
+  </Stack>
+
+  <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
+  <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Invoice</Typography>
+  <Typography  sx={{ color: 'blue', cursor : 'pointer'}} onClick={() => openPdfInvoice(invoice.invoice)} >Invoice</Typography>
+  </Stack>
+ 
+
+</CardContent>
+<CardActions>
+ 
+</CardActions>
+</Card> ))}
+</Grid>
+
+) : (
+<>
+
+<Button
+startIcon = { < AddLinkIcon />}
+variant="outlined"
+color="primary"
+onClick={createCampaign}
+sx={{ marginBottom: "14px", color: deepOrange[500],  cursor: 'pointer',
+textDecoration: 'none',
+textTransform: 'none' }}
+>
+Create Invoice
+</Button>
+
+<TableContainer sx={{ width : '90%'}}>
+
+
+  {loading ? (<CircularProgress />) : (<>
+
+{invoicesData !== null && invoicesData.length !== 0  ? ( 
+
+
+  <DataGrid 
+    rows={rows}
+    columns={columns}
+    sx={{
+      "&:focus": {
+        outline: "none", // Remove the red border on focus
+      },
+      paddingX : '10px'
+    }}
+    isRowSelectable={(params) => {
+      return false; // Disable selection for all rows
+    }}
+    onSelectionModelChange={(newSelection) => {
+      setSelectedRows(newSelection.selectionModel);
+    }}
+    selectionModel={selectedRows}
+    getRowHeight={() => 80} // Set the desired row height
+    pageSizeOptions={[10, 20]}
+  />
+
+  ) : ( 
     
-        
-        {invoicesData.map((invoice) => (
-      <Card sx={{ marginTop : '12px'}}>
-    <CardContent sx={{ display : 'flex', flexDirection : 'row', justifyContent: 'space-between'}}>
+  <div
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
+  }}
+>
+  <div > No Invoices</div>
 
-    <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Date</Typography>
-      <Typography >{dayjs.utc(invoice.createdDate).locale('en').format('DD-MM-YYYY')}</Typography>
-      </Stack>
+</div> 
 
-      <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Name</Typography>
-      <Typography >{invoice.payeeName}</Typography>
-      </Stack>
+ )}
 
-      <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}} >Mobile</Typography>
-      <Typography >{invoice.payeeMobile}</Typography>
-      </Stack>
-
-     
-
-    </CardContent>
-
-    <CardContent sx={{ display : 'flex', flexDirection : 'row', justifyContent: 'space-between'}}>
-
-       <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Amount</Typography>
-      <Typography >Rs. {invoice.invoiceAmount}</Typography>
-      </Stack>
-
-      <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Payment Status</Typography>
-      <Typography sx={{ color: invoice.paymentStatus ? green[500] : deepOrange[500]}}>{invoice.paymentStatus ? 'Success' : 'Pending'}</Typography>
-      </Stack>
-
-      <Stack sx={{ display: 'flex', flexDirection : 'column'}}>
-      <Typography sx={{ fontSize : '16px', fontWeight : 500, marginBottom : '6px'}}>Invoice</Typography>
-      <Typography  sx={{ color: 'blue', cursor : 'pointer'}} onClick={() => openPdfInvoice(invoice.invoice)} >Invoice</Typography>
-      </Stack>
-     
-
-    </CardContent>
-    <CardActions>
-     
-    </CardActions>
-  </Card> ))}
-  </>
-  
-  ) : (
-    <>
-
-    <Button
-    startIcon = { < AddLinkIcon />}
-    variant="outlined"
-    color="primary"
-    onClick={createCampaign}
-    sx={{ marginBottom: "14px", color: deepOrange[500] }}
-    style={{
-      cursor: 'pointer',
-      textDecoration: 'none',
-      textTransform: 'none'
-    }} 
-    >
-    Create Invoice
-    </Button>
-
-    <TableContainer sx={{ width : '90%'}}>
+ </>)}
 
 
-      {loading ? (<CircularProgress />) : (<>
+</TableContainer>
+</>
+  )}
 
-  {invoicesData !== null && invoicesData.length !== 0  ? ( 
+  </div>
 
-      <DataGrid 
-        rows={rows}
-        columns={columns}
-        sx={{
-          "&:focus": {
-            outline: "none", // Remove the red border on focus
-          },
-          paddingX : '10px'
-        }}
-        isRowSelectable={(params) => {
-          return false; // Disable selection for all rows
-        }}
-        onSelectionModelChange={(newSelection) => {
-          setSelectedRows(newSelection.selectionModel);
-        }}
-        selectionModel={selectedRows}
-        getRowHeight={() => 80} // Set the desired row height
-        pageSizeOptions={[10, 20]}
-      />) : ( 
-        
-      <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%',
-      }}
-    >
-      <iframe
-        width="900"
-        height="500"
-        src='https://app.supademo.com/demo/xSanFv0U8ZKrRcAeKH7i_'
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        target="_blank"
-      ></iframe>
+</ThemeProvider>
 
-    </div> 
-  
-     )}
-
-     </>)}
-
-
-    </TableContainer>
-    </>
-      )}
-    </ThemeProvider>
 
      
 

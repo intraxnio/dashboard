@@ -181,12 +181,11 @@ function BrandLogin() {
 
 
     <Typography variant="body2" sx={{marginTop : '5px'}}>
-      I agree to{" "}
-      <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
-        BroadReach's Terms of Service
-      </Link>
-    </Typography>
-
+                I agree to{" "}
+                <Link href="https://billsbook.cloud/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  BillsBook's Terms of Service
+                </Link>
+              </Typography>
     <Button
       variant="outlined"
       size="large"
@@ -228,11 +227,11 @@ function BrandLogin() {
                 paddingTop: '25%',
 
                 }}>
-                Let's create a campaign.
+                Create Invoices Online.
               </Typography>
 
               <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '3%'}}>
-              Cease the hunt for influencers.
+              Cease the hunt for payments.
               </Typography>
 
               </Box>
@@ -248,13 +247,11 @@ function BrandLogin() {
                     
          
 
-                <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '2%'}}>
-
-              
-              .Reach <br />
-              .Engagement <br />
-              .Conversions
-                </Typography>
+                    <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '2%'}}>
+                    .Create <br />
+                    .Send <br />
+                    .Get Paid
+                      </Typography>
 
 
 
@@ -336,8 +333,8 @@ function BrandLogin() {
 
               <Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
-                  BroadReach's Terms of Service
+                <Link href="https://billsbook.cloud/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  BillsBook's Terms of Service
                 </Link>
               </Typography>
 

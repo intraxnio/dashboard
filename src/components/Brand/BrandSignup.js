@@ -186,7 +186,7 @@ function BrandSignup() {
 
   const loginButton = async () => {
 
-    navigate("/");
+    navigate("/login/brand");
     
 
   }
@@ -234,8 +234,8 @@ function BrandSignup() {
 
 <Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
-                  Invoices's Terms of Service
+                <Link href="https://billsbook.cloud/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  BillsBook's Terms of Service
                 </Link>
               </Typography>
           <Button variant='outlined' size='large' 
@@ -287,7 +287,7 @@ function BrandSignup() {
               </Typography>
 
               <Typography textAlign="start"  sx={{fontSize: '22px', color: 'white', paddingX: '20px', paddingTop: '3%'}}>
-               Unlock new horizons for unparalleled reach and engagement.
+               Unlock new horizons for unparalleled business and growth.
               </Typography>
 
               </Box>
@@ -305,8 +305,9 @@ function BrandSignup() {
                 sx={{ paddingX : '20px'}} 
                 name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
 
-                <Typography textAlign="start"  sx={{fontSize: '14px', color: 'white', paddingX: '20px', paddingTop: '2%'}}>
-                "We're enthusiastic about BroadReach, a novel automated influencer marketing platform. It's a tool for marketers that we never knew existed until now!"
+<Typography textAlign="start"  sx={{fontSize: '14px', color: 'white', paddingX: '20px', paddingTop: '2%'}}>
+                "It's a game-changing invoicing tool that streamlines payment collection like never before, 
+                offering solutions that many small business owners didn't even realize they needed until now."
                 </Typography>
 
 
@@ -317,17 +318,17 @@ function BrandSignup() {
                 sx={{marginTop : '5%', paddingX: '20px'}}
                 >
 
-                <Avatar alt="Travis Howard" src={''} sx={{ width: 40, height: 40 }}/>
+                {/* <Avatar alt="Travis Howard" src={''} sx={{ width: 40, height: 40 }}/> */}
                 <Box 
                 display ='flex'
                 flexDirection={'column'}
                 >
-                <Typography textAlign="start"  sx={{fontSize: '14px', color: 'white', paddingX: '20px' }}>
+                <Typography textAlign="start"  sx={{fontSize: '14px', color: 'white'}}>
                 Karan Jaiswal <br />
                 </Typography>
 
-                <Typography textAlign="start"  sx={{fontSize: '12px', color: '#E4F1FF', paddingX: '20px' }}>
-                Marketing, BuzzerStudio
+                <Typography textAlign="start"  sx={{fontSize: '12px', color: '#E4F1FF'}}>
+                Founder, Cribstore
                 </Typography>
                 </Box>
 
@@ -380,8 +381,8 @@ function BrandSignup() {
 
 <Typography variant="body2" sx={{marginTop : '5px'}}>
                 I agree to{" "}
-                <Link href="https://www.broadreach.in/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
-                  Invoices's Terms of Service
+                <Link href="https://billsbook.cloud/terms-conditions" target="_blank" underline="none" sx={{color: '#362FD9'}}>
+                  BillsBook's Terms of Service
                 </Link>
               </Typography>
           <Button variant='outlined' size='large' 
