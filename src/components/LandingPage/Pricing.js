@@ -176,14 +176,14 @@ function Pricing() {
             </div>
        
             <div className="container my-4 mx-auto d-flex justify-content-center">
-              <button className="btn signup-btn-grad btn-g-fonts text-white">support@linck.one</button>
+              <button className="btn signup-btn-grad btn-g-fonts text-white">support@billsbook.cloud</button>
                {/* <Button
               variant="outlined"
               color="secondary"
               startIcon={<MailOutlineIcon />}
               style={{marginLeft: '16px', textTransform: 'lowercase'}}
             >
-              support@linck.one
+              support@billsbook.cloud
             </Button> */}
             </div>
           </div>
