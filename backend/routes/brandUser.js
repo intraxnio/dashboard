@@ -711,6 +711,19 @@ router.post('/verifyPayment', async (req, res) => {
         { new: true }
       );
 
+      await Invoices.findOne({ payment_link_id : razorpay_payment_link_id}).then( forResp => {
+
+        res.status(200).send({ data: forResp});
+        res.end();
+
+      }).catch(e2=>{
+
+        console.log('Error2', e2);
+    
+      })
+
+
+
     } catch (error) {
       console.error('Error updating invoice:', error);
     }
