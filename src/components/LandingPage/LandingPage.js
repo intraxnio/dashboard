@@ -30,7 +30,7 @@ export default function LandingPage() {
       <BodyMain />
       <BodyBlocks />
       <BodyCards />
-      {/* <Accordian /> */}
+      <Accordian />
       <Footer />
       {/* <Script async src="https://www.googletagmanager.com/gtag/js?id=G-D0SY7XGY0L"></Script>
 

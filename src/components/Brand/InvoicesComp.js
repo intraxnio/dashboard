@@ -282,6 +282,8 @@ export default function LinksCard() {
 
 
     
+  {loading ? (<CircularProgress />) : (<>
+   
     {invoicesData.map((invoice) => (
   <Card sx={{ marginBottom : '16px'}}>
 <CardContent sx={{ display : 'flex', flexDirection : 'row', justifyContent: 'space-between'}}>
@@ -328,6 +330,8 @@ export default function LinksCard() {
  
 </CardActions>
 </Card> ))}
+</>)}
+
 </Grid>
 
 ) : (

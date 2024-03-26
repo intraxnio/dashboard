@@ -61,17 +61,17 @@ function BodyBlocks() {
 
             <div className="col-12 col-md-6 col-lg-6 my-auto">
                 <div className="row creator-underline txt-bold"><p>Accept Payments</p></div>
-                <div className="row bb-txt-2"><p>Get real time <span className="span-70">payment status </span>of every invoice generated and sent to payees.</p></div>
+                <div className="row bb-txt-2"><p>Get real time <span className="span-70">payment status </span>of every invoice generated and sent to buyers.</p></div>
 
 
                 <div className="row-center bb-txt-3">
                   <span className="just-arrow-1">&#8594;</span>
-                    <p className= "my-auto">Payment link will be sent to the payee's mobile.</p>
+                    <p className= "my-auto">Payment link will be sent to the buyers's mobile.</p>
                 </div>
 
                 <div className="row-center bb-txt-3 mt-3">
                   <span className="just-arrow-2">&#8594;</span>
-                    <p className= "my-auto">Downloadable Invoice will reach payee's email.</p>
+                    <p className= "my-auto">Downloadable Invoice will reach buyers's email.</p>
                 </div>
 
                 <div className="row-center bb-txt-3 mt-3">
@@ -185,7 +185,7 @@ function BodyBlocks() {
 
         <div className="row-center bb-txt-4 mt-4">
             <span className="right-arrow-2"></span>
-            <p className= "my-auto">Invoice that embody your brand&apos;s essence, makes easy for your payee to make payment.</p>
+            <p className= "my-auto">Invoice that embody your brand&apos;s essence, makes easy for your buyer to make payment.</p>
         </div>
 
 
@@ -244,7 +244,7 @@ function BodyBlocks() {
 <div className="row mx-auto">
     <div className="col-12 col-md-6 col-lg-6 my-auto">
         <div className="row creator-underline txt-bold"><p>Demographic Data</p></div>
-        <div className="row bb-txt-2"><p>Understanding Your Payees through
+        <div className="row bb-txt-2"><p>Understanding Your Buyers through
             <span className="span-70"> Payment </span>Insights.</p></div>
 
         <div className="row-center bb-txt-3">
@@ -254,13 +254,13 @@ function BodyBlocks() {
 
         <div className="row-center bb-txt-4 mt-4">
             <span className="right-arrow-2"></span>
-            <p className= "my-auto">Explore the diversity of <span className="span-70">Browsers </span>your payees uses to access your invoice.</p>
+            <p className= "my-auto">Explore the diversity of <span className="span-70">Browsers </span>your buyers uses to access your invoice.</p>
         </div>
 
 
         <div className="row-center bb-txt-5 mt-4">
             <span className="right-arrow-3"></span>
-            <p className= "my-auto">Dive into the devices your payee prefers, whether it&apos;s mobile, desktop, or tablet.</p>
+            <p className= "my-auto">Dive into the devices your buyers prefers, whether it&apos;s mobile, desktop, or tablet.</p>
         </div>
 
 

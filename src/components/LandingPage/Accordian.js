@@ -17,7 +17,7 @@ export default function Accordian() {
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              How linck is different from bitly?
+              How BillsBook works?
             </button>
           </h2>
           <div
@@ -28,13 +28,13 @@ export default function Accordian() {
           >
             <div className="accordion-body">
               <strong>
-                Signup &#8594; Create Campaign &#8594; Send Invites &#8594;
-                Publish Campaign &#8594; View Results
+                Create Invoice &#8594; Buyer &#8594;
+                Payment Success &#8594; Payment Settlement
               </strong>{" "}
               <br />
-              Select creators based on demographics and send bulk invitations.
-              Share promotional materials and creator will take care of the
-              rest. Sit back and check analytics once collaboration is posted.
+              When an invoice is created, a payment link is automatically sent to the buyer's mobile number. 
+              Upon successful payment by the buyer, funds will be processed into your (the payee's) bank 
+              account within T+1 days.
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function Accordian() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              How linck works for Creators?
+              What is the process to get onboarded?
             </button>
           </h2>
           <div
@@ -61,13 +61,11 @@ export default function Accordian() {
           >
             <div className="accordion-body">
               <strong>
-                Signup &#8594; Pricing per Post &#8594; Accept Invites &#8594;
-                Complete Campaign &#8594; Same Day Payout
+                Signup &#8594; Business Verification &#8594;
+                KYC &#8594; Oboarded
               </strong>{" "}
-              <br />A very simplest process to earn money ethically for
-              Creators. Promote your favourite brand on your Instagram Page and
-              receive payment on the same day. Don`t forget to review us
-              &#128512;
+              <br />We follow RBI, GST & Payment Gateway guidelines in onboarding a business for payments & e-invoices.
+              It would not take more than 24 Hrs (with all required documents).
             </div>
           </div>
         </div>
@@ -83,7 +81,7 @@ export default function Accordian() {
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              How payouts to Creators Work ?
+              What are the documents required ?
             </button>
           </h2>
           <div
@@ -93,15 +91,15 @@ export default function Accordian() {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              <strong>Payouts:</strong> Once the promotion is posted on the creator`s Instagram Page, our sophisticated algorithms checks & verify the post 
-              and the Promotional Payout will be released to the creator`s verified bank Account on the Same Day.
-            </div>
+              <strong>Mandatory Documents: </strong>
+               1. Business Details 2. Proprietor/Director's PAN, AADHAR 3. GSTIN 4. Company Bank Account (CURRENT), 5. Labour License/Certificate of Incorporation 6. Company/Business Stamp
+            7. One Cancelled Cheque</div>
           </div>
         </div>
 
         {/* Accordian-4 */}
 
-        <div className="my-accordion-item my-3 mx-auto">
+        {/* <div className="my-accordion-item my-3 mx-auto">
           <h2 className="accordion-header" id="headingFour">
             <button
               className="accordion-button collapsed"
@@ -128,7 +126,7 @@ export default function Accordian() {
               before onboarding a Brand.
             </div>
           </div>
-        </div>
+        </div> */}
 
         
       </div>

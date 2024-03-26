@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './styles/bootstrap.css';
+import './styles/bootstrap.bundle.min.js';
 import './styles/own.css';
 import App from './App';
 import store from '../src/store/store';
