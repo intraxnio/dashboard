@@ -89,12 +89,13 @@ export default function LinksCard() {
     try {
 
       setLoading(true);
-      
+
       axios.post("/api/brand/is-pdf-link-available", {
           invoiceId: invoiceId,
         })
         .then((ress) => {
         setLoading(false);
+        console.log('Streammm::::', ress.data.filePdf);
     window.open(ress.data.filePdf, "_blank");
 
         })
