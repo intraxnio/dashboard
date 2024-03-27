@@ -88,7 +88,8 @@ export default function LinksCard() {
 
     try {
 
-      setLoading('true');
+      setLoading(true);
+      
       axios.post("/api/brand/is-pdf-link-available", {
           invoiceId: invoiceId,
         })
