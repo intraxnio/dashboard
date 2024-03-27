@@ -858,33 +858,43 @@ invoiceQueue.process(async (job) => {
     amountToPay : invoice.invoice_amount
   });
 
-  // const stream = await new Promise((resolve, reject) => {
-  //   pdf.create(invoiceHTML).toStream((err, stream) => {
-  //     if (err) {
-  //       reject(err);
-  //       return;
-  //     }
-  //     resolve(stream);
-  //   });
-  // });
+  const streamPromise = new Promise((resolve, reject) => {
+    pdf.create(invoiceHTML).toStream((err, stream) => {
+        if (err) {
+            reject(err);
+            return;
+        }
+        resolve(stream);
+    });
+});
 
-  
-// const params = {
-// Bucket: "billsbookbucket",
-// Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
-// Body: stream,
-// ContentType: 'application/pdf',
-// ServerSideEncryption: "AES256",
-// };
+try {
+    const stream = await streamPromise;
 
-// Upload PDF to S3
-// await s3.send(new PutObjectCommand(params));
+    const params = {
+        Bucket: "billsbookbucket",
+        Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
+        Body: stream,
+        ContentType: 'application/pdf',
+        ServerSideEncryption: "AES256",
+    };
 
-// Construct S3 URL
-// const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
-const s3Url = 'thisiss3url';
+    // Upload PDF to S3
+    await s3.send(new PutObjectCommand(params));
 
-await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: s3Url });
+    // Construct S3 URL
+    const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+    await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+
+    res.status(200).send({ filePdf: s3Url });
+    res.end();
+} catch (error) {
+    console.error('Error creating or uploading PDF:', error);
+    res.status(500).send('Error creating or uploading PDF');
+}
+
+
 
 });
 
