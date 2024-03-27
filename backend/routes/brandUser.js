@@ -787,7 +787,7 @@ router.post('/is-pdf-link-available', async (req, res) => {
     
         const params = {
             Bucket: "billsbookbucket",
-            Key: `invoices/${Date.now()}_${result.invoice_number}`,
+            Key: `invoices/${Date.now()}_${result.invoice_number}.pdf`,
             Body: stream,
             ContentType: 'application/pdf',
             ServerSideEncryption: "AES256",
