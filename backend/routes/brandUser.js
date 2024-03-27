@@ -760,7 +760,7 @@ router.post('/is-pdf-link-available', async (req, res) => {
 
       const dateString = result.created_at.toISOString().substring(0, 10);
   
-      const invoiceHTML = generateInvoice({
+      const invoiceHTML = await generateInvoice({
         date: dateString,
         invoiceNumber: result.invoice_number,
         payeeName: result.payee_name,
@@ -846,7 +846,7 @@ invoiceQueue.process(async (job) => {
   const dateString = invoice.created_at.toISOString().substring(0, 10);
 
 
-  const invoiceHTML = generateInvoice({
+  const invoiceHTML = await generateInvoice({
     date: dateString,
     invoiceNumber: invoice.invoice_number,
     payeeName: invoice.payee_name,
@@ -895,7 +895,7 @@ await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: s3Url });
 
 
 
-    function generateInvoice({ date, invoiceNumber, payeeName, payeeMobile, companyName, companyAddress, companyGSTIN, productDetails, amountToPay }) {
+    async function generateInvoice({ date, invoiceNumber, payeeName, payeeMobile, companyName, companyAddress, companyGSTIN, productDetails, amountToPay }) {
 
       return (
         `
