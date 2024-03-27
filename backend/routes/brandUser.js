@@ -888,7 +888,7 @@ try {
 
       const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
 
-    await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+    await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: s3Url });
 
     }).catch(e5=>{
 
