@@ -772,40 +772,42 @@ router.post('/is-pdf-link-available', async (req, res) => {
         amountToPay : result.invoice_amount
       });
 
-      const stream = await new Promise((resolve, reject) => {
+      const streamPromise = new Promise((resolve, reject) => {
         pdf.create(invoiceHTML).toStream((err, stream) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          resolve(stream);
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(stream);
         });
-      });
+    });
+    
+    try {
+        const stream = await streamPromise;
+    
+        const params = {
+            Bucket: "billsbookbucket",
+            Key: `invoices/${Date.now()}_${result.invoice_number}`,
+            Body: stream,
+            ContentType: 'application/pdf',
+            ServerSideEncryption: "AES256",
+        };
+    
+        // Upload PDF to S3
+        await s3.send(new PutObjectCommand(params));
+    
+        // Construct S3 URL
+        const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+    
+        await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+    
+        res.status(200).send({ filePdf: s3Url });
+        res.end();
 
-      
-  const params = {
-    Bucket: "billsbookbucket",
-    Key: `invoices/${Date.now()}_${result.invoice_number}`,
-    Body: stream,
-    ContentType: 'application/pdf',
-    ServerSideEncryption: "AES256",
-  };
-
-  // Upload PDF to S3
-  await s3.send(new PutObjectCommand(params)).then(async (s3res)=>{
-
-  const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
-
-  await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
-
-  res.status(200).send({ filePdf: s3Url });
-  res.end();
-
-
-  }).catch(e3=>{
-
-  })
-
+    } catch (error) {
+        console.error('Error creating or uploading PDF:', error);
+        res.status(500).send('Error creating or uploading PDF');
+    }
 
     }
 
@@ -871,24 +873,32 @@ invoiceQueue.process(async (job) => {
 try {
     const stream = await streamPromise;
 
-    const params = {
-        Bucket: "billsbookbucket",
-        Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
-        Body: stream,
-        ContentType: 'application/pdf',
-        ServerSideEncryption: "AES256",
-    };
-
-    // Upload PDF to S3
-    await s3.send(new PutObjectCommand(params));
-
-    // Construct S3 URL
-    const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
-
-    await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
-
-    res.status(200).send({ filePdf: s3Url });
+    res.status(200).send({ filePdf: stream });
     res.end();
+
+    // await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: stream });
+
+
+
+
+    // const params = {
+    //     Bucket: "billsbookbucket",
+    //     Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
+    //     Body: stream,
+    //     ContentType: 'application/pdf',
+    //     ServerSideEncryption: "AES256",
+    // };
+
+    // // Upload PDF to S3
+    // await s3.send(new PutObjectCommand(params));
+
+    // // Construct S3 URL
+    // const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+    // await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+
+    // res.status(200).send({ filePdf: s3Url });
+    // res.end();
 } catch (error) {
     console.error('Error creating or uploading PDF:', error);
     res.status(500).send('Error creating or uploading PDF');
