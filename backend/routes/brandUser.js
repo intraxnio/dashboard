@@ -553,9 +553,16 @@ router.post("/create-new-invoice", async function (req, res) {
           payment_link_id: result.id
         });
     
-        await invoiceQueue.add({ payment_link_id: result.id });
-        res.status(200).send({ invoiceCreated: true});
-        res.end();
+        await invoiceQueue.add({ payment_link_id: result.id }).then( resss=>{
+
+          res.status(200).send({ invoiceCreated: true});
+          res.end();
+
+        }).catch(e3=>{
+
+console.log('error creating invoice');
+        })
+      
       
     
       } catch (error) {
@@ -785,16 +792,20 @@ router.post('/is-pdf-link-available', async (req, res) => {
   };
 
   // Upload PDF to S3
-  await s3.send(new PutObjectCommand(params));
+  await s3.send(new PutObjectCommand(params)).then(async (s3res)=>{
 
-  // Construct S3 URL
   const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
 
   await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
 
   res.status(200).send({ filePdf: s3Url });
   res.end();
-     
+
+
+  }).catch(e3=>{
+
+  })
+
 
     }
 
