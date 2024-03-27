@@ -883,8 +883,7 @@ try {
     };
 
 
-    return s3.send(new PutObjectCommand(params))
-    .then(async () => {
+    await s3.send(new PutObjectCommand(params)).then(async () => {
 
       const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
 

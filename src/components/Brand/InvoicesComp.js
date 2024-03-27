@@ -100,6 +100,7 @@ export default function LinksCard() {
 
         })
         .catch((e) => {
+          console.log('error:::', e);
           // Handle error
         });
   
