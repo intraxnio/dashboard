@@ -66,9 +66,6 @@ function BrandLogin() {
         {withCredentials: true}
       )
       .then((res) => {
-
-        console.log('Entered res block');
-
           const brand_id = res.data.brandObj.brand_id;
           const brand_name = res.data.brandObj.brand_name;
           const brand_category = res.data.brandObj.brand_category;

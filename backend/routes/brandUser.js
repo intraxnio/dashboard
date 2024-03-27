@@ -13,6 +13,7 @@ const Invoices = require("../models/Invoices");
 const multer = require('multer');
 const Razorpay = require('razorpay');
 const sendMail = require("../utils/sendMail");
+const Queue = require('bull');
 const { validatePaymentVerification } = require('razorpay/dist/utils/razorpay-utils');
 
 
@@ -43,6 +44,9 @@ const upload = multer({
 const generatePin = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
+
+const invoiceQueue = new Queue('invoiceQueue');
+
 
 
 
@@ -549,6 +553,7 @@ router.post("/create-new-invoice", async function (req, res) {
           payment_link_id: result.id
         });
     
+        await invoiceQueue.add({ payment_link_id: result.id });
         res.status(200).send({ invoiceCreated: true});
         res.end();
       
@@ -815,6 +820,60 @@ router.post('/is-pdf-link-available', async (req, res) => {
 
 
 })
+
+invoiceQueue.process(async (job) => {
+
+  const { payment_link_id } = job.data;
+  
+  const invoice = await Invoices.findOne({ payment_link_id: payment_link_id }).populate('brandUser_id');
+
+  if (!invoice) {
+    throw new Error(`Invoice with ID ${payment_link_id} not found.`);
+  }
+
+  const dateString = invoice.created_at.toISOString().substring(0, 10);
+
+
+  const invoiceHTML = generateInvoice({
+    date: dateString,
+    invoiceNumber: invoice.invoice_number,
+    payeeName: invoice.payee_name,
+    payeeMobile: '+91 '+ invoice.payee_mobile_number,
+    companyName: invoice.brandUser_id.brand_name,
+    companyAddress: invoice.brandUser_id.address,
+    companyGSTIN: invoice.brandUser_id.gstin,
+    productDetails: invoice.products_details,
+    amountToPay : invoice.invoice_amount
+  });
+
+  const stream = await new Promise((resolve, reject) => {
+    pdf.create(invoiceHTML).toStream((err, stream) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(stream);
+    });
+  });
+
+  
+const params = {
+Bucket: "billsbookbucket",
+Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
+Body: stream,
+ContentType: 'application/pdf',
+ServerSideEncryption: "AES256",
+};
+
+// Upload PDF to S3
+await s3.send(new PutObjectCommand(params));
+
+// Construct S3 URL
+const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: s3Url });
+
+});
 
 
 

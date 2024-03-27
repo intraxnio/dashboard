@@ -50,7 +50,7 @@ export default function Accordian() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              What is the process to get onboarded?
+              What is the Onboarding process?
             </button>
           </h2>
           <div
