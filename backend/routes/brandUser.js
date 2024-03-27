@@ -749,14 +749,7 @@ router.post('/is-pdf-link-available', async (req, res) => {
 
   await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
 
-    if(result && (!result.invoice_pdf_file == '' || !result.invoice_pdf_file ==undefined)){
-
-      res.status(200).send({ filePdf: result.invoice_pdf_file});
-      res.end();
-
-    }
-
-    else{
+    if(result && (result.invoice_pdf_file === '' )){
 
       const dateString = result.created_at.toISOString().substring(0, 10);
   
@@ -801,6 +794,14 @@ router.post('/is-pdf-link-available', async (req, res) => {
 
   res.status(200).send({ filePdf: s3Url });
   res.end();
+     
+
+    }
+
+    else{
+
+      res.status(200).send({ filePdf: result.invoice_pdf_file});
+      res.end();
 
 
     }
