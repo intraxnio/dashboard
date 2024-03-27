@@ -873,10 +873,10 @@ invoiceQueue.process(async (job) => {
 try {
     const stream = await streamPromise;
 
-    res.status(200).send({ filePdf: stream });
-    res.end();
+    // res.status(200).send({ filePdf: stream });
+    // res.end();
 
-    // await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: stream });
+    await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: stream });
 
 
 
