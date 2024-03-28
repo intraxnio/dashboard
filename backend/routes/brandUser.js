@@ -554,15 +554,15 @@ router.post("/create-new-invoice", async function (req, res) {
           payment_link_id: result.id
         });
     
-        await invoiceQueue.add({ payment_link_id: result.id }).then( resss=>{
+//         await invoiceQueue.add({ payment_link_id: result.id }).then( resss=>{
 
-          res.status(200).send({ invoiceCreated: true});
-          res.end();
+//           res.status(200).send({ invoiceCreated: true});
+//           res.end();
 
-        }).catch(e3=>{
+//         }).catch(e3=>{
 
-console.log('error creating invoice');
-        })
+// console.log('error creating invoice');
+//         })
       
       
     
@@ -807,70 +807,70 @@ router.post('/is-pdf-link-available', async (req, res) => {
 });
 
 
-invoiceQueue.process(async (job) => {
+// invoiceQueue.process(async (job) => {
 
-  const { payment_link_id } = job.data;
+//   const { payment_link_id } = job.data;
   
-  const invoice = await Invoices.findOne({ payment_link_id: payment_link_id }).populate('brandUser_id');
+//   const invoice = await Invoices.findOne({ payment_link_id: payment_link_id }).populate('brandUser_id');
 
-  if (!invoice) {
-    throw new Error(`Invoice with ID ${payment_link_id} not found.`);
-  }
+//   if (!invoice) {
+//     throw new Error(`Invoice with ID ${payment_link_id} not found.`);
+//   }
 
-  const dateString = invoice.created_at.toISOString().substring(0, 10);
-
-
-  const invoiceHTML = await generateInvoice({
-    date: dateString,
-    invoiceNumber: invoice.invoice_number,
-    payeeName: invoice.payee_name,
-    payeeMobile: '+91 '+ invoice.payee_mobile_number,
-    companyName: invoice.brandUser_id.brand_name,
-    companyAddress: invoice.brandUser_id.address,
-    companyGSTIN: invoice.brandUser_id.gstin,
-    productDetails: invoice.products_details,
-    amountToPay : invoice.invoice_amount
-  });
-
-  const streamPromise = new Promise((resolve, reject) => {
-    pdf.create(invoiceHTML).toStream((err, stream) => {
-        if (err) {
-            reject(err);
-            return;
-        }
-        resolve(stream);
-    });
-});
-
-try {
-    const stream = await streamPromise;
-
-    const params = {
-        Bucket: "billsbookbucket",
-        Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
-        Body: stream,
-        ContentType: 'application/pdf',
-        ServerSideEncryption: "AES256",
-    };
+//   const dateString = invoice.created_at.toISOString().substring(0, 10);
 
 
-    await s3.send(new PutObjectCommand(params)).then(async () => {
+//   const invoiceHTML = await generateInvoice({
+//     date: dateString,
+//     invoiceNumber: invoice.invoice_number,
+//     payeeName: invoice.payee_name,
+//     payeeMobile: '+91 '+ invoice.payee_mobile_number,
+//     companyName: invoice.brandUser_id.brand_name,
+//     companyAddress: invoice.brandUser_id.address,
+//     companyGSTIN: invoice.brandUser_id.gstin,
+//     productDetails: invoice.products_details,
+//     amountToPay : invoice.invoice_amount
+//   });
 
-      const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+//   const streamPromise = new Promise((resolve, reject) => {
+//     pdf.create(invoiceHTML).toStream((err, stream) => {
+//         if (err) {
+//             reject(err);
+//             return;
+//         }
+//         resolve(stream);
+//     });
+// });
 
-    await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: 'thisisS3Url' });
+// try {
+//     const stream = await streamPromise;
 
-    }).catch(e5=>{
+//     const params = {
+//         Bucket: "billsbookbucket",
+//         Key: `invoices/${Date.now()}_${invoice.invoice_number}`,
+//         Body: stream,
+//         ContentType: 'application/pdf',
+//         ServerSideEncryption: "AES256",
+//     };
 
-    })
-} catch (error) {
-    console.error('Error creating or uploading PDF:', error);
-    res.status(500).send('Error creating or uploading PDF');
-}
+
+//     await s3.send(new PutObjectCommand(params)).then(async () => {
+
+//       const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+
+//     await Invoices.updateOne({ _id: invoice._id }, { invoice_pdf_file: 'thisisS3Url' });
+
+//     }).catch(e5=>{
+
+//     })
+// } catch (error) {
+//     console.error('Error creating or uploading PDF:', error);
+//     res.status(500).send('Error creating or uploading PDF');
+// }
 
 
 
-});
+// });
 
 
 
