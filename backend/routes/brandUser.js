@@ -781,7 +781,7 @@ router.post('/is-pdf-link-available', async (req, res) => {
       amountToPay: result.invoice_amount
     });
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox"] });
     const page = await browser.newPage();
     await page.setContent(invoiceHTML);
     const pdfBuffer = await page.pdf({ format: 'A4' });
