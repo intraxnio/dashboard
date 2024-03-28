@@ -84,13 +84,13 @@ export default function LinksCard() {
     }
   };
 
-  const openPdfInvoice = (invoiceId) => {
+  const openPdfInvoice = async (invoiceId) => {
 
     try {
 
       setLoading(true);
 
-      axios.post("/api/brand/is-pdf-link-available", {
+      await axios.post("/api/brand/is-pdf-link-available", {
           invoiceId: invoiceId,
         })
         .then((ress) => {
