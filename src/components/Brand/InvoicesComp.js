@@ -85,34 +85,22 @@ export default function LinksCard() {
   };
 
   const openPdfInvoice = async (invoiceId) => {
-
     try {
-
       setLoading(true);
-
-      await axios.post("/api/brand/is-pdf-link-available", {
-          invoiceId: invoiceId,
-        })
-        .then((ress) => {
-        setLoading(false);
-        console.log('Streammm::::', ress.data.filePdf);
-    window.open(ress.data.filePdf, "_blank");
-
-        })
-        .catch((e) => {
-          console.log('error:::', e);
-          // Handle error
-        });
   
+      const res = await axios.post("/api/brand/is-pdf-link-available", {
+        invoiceId: invoiceId,
+      });
   
-      } catch (error) {
-        console.error(error);
-      }
-
-    
-    // Open the PDF URL in a new tab
-    // window.open(pdfUrl, "_blank");
-};
+      setLoading(false);
+      console.log('Streammm::::', res.data.filePdf);
+      window.open(res.data.filePdf, "_blank");
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error
+    }
+  };
+  
 
   const fetchData = async () => {
     try {

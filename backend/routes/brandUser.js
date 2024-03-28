@@ -752,82 +752,61 @@ router.post('/verifyPayment', async (req, res) => {
 });
 
 router.post('/is-pdf-link-available', async (req, res) => {
+  try {
+    const invoiceId = req.body.invoiceId;
 
-  const invoiceId = req.body.invoiceId;
+    const result = await Invoices.findById(invoiceId).populate('brandUser_id');
 
-await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
+    if (!result) {
+      return res.status(404).send({ error: `Invoice with ID ${invoiceId} not found` });
+    }
 
+    if (result.invoice_pdf_file !== '') {
+      return res.status(200).send({ filePdf: result.invoice_pdf_file });
+    }
 
-if(result && (result.invoice_pdf_file === '' )){
+    const dateString = result.created_at.toISOString().substring(0, 10);
 
-  const dateString = result.created_at.toISOString().substring(0, 10);
+    const invoiceHTML = await generateInvoice({
+      date: dateString,
+      invoiceNumber: result.invoice_number,
+      payeeName: result.payee_name,
+      payeeMobile: '+91 ' + result.payee_mobile_number,
+      companyName: result.brandUser_id.brand_name,
+      companyAddress: result.brandUser_id.address,
+      companyGSTIN: result.brandUser_id.gstin,
+      productDetails: result.products_details,
+      amountToPay: result.invoice_amount
+    });
 
-  const invoiceHTML = await generateInvoice({
-    date: dateString,
-    invoiceNumber: result.invoice_number,
-    payeeName: result.payee_name,
-    payeeMobile: '+91 '+ result.payee_mobile_number,
-    companyName: result.brandUser_id.brand_name,
-    companyAddress: result.brandUser_id.address,
-    companyGSTIN: result.brandUser_id.gstin,
-    productDetails: result.products_details,
-    amountToPay : result.invoice_amount
-  });
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setContent(invoiceHTML);
+    const pdfBuffer = await page.pdf({ format: 'A4' });
 
-  const browser = await puppeteer.launch({ headless: true});
-  const page = await browser.newPage();
-  await page.setContent(invoiceHTML);
-  const pdfBuffer = await page.pdf({ format: 'A4'});
+    const params = {
+      Bucket: "billsbookinvoicesucket",
+      Key: `invoices/${Date.now()}_${result.invoice_number}`,
+      Body: pdfBuffer,
+      ContentType: 'application/pdf',
+      ServerSideEncryption: "AES256",
+    };
 
-  
-const params = {
-Bucket: "billsbookinvoicesucket",
-Key: `invoices/${Date.now()}_${result.invoice_number}`,
-Body: pdfBuffer,
-ContentType: 'application/pdf',
-ServerSideEncryption: "AES256",
-};
+    await s3.send(new PutObjectCommand(params));
+    const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
 
-// Upload PDF to S3
-// const data = await s3.send(new PutObjectCommand(params));
-const data = await s3.send(new PutObjectCommand(params));
+    await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
 
-// Construct S3 URL
-const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
-console.log('s3Url:::', s3Url);
+    await browser.close();
 
-
-await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
-
-res.status(200).send({ filePdf: s3Url });
-res.end();
- 
-
-}
-
-else{
-
-  res.status(200).send({ filePdf: result.invoice_pdf_file});
-  res.end();
+    res.status(200).send({ filePdf: s3Url });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 
-}
-
-
-
-
-}).catch(e2=>{
-
-console.log('Error2', e2);
-
-})
-
-
-
-
-
-
-})
 invoiceQueue.process(async (job) => {
 
   const { payment_link_id } = job.data;
