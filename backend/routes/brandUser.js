@@ -785,7 +785,7 @@ Bucket: "billsbookinvoicesucket",
 Key: `invoices/${Date.now()}_${result.invoice_number}`,
 Body: pdfBuffer,
 ContentType: 'application/pdf',
-// ServerSideEncryption: "AES256",
+ServerSideEncryption: "AES256",
 };
 
 // Upload PDF to S3
