@@ -334,7 +334,7 @@ function CreateInvoice() {
                           marginTop: "30px",
                           maxWidth: "250px",
                         }}
-                        onClick={createInvoice}
+                        onClick={()=> createInvoice}
                       >
                         Create Invoice
                         {loading && (
