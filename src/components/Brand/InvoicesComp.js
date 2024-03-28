@@ -83,7 +83,6 @@ export default function LinksCard() {
   const fetchData = async () => {
     try {
 
-    //   axios.post("/api/usersOn/all-links", {
         axios.post("/api/brand/all-invoices", {
         userId: user.brand_id,
       })
