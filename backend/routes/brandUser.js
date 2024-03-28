@@ -14,6 +14,7 @@ const multer = require('multer');
 const Razorpay = require('razorpay');
 const sendMail = require("../utils/sendMail");
 const Queue = require('bull');
+const puppeteer = require('puppeteer');
 const { validatePaymentVerification } = require('razorpay/dist/utils/razorpay-utils');
 
 
@@ -752,90 +753,80 @@ router.post('/verifyPayment', async (req, res) => {
 
 router.post('/is-pdf-link-available', async (req, res) => {
 
-      const invoiceId = req.body.invoiceId;
+  const invoiceId = req.body.invoiceId;
 
-  await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
+await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
 
-    if(result && (result.invoice_pdf_file === '' )){
+if(result && (result.invoice_pdf_file === '' )){
 
-      const dateString = result.created_at.toISOString().substring(0, 10);
-  
-      const invoiceHTML = await generateInvoice({
-        date: dateString,
-        invoiceNumber: result.invoice_number,
-        payeeName: result.payee_name,
-        payeeMobile: '+91 '+ result.payee_mobile_number,
-        companyName: result.brandUser_id.brand_name,
-        companyAddress: result.brandUser_id.address,
-        companyGSTIN: result.brandUser_id.gstin,
-        productDetails: result.products_details,
-        amountToPay : result.invoice_amount
-      });
+  const dateString = result.created_at.toISOString().substring(0, 10);
 
-      const streamPromise = new Promise((resolve, reject) => {
-        pdf.create(invoiceHTML).toStream((err, stream) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(stream);
-        });
-    });
-    
-    try {
-        const stream = await streamPromise;
-    
-        const params = {
-            Bucket: "billsbookbucket",
-            Key: `invoices/${Date.now()}_${result.invoice_number}.pdf`,
-            Body: stream,
-            ContentType: 'application/pdf',
-            ServerSideEncryption: "AES256",
-        };
-    
-        // Upload PDF to S3
-        await s3.send(new PutObjectCommand(params));
-    
-        // Construct S3 URL
-        const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
-    
-        await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
-    
-        res.status(200).send({ filePdf: s3Url });
-        res.end();
+  const invoiceHTML = await generateInvoice({
+    date: dateString,
+    invoiceNumber: result.invoice_number,
+    payeeName: result.payee_name,
+    payeeMobile: '+91 '+ result.payee_mobile_number,
+    companyName: result.brandUser_id.brand_name,
+    companyAddress: result.brandUser_id.address,
+    companyGSTIN: result.brandUser_id.gstin,
+    productDetails: result.products_details,
+    amountToPay : result.invoice_amount
+  });
 
-
-    } catch (error) {
-        console.error('Error creating or uploading PDF:', error);
-        res.status(500).send('Error creating or uploading PDF');
-    }
-
-    }
-
-    else{
-
-      res.status(200).send({ filePdf: result.invoice_pdf_file});
-      res.end();
-
-
-    }
-  
-  
-
-
-  }).catch(e2=>{
-
-    console.log('Error2', e2);
-
-  })
-
-
+  const browser = await puppeteer.launch({ headless: true});
+  const page = await browser.newPage();
+  await page.setContent(invoiceHTML);
+  const pdfBuffer = await page.pdf({ format: 'A4'});
 
   
+const params = {
+Bucket: "billsbookbucket",
+Key: `invoices/${Date.now()}_${result.invoice_number}`,
+Body: pdfBuffer,
+ContentType: 'application/pdf',
+// ServerSideEncryption: "AES256",
+};
 
+// Upload PDF to S3
+// const data = await s3.send(new PutObjectCommand(params));
+const data = await s3.send(new PutObjectCommand(params));
+
+// Construct S3 URL
+const s3Url = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
+console.log('s3Url:::', s3Url);
+
+
+await Invoices.updateOne({ _id: result._id }, { invoice_pdf_file: s3Url });
+
+res.status(200).send({ filePdf: s3Url });
+res.end();
+ 
+
+}
+
+else{
+
+  res.status(200).send({ filePdf: result.invoice_pdf_file});
+  res.end();
+
+
+}
+
+
+
+
+}).catch(e2=>{
+
+console.log('Error2', e2);
 
 })
 
+
+
+
+
+
+})
 invoiceQueue.process(async (job) => {
 
   const { payment_link_id } = job.data;
