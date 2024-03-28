@@ -161,7 +161,7 @@ function BrandLogin() {
 
     <Button
       type="submit"
-      onClick={handleSubmit}
+      onClick={ ()=> handleSubmit()}
       variant="contained"
       sx={{
         marginTop: 2,
