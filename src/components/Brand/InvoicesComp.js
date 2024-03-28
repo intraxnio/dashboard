@@ -20,10 +20,6 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
-const CopyIcon = ({ onClick }) => (
-  <FileCopyIcon style={{ cursor: 'pointer', marginLeft: '8px', color: '#362FD9' }} onClick={onClick} />
-);
-
 
 
 
@@ -64,25 +60,7 @@ export default function LinksCard() {
 
 
 
-  const truncateText = (linkTitle) => {
 
-    if(linkTitle.length > 15){
-      return linkTitle.substring(0, 15) + '...'
-    }
-
-    else
-    return linkTitle;
-  }
-  
-  const handleCopyClick = async (shortUrl) => {
-    try {
-      await navigator.clipboard.writeText(shortUrl);
-      toast.success('Link copied');
-    } catch (error) {
-      console.error('Error copying to clipboard:', error);
-      toast.error('Failed to copy link');
-    }
-  };
 
   const openPdfInvoice = async (invoiceId) => {
     try {
@@ -265,7 +243,7 @@ export default function LinksCard() {
   startIcon = { < AddLinkIcon />}
   variant="outlined"
   color="primary"
-  onClick={() =>createCampaign}
+  onClick={() => createCampaign()}
   sx={{ marginTop: "14px", marginBottom : '16px', color: deepOrange[500], cursor: 'pointer', textDecoration: 'none', textTransform: 'none'}}
   >
   Create Invoice
@@ -332,7 +310,7 @@ export default function LinksCard() {
 startIcon = { < AddLinkIcon />}
 variant="outlined"
 color="primary"
-onClick={createCampaign}
+onClick={ () => createCampaign()}
 sx={{ marginBottom: "14px", color: deepOrange[500],  cursor: 'pointer',
 textDecoration: 'none',
 textTransform: 'none' }}

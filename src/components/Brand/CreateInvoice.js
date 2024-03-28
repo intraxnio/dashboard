@@ -166,7 +166,7 @@ function CreateInvoice() {
 
   return (
     <>
-   <Button startIcon={<KeyboardBackspaceIcon />} onClick={handleBackClick}>Back</Button>
+   <Button startIcon={<KeyboardBackspaceIcon />} onClick={() => handleBackClick()}>Back</Button>
 
         <Grid container sx={{ paddingBottom : '60px'}}>
 
@@ -334,7 +334,7 @@ function CreateInvoice() {
                           marginTop: "30px",
                           maxWidth: "250px",
                         }}
-                        onClick={()=> createInvoice}
+                        onClick={()=> createInvoice()}
                       >
                         Create Invoice
                         {loading && (
