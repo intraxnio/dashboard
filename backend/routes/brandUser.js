@@ -31,7 +31,7 @@ const s3 = new S3Client({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
-  region: 'ap-south-1',
+  region: 'us-east-1',
 });
 
 const razorpayKey = process.env.RZP_KEY;
@@ -754,11 +754,8 @@ router.post('/verifyPayment', async (req, res) => {
 router.post('/is-pdf-link-available', async (req, res) => {
 
   const invoiceId = req.body.invoiceId;
-  console.log('invoiceId::::', invoiceId);
 
 await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
-
-  console.log('result::::', result);
 
 
 if(result && (result.invoice_pdf_file === '' )){
@@ -784,7 +781,7 @@ if(result && (result.invoice_pdf_file === '' )){
 
   
 const params = {
-Bucket: "billsbookbucket",
+Bucket: "billsbookinvoicesucket",
 Key: `invoices/${Date.now()}_${result.invoice_number}`,
 Body: pdfBuffer,
 ContentType: 'application/pdf',
