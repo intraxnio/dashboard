@@ -755,6 +755,8 @@ router.post('/is-pdf-link-available', async (req, res) => {
   try {
     const invoiceId = req.body.invoiceId;
 
+    console.log('invoiceId:::', invoiceId);
+
     const result = await Invoices.findById(invoiceId).populate('brandUser_id');
 
     if (!result) {
