@@ -265,7 +265,7 @@ export default function LinksCard() {
   startIcon = { < AddLinkIcon />}
   variant="outlined"
   color="primary"
-  onClick={createCampaign}
+  onClick={() =>createCampaign}
   sx={{ marginTop: "14px", marginBottom : '16px', color: deepOrange[500], cursor: 'pointer', textDecoration: 'none', textTransform: 'none'}}
   >
   Create Invoice
