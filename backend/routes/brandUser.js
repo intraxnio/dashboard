@@ -754,8 +754,12 @@ router.post('/verifyPayment', async (req, res) => {
 router.post('/is-pdf-link-available', async (req, res) => {
 
   const invoiceId = req.body.invoiceId;
+  console.log('invoiceId::::', invoiceId);
 
 await Invoices.findById(invoiceId).populate('brandUser_id').then(async (result)=>{
+
+  console.log('result::::', result);
+
 
 if(result && (result.invoice_pdf_file === '' )){
 
